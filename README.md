@@ -1,5 +1,5 @@
 portalApp
-Course registration portal for a tertiary institution
+Course registration portal
 
 - All Back-End Application logic is handled in the '/server' directory and Front-End in the '/app' directory
 - To Start the app in command line:
