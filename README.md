@@ -1,10 +1,10 @@
-########################################################################
+portalApp
+Course registration portal for a tertiary institution
 
-
-1. All Back-End Application logic is handle in the '/server' folders and Front-End in the '/app' directory
-2. To Start the app in command line:
+- All Back-End Application logic is handled in the '/server' directory and Front-End in the '/app' directory
+- To Start the app in command line:
     :/>cd server
-    :/> SET DEBUG=portalapp:* & npm start
+    :/>SET DEBUG=portalapp:* & npm start
 
     for automatic server restart in case of development, use:
     
