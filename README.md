@@ -1,3 +1,4 @@
+<<<<<<< HEAD
 portalApp
 Course registration portal
 
@@ -10,3 +11,7 @@ Course registration portal
     
     :/>SET DEBUG=portalapp:* & npm run devstart
    
+=======
+# portalApp
+Course registration portal for a tertiary institution
+>>>>>>> 16d77dac4ed3fd2152e2191643a1842b695f8edd
