@@ -13,13 +13,10 @@ const app = express();
 const mongoose = require('mongoose');
 const mongoDB = require('./config/database');
 
-mongoose.connect(mongoDB.url);
 mongoose.Promise = global.Promise;
-const database = mongoose.connection;
-database.on('error', console.error.bind(console, 'MongoDB connection error:'));
-database.once('open', () => {
-  console.log('MongoDB Connection Successful!');
-});
+mongoose.connect(mongoDB.url)
+  .then((() => console.log('Connected to DB')))
+  .catch((err => console.log(err)));
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
