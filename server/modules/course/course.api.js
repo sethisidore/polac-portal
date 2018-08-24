@@ -1,17 +1,14 @@
 const express = require('express');
-let router = express.Router;
+const courseCtrl = require('./course.ctrl');
 
-router.get('/courses', function allCourses(req, res, next) {
-    res.render('NOT YET IMPLEMENTED!');
-})
-router.get('/courses/:id', function courseDetail(req, res, next) {
-    res.render('NOT YET IMPLEMENTED!');
-});
-router.post('/courses/create', function addCourse(req, res, next) {
-    res.render('NOT YET IMPLEMENTED!');
-});
-router.delete('/courses/:id', function delCourse(req, res, next) {
-    res.render('NOT YET IMPLEMENTED!');
-});
+const router = express.Router();
+
+router.get('/courses', courseCtrl.courseList);
+
+router.get('/courses/:id', courseCtrl.courseInfo);
+
+router.post('/courses/create', courseCtrl.newCourse);
+
+router.delete('/courses/:id', courseCtrl.deleteCourse);
 
 module.exports = router;
