@@ -1,17 +1,14 @@
 const express = require('express');
-let router = express.Router;
+const deptCtrl = require('./dept.ctrl');
 
-router.get('/dept', function allCourses(req, res, next) {
-    res.render('NOT YET IMPLEMENTED!');
-})
-router.get('/dept/:id', function deptDetail(req, res, next) {
-    res.render('NOT YET IMPLEMENTED!');
-});
-router.post('/dept/create', function addDept(req, res, next) {
-    res.render('NOT YET IMPLEMENTED!');
-});
-router.delete('/dept/:id', function delDept(req, res, next) {
-    res.render('NOT YET IMPLEMENTED!');
-});
+const router = express.Router();
+
+router.get('/dept', deptCtrl.deptList);
+
+router.get('/dept/:id', deptCtrl.deptInfo);
+
+router.post('/dept/create', deptCtrl.newDept);
+
+router.delete('/dept/:id', deptCtrl.deleteDept);
 
 module.exports = router;
