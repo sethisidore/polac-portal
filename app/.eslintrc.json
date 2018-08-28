@@ -4,8 +4,11 @@
         "es6": true,
         "node": true
     },
-    "extends": "plugin:angular/johnpapa",
+    "globals": {
+        "angular": true
+    },
     "rules": {
         "angular/file-name": "off"
+        // "angular/di": [ "error", "$inject" ]
     }
 }

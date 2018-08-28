@@ -1,0 +1,35 @@
+{
+  "name": "portalapp",
+  "version": "0.1.0",
+  "author": "Koviac",
+  "private": true,
+  "scripts": {
+    "postinstall": "run-p install:api install:web",
+    "install:api": "cd server && npm install",
+    "install:web": "cd app && npm install",
+    "start:server": "npm run start --prefix server",
+    "devstart:server": "npm run devstart --prefix server"
+  },
+  "dependencies": {
+    "semver": "^5.5.1"
+  },
+  "devDependencies": {
+    "eslint": "^5.4.0",
+    "eslint-config-airbnb-base": "^13.1.0",
+    "eslint-plugin-angular": "^3.3.0",
+    "eslint-plugin-import": "^2.14.0",
+    "eslint-plugin-node": "^7.0.1",
+    "gulp": "^4.0.0",
+    "gulp-concat": "^2.6.1",
+    "gulp-imagemin": "^4.1.0",
+    "gulp-uglify": "^3.0.1",
+    "jasmine": "^3.2.0",
+    "jasmine-core": "^3.2.1",
+    "karma": "^3.0.0",
+    "karma-chrome-launcher": "^2.2.0",
+    "karma-coverage": "^1.1.2",
+    "karma-html-reporter": "^0.2.7",
+    "karma-jasmine": "^1.1.2",
+    "npm-run-all": "^4.1.3"
+  }
+}

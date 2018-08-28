@@ -1,0 +1,19 @@
+{
+  "name": "portalapp",
+  "version": "0.1.0",
+  "author": "Koviac",
+  "private": true,
+  "dependencies": {
+    "angular": "^1.7.3",
+    "angular-cookies": "^1.7.3",
+    "angular-resource": "^1.7.3",
+    "angular-ui-router": "^1.0.20",
+    "bootstrap": "^4.1.3",
+    "font-awesome": "^4.7.0",
+    "jquery": "^3.3.1"
+  },
+  "devDependencies": {
+    "angular-mocks": "^1.7.3",
+    "jasmine": "^3.2.0"
+  }
+}
