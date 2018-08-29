@@ -1,3 +1,4 @@
+const path = require('path');
 const Course = require('../modules/course');
 const Dept = require('../modules/dept');
 const { Student, Lecturer /* , Admin */} = require('../modules/users');
@@ -11,6 +12,6 @@ module.exports = (app) => {
 
   // Front-End Application: Send all other request to Angular
   app.get('*', (req, res) => {
-    res.sendFile('../../app/index.js');
+    res.sendFile(path.join(__dirname, '../app/index.html'));
   });
 };

@@ -5,8 +5,6 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 
-// Routes
-
 const app = express();
 
 // Mongoose Database setup
@@ -18,10 +16,6 @@ mongoose.connect(mongoDB.url)
   .then((() => console.log('Connected to DB')))
   .catch((err => console.log(err)));
 
-// view engine setup
-app.set('views', path.join(__dirname, 'views'));
-app.set('view engine', 'pug');
-
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, '../app/assets', 'favicon.ico')));
 app.use(logger('dev'));
@@ -30,7 +24,7 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, '../app')));
 
-// Route MiddleWare Configuration: Uncomment next line after checking if pug can work in angular
+// Route MiddleWare Configuration
 require('./config/routes')(app);
 
 // catch 404 and forward to error handler
