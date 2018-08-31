@@ -4,7 +4,13 @@
       "es6": true,
       "node": true
   },
-  "extends": ["airbnb-base", "plugin:angular/johnpapa", "plugin:node/recommended"],
-  "rules": {}
-
+  "extends": [
+    "airbnb-base",
+    "plugin:angular/johnpapa",
+    "plugin:node/recommended",
+    "plugin:security/recommended"
+  ],
+  "parserOptions": {
+    "ecmaVersion": 2018
+  }
 }
