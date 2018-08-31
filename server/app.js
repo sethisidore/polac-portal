@@ -4,11 +4,13 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
+const mongoose = require('mongoose');
+
+const utils = require('./modules/utils');
 
 const app = express();
 
 // Mongoose Database setup
-const mongoose = require('mongoose');
 const mongoDB = require('./config/database');
 
 mongoose.Promise = global.Promise;
@@ -34,6 +36,8 @@ app.use((req, res, next) => {
   next(err);
 });
 
+app.use(utils.wrapper);
+
 // error handler
 app.use((err, req, res, next) => {
   // set locals, only providing error in development
@@ -42,7 +46,7 @@ app.use((err, req, res, next) => {
 
   // render the error page
   res.status(err.status || 500);
-  res.render('error');
+  res.json(err);
 });
 
 module.exports = app;
