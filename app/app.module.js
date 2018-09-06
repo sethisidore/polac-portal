@@ -1,1 +1,1 @@
-angular.module('portalApp', []);
+angular.module('portal', ['ui.router', 'Home', 'Course']);
