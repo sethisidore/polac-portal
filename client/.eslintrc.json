@@ -1,0 +1,16 @@
+{
+    "env": {
+        "browser": true,
+        "es6": true,
+        "node": true
+    },
+    "globals": {
+        "angular": true
+    },
+    "rules": {
+        "no-use-before-define": ["error", { "functions": false, "classes": true }],
+        "angular/function-type": [2,"named"],
+        "angular/file-name": [2,{"typeSeparator":"dot", "nameStyle":"dash", "ignoreTypeSuffix":true}],
+        "angular/di": [ "error", "$inject" ]
+    }
+}

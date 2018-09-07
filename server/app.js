@@ -19,7 +19,7 @@ mongoose.connect(mongoDB.url)
   .catch((err => console.log(err)));
 
 // uncomment after placing your favicon in /public
-app.use(favicon(path.join(__dirname, '../app/assets', 'favicon.ico')));
+app.use(favicon(path.join(__dirname, '../client/assets', 'favicon.ico')));
 app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));

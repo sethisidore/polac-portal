@@ -10,7 +10,7 @@
   "scripts": {
     "postinstall": "run-p install:api install:web",
     "install:api": "cd server && npm install",
-    "install:web": "cd app && npm install",
+    "install:web": "cd client && npm install",
     "start:server": "npm run start --prefix server",
     "devstart:server": "npm run devstart --prefix server"
   },

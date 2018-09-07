@@ -12,6 +12,6 @@ module.exports = (app) => {
 
   // Front-End Application: Send all other request to Angular
   app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, '../app/index.html'));
+    res.sendFile(path.join(__dirname, '../client/index.html'));
   });
 };
