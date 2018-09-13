@@ -12,5 +12,11 @@
   ],
   "parserOptions": {
     "ecmaVersion": 2018
+  },
+  "rules": {
+    "linebreak-style": 0,
+    "func-names": "off",
+    "node/no-unpublished-require": 0,
+    "no-console": "off"
   }
 }
