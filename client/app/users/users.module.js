@@ -1,1 +1,3 @@
-angular.module('Users', ['ui.router', 'Lecturer', 'Student']);
+(function initUsers() {
+  angular.module('users', ['ui.router', 'ngResource', 'lecturer', 'student']);
+}());

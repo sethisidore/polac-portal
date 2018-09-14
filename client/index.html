@@ -3,22 +3,16 @@
   <head>
     <title>Learn Nigeria</title>
 
-    <link rel="stylesheet" href="../node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
 
-    <script src="../node_modules/jquery/dist/jquery.min.js"></script>
-    <script src="../node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
+    <script src="./node_modules/jquery/dist/jquery.min.js"></script>
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
 
-    <script src="../node_modules/angular/angular.js"></script>
-    <script src="../node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
-    <script src="../node_modules/angular-resource/angular-resource.min.js"></script>
+    <script src="./node_modules/angular/angular.js"></script>
+    <script src="./node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
+    <script src="./node_modules/angular-resource/angular-resource.min.js"></script>
 
-    <script src="app/app.module.js"></script>
-    <script src="app/home/Home.js"></script>
-    <script src="app/home/HomeConfig.js"></script>
-    <script src="app/home/HomeController.js"></script>
-    <script src="app/course/Course.js"></script>
-    <script src="app/course/CourseConfig.js"></script>
-    <script src="app/course/CourseController.js"></script>
+    <script src="./dist/js/app.min.js"></script>
   </head>
   <body ng-app="app">
 
@@ -29,25 +23,31 @@
           <div class="navbar-header">
             <a class="navbar-brand" ui-sref="home">Learn Nigeria</a>
           </div>
-          <button type="button btn-md" class="navbar-toggle" data-toggle="collapse" data-target="#menuLinks" aria-expanded="false" aria-controls="menuLinks">
+          <button type="button btn-md" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menuLinks" aria-expanded="false" aria-controls="menuLinks">
+            <span class="sr-only">Toggle Navigation</span>
             <span class="navbar-toggler-icon"></span>
           </button>
           <div id="menuLinks" class="collapse navbar-collapse justify-content-end">
             <ul class="navbar-nav nav-pills">
-              <li class="nav-item">
+              <li class="nav-item" role="presentation">
                 <a ui-sref="about" ui-sref-active="active" class="nav-link">About</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" role="presentation">
                 <a ui-sref="student" class="nav-link">Students</a>
               </li>
-              <li class="nav-item"><a ui-sref="course" class="nav-link">Courses</a></li>
-              <li class="nav-item">
+              <li class="nav-item" role="presentation">
+                <a ui-sref="course" class="nav-link">Courses</a>
+              </li>
+              <li class="nav-item" role="presentation">
                 <a ui-sref="dept" class="nav-link">Departments</a>
               </li>
-              <li class="nav-item">
+              <li class="nav-item" role="presentation">
                 <a ui-sref="login"><button type="button" class="btn btn-default navbar-btn">Sign in</button></a>
               </li>
             </ul>
+            <div ng-controller="LogoutController">
+              <a ng-click='logout()' class="btn btn-default">Logout</a>
+            </div>
           </div>
         </div>
       </nav>

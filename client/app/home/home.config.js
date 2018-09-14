@@ -1,17 +1,19 @@
-angular.module('Home')
-  .config(config);
+(function initHomeConfig() {
+  angular.module('home')
+    .config(homeConfig);
 
-config.$inject = ['$stateProvider'];
+  homeConfig.$inject = ['$stateProvider'];
 
-function config($stateProvider) {
-  $stateProvider
-    .state('home', {
-      url: '',
-      templateUrl: './app/home/home.html',
-      controller: 'HomeController as vm',
-    })
-    .state('about', {
-      url: '/about',
-      template: '<p>We Will Soon Implement This!!!</p>',
-    });
-}
+  function homeConfig($stateProvider) {
+    $stateProvider
+      .state('home', {
+        url: '',
+        templateUrl: './app/home/home.html',
+        controller: 'HomeController as vm',
+      })
+      .state('about', {
+        url: '/about',
+        template: '<p>We Will Soon Implement This!!!</p>',
+      });
+  }
+}());

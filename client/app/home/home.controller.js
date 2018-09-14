@@ -1,9 +1,12 @@
-angular.module('Home')
-  .controller('HomeController', HomeController);
+(function initHomeCtrl() {
+  angular
+    .module('home')
+    .controller('HomeController', HomeController);
 
-HomeController.$inject = [];
+  HomeController.$inject = [];
 
-function HomeController() {
-  const vm = this;
-  vm.tagline = 'Hi, Welcome to the Home Page of the Academy';
-}
+  function HomeController() {
+    const vm = this;
+    vm.tagline = 'Hi, Welcome to the Home Page of the Academy';
+  }
+}());

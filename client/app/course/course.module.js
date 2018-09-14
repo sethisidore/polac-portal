@@ -1,1 +1,3 @@
-angular.module('course', ['ui.router']);
+(function initCourse() {
+  angular.module('course', ['ui.router']);
+}());

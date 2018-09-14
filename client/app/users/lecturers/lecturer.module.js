@@ -1,1 +1,1 @@
-angular.module('lecturer', []);
+angular.module('lecturer', ['ngResource']);

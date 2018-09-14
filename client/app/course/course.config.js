@@ -1,12 +1,14 @@
-angular.module('course')
-  .config(config);
+(function initCourseConfig() {
+  angular.module('course')
+    .config(courseConfig);
 
-config.$inject = ['$stateProvider'];
+  courseConfig.$inject = ['$stateProvider'];
 
-function config($stateProvider) {
-  $stateProvider
-    .state('course', {
-      url: '/course',
-      component: 'courseList',
-    });
-}
+  function courseConfig($stateProvider) {
+    $stateProvider
+      .state('course', {
+        url: '/course',
+        component: 'courseList',
+      });
+  }
+}());

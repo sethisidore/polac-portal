@@ -15,6 +15,7 @@
     "devstart:server": "npm run devstart --prefix server"
   },
   "dependencies": {
+    "nconf": "^0.10.0",
     "semver": "^5.5.1"
   },
   "devDependencies": {
