@@ -1,9 +1,12 @@
 const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const { Schema } = mongoose;
 
 const studentSchema = new Schema({
   _id: { type: String, required: true },
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
   Fname: {
     type: String, required: true, min: 2, max: 20,
   },
@@ -25,5 +28,7 @@ const studentSchema = new Schema({
   sqd: { type: Number, min: 1, max: 12 },
   RC: { type: Number, min: 1 },
 });
+
+studentSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('Student', studentSchema);

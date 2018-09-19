@@ -3,12 +3,14 @@ const lecturerCtrl = require('./lecturer.ctrl');
 
 const router = express.Router();
 
-router.get('/courses', lecturerCtrl.lecturerList);
+router.get('/', lecturerCtrl.lecturerList);
 
-router.get('/courses/:id', lecturerCtrl.lecturerInfo);
+router.get('/:id', lecturerCtrl.lecturerInfo);
 
-router.post('/courses/create', lecturerCtrl.newLecturer);
+router.post('/:id', lecturerCtrl.newLecturer);
 
-router.delete('/courses/:id', lecturerCtrl.deleteLecturer);
+router.put('/:id', lecturerCtrl.updateLecturerInfo);
+
+router.delete('/:id', lecturerCtrl.deleteLecturer);
 
 module.exports = router;

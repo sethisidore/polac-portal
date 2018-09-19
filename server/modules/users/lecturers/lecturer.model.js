@@ -1,8 +1,11 @@
 const mongoose = require('mongoose');
+const passportLocalMongoose = require('passport-local-mongoose');
 
 const { Schema } = mongoose;
 
 const lecturerSchema = new Schema({
+  username: { type: String, required: true, unique: true },
+  password: { type: String, required: true },
   Fname: {
     type: String, required: true, minlength: 2, maxlength: 20,
   },
@@ -22,5 +25,7 @@ const lecturerSchema = new Schema({
   },
   degrees: [{ type: String, required: true }],
 });
+
+lecturerSchema.plugin(passportLocalMongoose);
 
 module.exports = mongoose.model('Lecturer', lecturerSchema);

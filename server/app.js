@@ -5,14 +5,14 @@ const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
 const mongoose = require('mongoose');
+const passport = require('passport');
+const mongoDB = require('./config/database');
 
 const utils = require('./modules/utils');
 
 const app = express();
 
 // Mongoose Database setup
-const mongoDB = require('./config/database');
-
 mongoose.Promise = global.Promise;
 mongoose.connect(mongoDB.url)
   .then((() => console.log('Connected to DB')))
@@ -24,10 +24,11 @@ app.use(logger('dev'));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, '../client')));
 
-// Route MiddleWare Configuration
-require('./config/routes')(app);
+// Configure and Authenticate Route MiddleWare
+require('./config/routes')(app, passport);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {

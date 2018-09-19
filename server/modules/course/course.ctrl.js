@@ -1,9 +1,10 @@
 const logger = require('morgan');
 const Course = require('./course.model');
+const { UserLecturer } = require('../users');
 
 const courseList = async (req, res) => {
   logger.info('API called to get all courses');
-  const course = await Course.find({}, 'courseID title load dept');
+  const course = await Course.find({}, 'courseID title load dept').exec({});
   res.json(course);
 };
 
@@ -16,7 +17,7 @@ const updateCourseInfo = async (req, res) => {
   logger.info('API called to update course information');
   const { id } = req.params;
 
-  const updateInfo = await Course.findByIdAndUpdate({ courseId: id }, req.body, { new: true });
+  const updateInfo = await Course.findByIdAndUpdate({ courseId: id }, req.body, { new: true }).exec({});
   res.json(updateInfo);
 };
 
@@ -27,9 +28,10 @@ const newCourse = async (req, res) => {
     load: req.body.load,
     summary: req.body.summary,
     pre_req: req.body.pre_req,
-    lecturer: req.body.lecturer,
+    lecturer: await UserLecturer.findById({ fullname: req.body.lecturer }),
     courseId: req.params.id,
   });
+  await course.save();
   res.json(course);
 };
 

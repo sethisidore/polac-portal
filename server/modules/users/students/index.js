@@ -1,3 +1,7 @@
 const studentApi = require('./student.api');
+const studentModel = require('./student.model');
 
-module.exports = studentApi;
+module.exports = {
+  studentApi,
+  studentModel,
+};

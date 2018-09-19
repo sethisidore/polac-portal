@@ -12,6 +12,11 @@ exports.newStudent = (req, res) => {
   res.send('NOT YET IMPLEMENT!');
 };
 
+exports.updateStudentInfo = (req, res) => {
+  res.send('NOT YET IMPLEMENT!');
+};
+
+
 exports.deleteStudent = (req, res) => {
   res.send('NOT YET IMPLEMENT!');
 };
