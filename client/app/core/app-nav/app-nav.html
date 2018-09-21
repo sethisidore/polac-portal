@@ -1,0 +1,39 @@
+<div class="container-fluid">
+  <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top">
+    <div class>
+      <div class="navbar-header">
+        <a class="navbar-brand" ui-sref="home">{{ nav.brand }}</a>
+      </div>
+      <button type="button btn-md" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menuLinks"
+        aria-expanded="false" aria-controls="menuLinks">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div id="menuLinks" class="collapse navbar-collapse justify-content-end">
+        <ul class="navbar-nav nav-pills mr-auto">
+          <li class="nav-item" role="presentation">
+            <a ui-sref="about" ui-sref-active="active" class="nav-link">About</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a ui-sref="student" class="nav-link">Students</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a ui-sref="course" class="nav-link">Courses</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a ui-sref="dept" class="nav-link">Departments</a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a ui-sref="login"><button type="button" class="btn btn-default navbar-btn">Sign in</button></a>
+          </li>
+          <li class="nav-item" role="presentation">
+            <a ui-sref="signup"><button class="btn navbar-btn btn-success">Signup</button></a>
+          </li>
+          <div ng-controller="LogoutController">
+            <a ng-click='logout()' class="btn btn-default">Logout</a>
+          </div>
+        </ul>
+      </div>
+    </div>
+  </nav>
+</div>

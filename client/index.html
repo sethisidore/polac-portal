@@ -16,46 +16,12 @@
   </head>
   <body ng-app="app">
 
-    <section class="container">
-
-      <nav class="navbar navbar-expand-md bg-dark navbar-dark sticky-top" >
-        <div class="container-fluid">
-          <div class="navbar-header">
-            <a class="navbar-brand" ui-sref="home">Learn Nigeria</a>
-          </div>
-          <button type="button btn-md" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#menuLinks" aria-expanded="false" aria-controls="menuLinks">
-            <span class="sr-only">Toggle Navigation</span>
-            <span class="navbar-toggler-icon"></span>
-          </button>
-          <div id="menuLinks" class="collapse navbar-collapse justify-content-end">
-            <ul class="navbar-nav nav-pills">
-              <li class="nav-item" role="presentation">
-                <a ui-sref="about" ui-sref-active="active" class="nav-link">About</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a ui-sref="student" class="nav-link">Students</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a ui-sref="course" class="nav-link">Courses</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a ui-sref="dept" class="nav-link">Departments</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a ui-sref="login"><button type="button" class="btn btn-default navbar-btn">Sign in</button></a>
-              </li>
-            </ul>
-            <div ng-controller="LogoutController">
-              <a ng-click='logout()' class="btn btn-default">Logout</a>
-            </div>
-          </div>
-        </div>
-      </nav>
+    <section class="container-fluid">
+      <app-nav></app-nav>
 
       <!-- Angular Front-End -->
       <section ui-view></section>
 
     </section>
-
   </body>
 </html>
