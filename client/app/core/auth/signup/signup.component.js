@@ -1,4 +1,4 @@
-(function () {
+(function initSignup() {
   // Usage:
   //
   // Creates:
@@ -7,39 +7,55 @@
   angular
     .module('auth')
     .component('signup', {
-
       templateUrl: './app/core/auth/signup/signup-form.html',
       controller: SignupController,
-      controllerAs: 'signCtrl',
-      bindings: {
-        Binding: '=',
-      },
+      controllerAs: 'signup',
+      bindings: {},
     });
 
   SignupController.$inject = ['$location', 'AuthService'];
-  function SignupController($location, AuthService) {
-    const signCtrl = this;
-    signCtrl.error = false;
-    signCtrl.disabled = true;
 
-    activate();
-    function activate() {
-      return signCtrl.signup;
+  /* @ngInject */
+  function SignupController($location, AuthService) {
+    const signup = this;
+    signup.role = roles;
+    signup.squads = squads;
+    signup.formSubmit = formSubmit;
+
+
+
+    function roles() {
+      return [
+        { label: 'Student', value: 'student' },
+        { label: 'Lecturer', value: 'lecturer' },
+      ];
     }
-    signCtrl.signup = function () {
-      // call from service and handle success or error
-      AuthService.signup(signCtrl.registerForm.username, signCtrl.registerForm.password)
-        .then(() => {
-          $location.path('/login');
-          signCtrl.disabled = false;
-          signCtrl.registerForm = {};
-        })
-        .catch(() => {
-          signCtrl.error = true;
-          signCtrl.errorMessage = 'Something went wrong!';
-          signCtrl.disabled = false;
-          signCtrl.registerForm = {};
-        });
-    };
+
+    function squads() {
+      return [
+        { label: 'One', value: 1 },
+        { label: 'Two', value: 2 },
+        { label: 'Three', value: 3 },
+        { label: 'Four', value: 4 },
+        { label: 'Five', value: 5 },
+        { label: 'Six', value: 6 },
+        { label: 'Seven', value: 7 },
+        { label: 'Eight', value: 8 },
+        { label: 'Nine', value: 9 },
+        { label: 'Ten', value: 10 },
+        { label: 'Eleven', value: 11 },
+        { label: 'Twelve', value: 12 },
+      ];
+    }
+
+    function formSubmit() {
+      return AuthService.save(FormData).then((data) => {
+        console.log(data);
+      })
+      .catch(err => {
+        console.log(err);
+      });
+    }
+
   }
 }());
