@@ -1,16 +1,13 @@
 const express = require('express');
-const studentCtrl = require('./student.ctrl');
+const StudentController = require('./student.ctrl');
+const { asyncHandler } = require('../../utils');
 
 const router = express.Router();
 
-router.get('/', studentCtrl.studentList);
+router.get('/', asyncHandler(StudentController.listAllStudent));
 
-router.get('/:id', studentCtrl.studentInfo);
+router.get('/:id', asyncHandler(StudentController.getStudent));
 
-router.post('/:id', studentCtrl.newStudent);
-
-router.put('/:id', studentCtrl.updateStudentInfo);
-
-router.delete('/:id', studentCtrl.deleteStudent);
+router.put('/:id', asyncHandler(StudentController.updateStudent));
 
 module.exports = router;

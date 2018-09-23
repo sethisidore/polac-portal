@@ -1,17 +1,17 @@
 const express = require('express');
 const courseController = require('./course.ctrl');
-const utils = require('../utils');
+const { asyncHandler } = require('../utils');
 
 const router = express.Router();
 
-router.get('/', utils.wrapper(courseController.courseList));
+router.get('/', asyncHandler(courseController.listAllCourses));
 
-router.get('/:id', utils.wrapper(courseController.courseInfo));
+router.get('/:id', asyncHandler(courseController.getCourse));
 
-router.post('/', utils.wrapper(courseController.newCourse));
+router.post('/', asyncHandler(courseController.createCourse));
 
-router.put('/:id', utils.wrapper(courseController.updateCourseInfo));
+router.put('/:id', asyncHandler(courseController.updateCourse));
 
-router.delete('/:id', utils.wrapper(courseController.deleteCourse));
+router.delete('/:id', asyncHandler(courseController.deleteCourse));
 
 module.exports = router;

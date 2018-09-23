@@ -1,16 +1,13 @@
 const express = require('express');
-const lecturerCtrl = require('./lecturer.ctrl');
+const LecturerController = require('./lecturer.ctrl');
+const { asyncHandler } = require('../../utils');
 
 const router = express.Router();
 
-router.get('/', lecturerCtrl.lecturerList);
+router.get('/', asyncHandler(LecturerController.listAllLecturers));
 
-router.get('/:id', lecturerCtrl.lecturerInfo);
+router.get('/:id', asyncHandler(LecturerController.getLecturer));
 
-router.post('/:id', lecturerCtrl.newLecturer);
-
-router.put('/:id', lecturerCtrl.updateLecturerInfo);
-
-router.delete('/:id', lecturerCtrl.deleteLecturer);
+router.put('/:id', asyncHandler(LecturerController.updateLecturer));
 
 module.exports = router;

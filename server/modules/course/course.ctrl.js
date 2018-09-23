@@ -1,27 +1,28 @@
 const logger = require('morgan');
 const Course = require('./course.model');
-const { UserLecturer } = require('../users');
+const { UserStudent } = require('../users');
 
-const courseList = async (req, res) => {
+const listAllCourses = async (req, res) => {
   logger.info('API called to get all courses');
-  const course = await Course.find({}, 'courseID title load dept').exec({});
+  const courseList = await Course.find({}, 'title dept').exec();
+  res.json(courseList);
+};
+
+const getCourse = async (req, res) => {
+  const { id } = req.params;
+  const course = await Course.findById(id).populate('dept').execPopulate();
   res.json(course);
 };
 
-const courseInfo = async (req, res) => {
-  const info = await Course.findById(req.params.id).exec({});
-  res.json(info);
-};
-
-const updateCourseInfo = async (req, res) => {
+const updateCourse = async (req, res) => {
   logger.info('API called to update course information');
   const { id } = req.params;
 
-  const updateInfo = await Course.findByIdAndUpdate({ courseId: id }, req.body, { new: true }).exec({});
-  res.json(updateInfo);
+  const result = await Course.findByIdAndUpdate({ courseId: id }, req.body, { new: true, runValidator: true }).exec({});
+  res.json(result);
 };
 
-const newCourse = async (req, res) => {
+const createCourse = async (req, res) => {
   logger.info('API called to create new course');
   const course = new Course({
     title: req.body.title,
@@ -31,17 +32,22 @@ const newCourse = async (req, res) => {
     lecturer: await UserLecturer.findById({ fullname: req.body.lecturer }),
     courseId: req.params.id,
   });
-  await course.save();
-  res.json(course);
+  const result = await course.save().exec();
+  res.json(result);
 };
 
 const deleteCourse = async (req, res) => {
   logger.info('API Called to delete course by id');
 
-  const course = await Course.findByIdAndRemove({ _id: req.params.id });
-  res.json(course);
+  const { id } = req.body;
+  const result = await Course.findByIdAndRemove({ id });
+  res.json(result);
 };
 
 module.exports = {
-  courseList, courseInfo, updateCourseInfo, newCourse, deleteCourse,
+  createCourse,
+  deleteCourse,
+  getCourse,
+  listAllCourses,
+  updateCourse,
 };

@@ -11,8 +11,11 @@
     "postinstall": "run-p install:api install:web",
     "install:api": "cd server && npm install",
     "install:web": "cd client && npm install",
-    "start:server": "npm run start --prefix server",
-    "devstart:server": "npm run devstart --prefix server"
+    "start": "node ./server/bin/www",
+    "devstart": "nodemon ./server/bin/www"
+  },
+  "nodemonConfig": {
+    "ignore": ["./client/**/*", "./server/**/(*.spec).js"]
   },
   "dependencies": {
     "nconf": "^0.10.0",

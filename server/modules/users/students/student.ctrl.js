@@ -1,22 +1,24 @@
-const studentModel = require('./student.model');
+const Student= require('./student.model');
 
-exports.studentList = (req, res) => {
-  res.send('NOT YET IMPLEMENT!');
+ const listAllStudent = async (req, res) => {
+  const students = await Student.find({}).exec();
+  res.json(students);
 };
 
-exports.studentInfo = (req, res) => {
-  res.send('NOT YET IMPLEMENT!');
+const getStudent = async (req, res) => {
+  const { id } = req.params;
+  const student = await Student.findById(id).exec();
+  res.json(student);
 };
 
-exports.newStudent = (req, res) => {
-  res.send('NOT YET IMPLEMENT!');
+const updateStudent = async (req, res) => {
+  const { id } = req.params;
+  const infoUpdate = await Student.findByIdAndUpdate(id, req.body, { new: true, runValidator: true }).exec({});
+  res.json(infoUpdate);
 };
 
-exports.updateStudentInfo = (req, res) => {
-  res.send('NOT YET IMPLEMENT!');
-};
-
-
-exports.deleteStudent = (req, res) => {
-  res.send('NOT YET IMPLEMENT!');
+module.exports = {
+  getStudent,
+  listAllStudent,
+  updateStudent,
 };

@@ -2,33 +2,35 @@ const logger = require('morgan');
 const Dept = require('./dept.model');
 const { Lecturer } = require('../users');
 
-const deptList = async (req, res) => {
+const listAllDepts = async (req, res) => {
   logger.info('API called to get all Depts');
   const data = await Dept.find({}, 'name HoD est');
   res.json(data);
 };
 
-const deptInfo = async (req, res) => {
+const getDept = async (req, res) => {
   const data = await Dept.findById({ _id: req.params.id }).exec({});
   res.json(data);
 };
 
-const updateDeptInfo = async (req, res) => {
+const updateDept = async (req, res) => {
   logger.info('API called to update Dept information');
+  const { id } = req.params; 
 
-  const updateInfo = await Dept.findByIdAndUpdate({ _id: req.param.id }, req.body,
-    { runValidators: true }, { new: true });
+  const updateInfo = await Dept.findByIdAndUpdate(id, req.body,
+    { new: true, runValidators: true }).exec({});
   res.json(updateInfo);
 };
 
-const newDept = async (req, res) => {
+const postDept = async (req, res) => {
   logger.info('API called to create new Dept');
-  const data = await new Dept({
+  const dept = await new Dept({
     name: req.body.name,
-    HoD: await Lecturer.find({ name: req.body.name }),
+    HoD: await Lecturer.find({ name: req.body.name }).exec({}),
     est: req.body.established,
   });
-  res.json(data);
+  const result = await dept.save().exec({});
+  res.json(result);
 };
 
 const removeDept = async (req, res) => {
@@ -39,5 +41,9 @@ const removeDept = async (req, res) => {
 };
 
 module.exports = {
-  deptList, deptInfo, updateDeptInfo, newDept, removeDept,
+  getDept,
+  listAllDepts,
+  postDept,
+  removeDept,
+  updateDept,
 };

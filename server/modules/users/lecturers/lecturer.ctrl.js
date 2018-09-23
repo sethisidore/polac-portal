@@ -1,21 +1,24 @@
-const lecturerModel = require('./lecturer.model');
+const Lecturer = require('./lecturer.model');
 
-exports.lecturerList = (req, res) => {
-  res.send('NOT YET IMPLEMENT!');
+const listAllLecturers = async (req, res) => {
+  const lecturers = await Lecturer.find({}).exec();
+  res.json(lecturers);
 };
 
-exports.lecturerInfo = (req, res) => {
-  res.send('NOT YET IMPLEMENT!');
+const getLecturer =  async (req, res) => {
+  const { id } = req.params;
+  const lecturer = await Lecturer.findById(id).populate('dept').execPopulate();
+  res.json(lecturer);
 };
 
-exports.newLecturer = (req, res) => {
-  res.send('NOT YET IMPLEMENT!');
+ const updateLecturer = async (req, res) => {
+  const { id } = req.params;
+  const result = await Lecturer.findByIdAndUpdate(id, req.body, { new: true, runValidator: true }).exec({});
+  res.json(result);
 };
 
-exports.updateLecturerInfo = (req, res) => {
-  res.send('NOT YET IMPLEMENT!');
-};
-
-exports.deleteLecturer = (req, res) => {
-  res.send('NOT YET IMPLEMENT!');
+module.exports = {
+  getLecturer,
+  listAllLecturers,
+  updateLecturer,
 };

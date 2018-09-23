@@ -8,7 +8,7 @@ const mongoose = require('mongoose');
 const passport = require('passport');
 const mongoDB = require('./config/database');
 
-const utils = require('./modules/utils');
+const { asyncHandler } = require('./modules/utils');
 
 const app = express();
 
@@ -37,7 +37,7 @@ app.use((req, res, next) => {
   next(err);
 });
 
-app.use(utils.wrapper);
+app.use(asyncHandler);
 
 // error handler
 app.use((err, req, res, next) => {

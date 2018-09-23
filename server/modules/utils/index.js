@@ -1,1 +1,5 @@
-module.exports.wrapper = require('./asyncFunctionWrapper');
+const asyncHandler = require('./asyncFunctionWrapper');
+
+module.exports = {
+  asyncHandler,
+}

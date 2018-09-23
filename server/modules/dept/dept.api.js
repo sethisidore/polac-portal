@@ -1,17 +1,17 @@
 const express = require('express');
+const deptController = require('./dept.ctrl');
+const { asyncHandler } = require('./../utils');
 
 const router = express.Router();
-const deptController = require('./dept.ctrl');
-const utils = require('./../utils');
 
-router.get('/dept', utils.wrapper(deptController.deptList));
+router.get('/dept', asyncHandler(deptController.listAllDepts));
 
-router.get('/dept/:deptId', utils.wrapper(deptController.deptInfo));
+router.get('/dept/:deptId', asyncHandler(deptController.getDept));
 
-router.post('/dept/create', utils.wrapper(deptController.newDept));
+router.post('/dept/create', asyncHandler(deptController.postDept));
 
-router.put('/dept/:deptId/update', utils.wrapper(deptController.updateDeptInfo));
+router.put('/dept/:deptId/update', asyncHandler(deptController.updateDept));
 
-router.delete('/dept/:id', utils.wrapper(deptController.deleteDept));
+router.delete('/dept/:id', asyncHandler(deptController.removeDept));
 
 module.exports = router;
