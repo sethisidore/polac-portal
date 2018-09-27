@@ -14,7 +14,7 @@ const studentSchema = new Schema({
     type: String, required: true, min: 2, max: 20,
   },
   mid_name: { type: String, max: 20 },
-  DoB: { type: Date, default: Date.now },
+  birthday: { type: Date, default: Date.now },
   gender: {
     type: String,
     enum: ['male', 'female'],

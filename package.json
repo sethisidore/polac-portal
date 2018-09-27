@@ -12,10 +12,14 @@
     "install:api": "cd server && npm install",
     "install:web": "cd client && npm install",
     "start": "node ./server/bin/www",
-    "devstart": "nodemon ./server/bin/www"
+    "devstart": "nodemon ./server/bin/www",
+    "test": "mocha ./server/**/*.spec.js --timeout 120000"
   },
   "nodemonConfig": {
-    "ignore": ["./client/**/*", "./server/**/(*.spec).js"]
+    "ignore": [
+      "./client/**/*",
+      "./server/**/(*.spec).js"
+    ]
   },
   "dependencies": {
     "nconf": "^0.10.0",
