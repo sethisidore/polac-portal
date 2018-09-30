@@ -4,7 +4,7 @@
     .factory('AuthService', AuthService);
 
   AuthService.$inject = ['$http', '$q',
-    // 'LecturerService', 'StudentService'
+    // 'LecturerService', 'cadetService'
   ];
 
   /* @ngInject */

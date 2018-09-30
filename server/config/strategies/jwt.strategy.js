@@ -1,18 +1,18 @@
 const passport = require('passport');
 const { Strategy: JWTStrategy, ExtractJWT } = require('passport-jwt');
 
-const { UserLecturer, UserStudent } = require('../../modules/users/');
+const { UserLecturer, UserCadet } = require('../../modules/users/');
 
-passport.use('jwt-student', new JWTStrategy({
+passport.use('jwt-cadet', new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey: 'Your_Own_jWt_SeCrEt',
-}, (jwtPayload, done) => UserStudent.findById(jwtPayload.id)
+  secretOrKey: process.env.PASSPORT_JWT_SECRET,
+}, (jwtPayload, done) => UserCadet.findById(jwtPayload.id)
   .then(user => done(null, user))
   .catch(err => done(err))));
 
 passport.use('jwt-lecturer', new JWTStrategy({
   jwtFromRequest: ExtractJWT.fromAuthHeaderAsBearerToken(),
-  secretOrKey: 'Your_Own_jWt_SeCrEt',
+  secretOrKey: process.env.PASSPORT_JWT_SECRET,
 }, (jwtPayload, done) => UserLecturer.findById(jwtPayload.id)
   .then(user => done(null, user))
   .catch(err => done(err))));

@@ -4,6 +4,7 @@ const passportLocalMongoose = require('passport-local-mongoose');
 const { Schema } = mongoose;
 
 const lecturerSchema = new Schema({
+  staff_id: { type: String, required: true },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   first_name: {
@@ -16,7 +17,7 @@ const lecturerSchema = new Schema({
     type: String, required: true, minlength: 2, maxlength: 20,
   },
   dept: { type: Schema.Types.ObjectId, required: true, ref: 'Dept' },
-  rank: {
+  position: {
     type: String,
     enum: [
       'Assistant Lecturer', 'Lecturer II', 'Lecturer I', 'Senior Lecturer',

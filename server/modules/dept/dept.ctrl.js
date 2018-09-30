@@ -1,15 +1,14 @@
-const logger = require('morgan');
 const Dept = require('./dept.model');
 const { Lecturer } = require('../users');
 
 const listAllDepts = async (req, res) => {
-  logger.info('API called to get all Depts');
-  const data = await Dept.find({}, 'name HoD est');
+  const data = await Dept.find({}).exec();
   res.json(data);
 };
 
 const getDept = async (req, res) => {
-  const data = await Dept.findById({ _id: req.params.id }).exec({});
+  const { id } = req.params;
+  const data = await Dept.find({ dept_id: id }).populate('HOD').execPopulate();
   res.json(data);
 };
 

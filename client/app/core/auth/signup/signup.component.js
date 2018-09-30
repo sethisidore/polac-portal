@@ -26,7 +26,11 @@
 
     function roles() {
       return [
+<<<<<<< HEAD
         { label: 'Student', value: 'student' },
+=======
+        { label: 'cadet', value: 'cadet' },
+>>>>>>> renamed student to cadet
         { label: 'Lecturer', value: 'lecturer' },
       ];
     }

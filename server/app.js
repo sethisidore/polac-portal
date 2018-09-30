@@ -4,19 +4,18 @@ const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
 const bodyParser = require('body-parser');
-const mongoose = require('mongoose');
 const passport = require('passport');
-const mongoDB = require('./config/database');
 
+const mongoDB = require('./config/database');
 const { asyncHandler } = require('./modules/utils');
+
+require('dotenv').config({ path: 'C:/Development/portalApp/server/config/env/.env'});
+require('dotenv').config({ path: 'C:/Development/portalApp/server/config/env/.env.' + process.env.NODE_ENV });
 
 const app = express();
 
-// Mongoose Database setup
-mongoose.Promise = global.Promise;
-mongoose.connect(mongoDB.url)
-  .then((() => console.log('Connected to DB')))
-  .catch((err => console.log(err)));
+// Connect to database
+mongoDB.open();
 
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, '../client/assets', 'favicon.ico')));

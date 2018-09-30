@@ -3,13 +3,13 @@ const path = require('path');
 const auth = require('../modules/auth/');
 const Course = require('../modules/course');
 const Dept = require('../modules/dept');
-const { Student, Lecturer /* , Admin */} = require('../modules/users');
+const { Cadet, Lecturer /* , Admin */} = require('../modules/users');
 
 module.exports = (app, passport) => {
-  app.use('/auth', auth);
+  app.use('/', auth);
   app.use('/courses', Course);
   app.use('/depts', Dept);
-  app.use('/students', passport.authenticate('jwt-student', { session: false }), Student);
+  app.use('/cadets', passport.authenticate('jwt-cadet', { session: false }), Cadet);
   app.use('/lecturers', passport.authenticate('jwt-lecturer', { session: false }), Lecturer);
   // app.use('/admins', Admin);
 

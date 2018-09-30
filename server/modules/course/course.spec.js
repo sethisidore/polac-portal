@@ -1,3 +1,7 @@
+<<<<<<< HEAD
+=======
+process.env.NODE_ENV = 'test';
+>>>>>>> renamed student to cadet
 const chai = require('chai');
 const chaiHttp = require('chai-http');
 

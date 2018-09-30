@@ -16,7 +16,7 @@ const registerSchema = new Schema({
     return undefined;
   },*/
   session: { type: String, required: true , match: /\d{4}\/\d{4}/ },
-  owner: { type: Schema.Types.ObjectId, required: true, ref: 'Student' },
+  owner: { type: Schema.Types.ObjectId, required: true, ref: 'Cadet' },
 });
 
 module.exports = mongoose.model('Register', registerSchema);

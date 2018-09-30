@@ -3,8 +3,8 @@ const passportLocalMongoose = require('passport-local-mongoose');
 
 const { Schema } = mongoose;
 
-const studentSchema = new Schema({
-  _id: { type: String, required: true },
+const cadetSchema = new Schema({
+  cadet_no: { type: String, match: /\d+/ },
   username: { type: String, required: true, unique: true },
   password: { type: String, required: true },
   first_name: {
@@ -29,6 +29,13 @@ const studentSchema = new Schema({
   RC: { type: Number, min: 1 },
 });
 
-studentSchema.plugin(passportLocalMongoose);
+// Create virtual to Get full ID
+cadetSchema
+.virtual('NPA_No')
+.get(() => {
+  return 'NPA/' + RC + 'RC/' + dept.dept_id + '/' + squad + '/' + cadet_no;
+});
 
-module.exports = mongoose.model('Student', studentSchema);
+cadetSchema.plugin(passportLocalMongoose);
+
+module.exports = mongoose.model('Cadet', cadetSchema);

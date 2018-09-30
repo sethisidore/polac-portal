@@ -1,24 +1,21 @@
-const logger = require('morgan');
 const Course = require('./course.model');
-const { UserStudent } = require('../users');
+const { Usercadet } = require('../users');
 
 const listAllCourses = async (req, res) => {
-  logger.info('API called to get all courses');
-  const courseList = await Course.find({}, 'title dept').exec();
+  const courseList = await Course.find({}).exec();
   res.json(courseList);
 };
 
 const getCourse = async (req, res) => {
   const { id } = req.params;
-  const course = await Course.findById(id).populate('dept').execPopulate();
+  const course = await Course.find({ course_id: id }).populate('dept lecturers').execPopulate();
   res.json(course);
 };
 
 const updateCourse = async (req, res) => {
-  logger.info('API called to update course information');
   const { id } = req.params;
 
-  const result = await Course.findByIdAndUpdate({ courseId: id }, req.body, { new: true, runValidator: true }).exec({});
+  const result = await Course.findByIdAndUpdate({ courseId: id }, req.body, { new: true, runValidators: true }).exec({});
   res.json(result);
 };
 
@@ -37,9 +34,8 @@ const createCourse = async (req, res) => {
 };
 
 const deleteCourse = async (req, res) => {
-  logger.info('API Called to delete course by id');
-
   const { id } = req.body;
+
   const result = await Course.findByIdAndRemove({ id });
   res.json(result);
 };

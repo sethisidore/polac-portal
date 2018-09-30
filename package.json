@@ -13,7 +13,11 @@
     "install:web": "cd client && npm install",
     "start": "node ./server/bin/www",
     "devstart": "nodemon ./server/bin/www",
+<<<<<<< HEAD
     "test": "mocha ./server/**/*.spec.js --timeout 120000"
+=======
+    "test": "NODE_ENV='test' mocha ./server/modules/**/*.spec.js --timeout 320000"
+>>>>>>> renamed student to cadet
   },
   "nodemonConfig": {
     "ignore": [
@@ -22,7 +26,7 @@
     ]
   },
   "dependencies": {
-    "nconf": "^0.10.0",
+    "dotenv": "^6.0.0",
     "semver": "^5.5.1"
   },
   "devDependencies": {

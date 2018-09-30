@@ -1,13 +1,13 @@
 // const { adminApi, adminModel } = require('./admins');
 const { lecturerApi, lecturerModel } = require('./lecturers');
-const { studentApi, studentModel } = require('./students');
+const { cadetApi, cadetModel } = require('./cadets');
 
 module.exports = {
   // Admin: adminApi,
   Lecturer: lecturerApi,
-  Student: studentApi,
+  Cadet: cadetApi,
 
   // UserAdmin: adminModel,
-  UserStudent: studentModel,
+  UserCadet: cadetModel,
   UserLecturer: lecturerModel,
 };
