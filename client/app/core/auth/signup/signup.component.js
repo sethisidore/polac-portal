@@ -17,20 +17,14 @@
 
   /* @ngInject */
   function SignupController($location, AuthService) {
-    const signup = this;
-    signup.role = roles;
-    signup.squads = squads;
-    signup.formSubmit = formSubmit;
+    const vm = this;
+    vm.register = formSubmit;
 
 
 
     function roles() {
       return [
-<<<<<<< HEAD
-        { label: 'Student', value: 'student' },
-=======
         { label: 'cadet', value: 'cadet' },
->>>>>>> renamed student to cadet
         { label: 'Lecturer', value: 'lecturer' },
       ];
     }
@@ -53,12 +47,18 @@
     }
 
     function formSubmit() {
-      return AuthService.save(FormData).then((data) => {
-        console.log(data);
+      return vm.user.$save().$promise.then(() =>{
+        console.log('registration Successful')
       })
       .catch(err => {
-        console.log(err);
-      });
+        console.log(`Registration Error: ${err}`);
+      })
+    }
+
+    vm.$onInit = () => {
+      vm.user = AuthService.signup();
+      vm.user.squads = squads;
+
     }
 
   }

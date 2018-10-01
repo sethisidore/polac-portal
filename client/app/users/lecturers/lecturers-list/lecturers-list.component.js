@@ -3,44 +3,22 @@
     .module('lecturer')
     .component('lecturersList', {
       controller: 'LecturersListController',
-      controllerAs: 'vmlList',
+      controllerAs: 'vmLecturer',
       templateUrl: './app/users/lecturers/lecturers-list/lecturers-list.html',
+      bindings: {
+        lecturers: '<',
+      }
     });
 
   LecturersListController.$inject = ['LecturerService', 'logger'];
 
   function LecturersListController(LecturerService, logger) {
-    const vmlList = this;
-    vmlList.lecturerList = [];
-    vmlList.title = 'Lecturers List';
+    const vmLecturer = this;
+    vmLecturer.lecturerList = [];
+    vmLecturer.title = 'Lecturers List';
 
-    activate();
-
-    // ////////
-
-    function activate() {
-      return getAllLecturers()
-        .then(() => {
-          logger.info('activated lecturers list view');
-        })
-        .catch((err) => {
-          logger.error(`Problem: ${err}`);
-        });
-    }
-
-    function getAllLecturers() {
-      return LecturerService.query()
-        .then(getLecturersComplete)
-        .catch(getLecturersFailed);
-    }
-
-    function getLecturersComplete(data) {
-      vmlList.lecturerList = data;
-      logger.info('lecturer list gotten');
-    }
-
-    function getLecturersFailed(e) {
-      logger.error(`XHR failed for lecturers: ${e}`);
-    }
+    vmLecturer.$onInit = () => {}
+    vmLecturer.$onChanges = function (changesObj) {};
+    vmLecturer.$onDestroy = function () {};
   }
 }());

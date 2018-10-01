@@ -1,17 +1,53 @@
-<div class="col-md-4" ng-form>
-  <h1>Login</h1>
-  <div ng-show="error" class="alert alert-danger">{{errorMessage}}</div>
-  <form class="form" ng-submit="login()">
-    <div class="form-group">
-      <label>Username</label>
-      <input type="text" class="form-control" name="username" ng-model="loginForm.username" required>
-    </div>
-    <div class="form-group">
-      <label>Password</label>
-        <input type="password" class="form-control" name="password" ng-model="loginForm.password" required>
+<!-- Material form login -->
+<div class="card col-md-6 justify-content-center">
+
+  <h5 class="card-header info-color white-text text-center py-4">
+    <strong>Sign in</strong>
+  </h5>
+
+  <!--Card content-->
+  <div class="card-body px-lg-5 pt-0">
+
+    <!-- Form -->
+    <form class="text-center" style="color: #757575;">
+
+      <!-- Email -->
+      <div class="md-form">
+        <input type="username" class="form-control" ng-model="login.username" placeholder="username">
       </div>
-      <div>
-        <button type="submit" class="btn btn-default" ng-disabled="disabled">Login</button>
+
+      <!-- Password -->
+      <div class="md-form">
+        <input type="password" class="form-control" ng-model="login.password" placeholder="password">
       </div>
-  </form>
+
+      <div class="d-flex justify-content-around" ng-init="login.user = 'cadet'">
+        <p class="">Sigin in as:</p>
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" ng-model="login.user" ng-value="cadet">
+            <label class="custom-control-label" for="cadet">Cadet</label>
+          </div>
+          <div class="custom-control custom-radio">
+            <input type="radio" class="custom-control-input" ng-model="login.user" ng-value="lecturer">
+            <label class="custom-control-label" for="lecturer">Lecturer</label>
+          </div>
+        <div>
+          <!-- Forgot password -->
+          <a ui-sref="recovery">Forgot password?</a>
+        </div>
+      </div>
+
+      <!-- Sign in button -->
+      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Sign in</button>
+
+      <!-- Register -->
+      <p>Not a member?
+        <a ui-sref="signup">Register</a>
+      </p>
+
+    </form>
+    <!-- Form -->
+
+  </div>
 </div>
+<!-- Material form login -->

@@ -13,11 +13,7 @@
     "install:web": "cd client && npm install",
     "start": "node ./server/bin/www",
     "devstart": "nodemon ./server/bin/www",
-<<<<<<< HEAD
-    "test": "mocha ./server/**/*.spec.js --timeout 120000"
-=======
-    "test": "NODE_ENV='test' mocha ./server/modules/**/*.spec.js --timeout 320000"
->>>>>>> renamed student to cadet
+    "test": "NODE_ENV=test&mocha ./server/modules/**/*.spec.js --timeout 320000"
   },
   "nodemonConfig": {
     "ignore": [
@@ -45,7 +41,7 @@
     "gulp-load-plugins": "^1.5.0",
     "gulp-ng-annotate": "^2.1.0",
     "gulp-sourcemaps": "^2.6.4",
-    "gulp-terser": "^1.0.1",
+    "gulp-terser": "^1.1.5",
     "jasmine": "^3.2.0",
     "jasmine-core": "^3.2.1",
     "karma": "^3.0.0",

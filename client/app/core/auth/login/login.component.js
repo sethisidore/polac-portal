@@ -1,4 +1,4 @@
-(function () {
+(function initLogin() {
   // Usage:
   //
   // Creates:
@@ -9,45 +9,32 @@
     .component('login', {
       templateUrl: './app/core/auth/login/login-form.html',
       controller: 'LoginController',
-      controllerAs: 'logCtrl',
-      bindings: {
-        // Binding: '=',
-      },
+      controllerAs: 'user',
     });
 
   LoginController.$inject = ['$location', 'AuthService'];
+  
+  function LoginController(AuthService) {
+    const user = this;
+    user.error = false
+    user.sumbit = signin;
 
-  function LoginController($location, AuthService) {
-    const logCtrl = this;
-    logCtrl.error = false;
-    logCtrl.disabled = true;
+    user.$onInit = function () {
+      user.login = AuthService.login();
+    };
 
-    activate();
+    user.$onChanges = function (changesObj) { };
+    user.$onDestroy = function () { };
 
-    function activate() {
-      return logCtrl.login;
+    function signin() {
+      user.login.$save().$promise.success(() => {
+        $state.go('home');
+      })
+      .error((err) => {
+        user.error = err;
+        $state.go('login');
+      });
     }
 
-    logCtrl.login = function () {
-      // call login from service and handle success or error
-      AuthService.login(logCtrl.loginForm.username, logCtrl.loginForm.password)
-        .then(() => {
-          $location.path('/');
-          logCtrl.disabled = false;
-          logCtrl.loginForm = {};
-        })
-        .catch(() => {
-          logCtrl.error = true;
-          logCtrl.errorMessage = 'Invalid username and/or password';
-          logCtrl.disabled = false;
-          logCtrl.loginForm = {};
-        });
-    };
-    // //////////////
-    /*
-    logCtrl.$onInit = function () { };
-    logCtrl.$onChanges = function (changesObj) { };
-    logCtrl.$onDestroy = function () { };
-    */
   }
 }());

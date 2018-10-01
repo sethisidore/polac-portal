@@ -4,26 +4,24 @@
     .controller('LogoutController', LogoutController);
 
   LogoutController.$inject = [
-    '$location',
     'AuthService',
+    '$state'
   ];
 
   /* @ngInject */
-  function LogoutController($location, AuthService) {
+  function LogoutController(AuthService, $state) {
     const vm = this;
     activate();
     // //////////////
 
     function activate() {
-      return vm.logout;
+      vm.logout = AuthService.logout();
+      logoutUser();
     }
 
-    vm.logout = function () {
-      // call logout from service
-      AuthService.logout()
-        .then(() => {
-          $location.path('/login');
-        });
-    };
+    function logoutUser () {
+      return vm.logout.get();
+    }
   }
+
 }());

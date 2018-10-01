@@ -1,46 +1,81 @@
-<form class="col-md-10">
-  <fieldset class="form-group">
-    <legend>Personal Information</legend>
-    <div class="row">
-      <div class="col-md-4">
-        <input type="text" class="form-control" ng-model="firstName" placeholder="First name">
-      </div>
-      <div class="col-md-4">
-        <input type="text" class="form-control" ng-model="lastName" placeholder="Last name">
-      </div>
-      <div class="col-md-4">
-        <input type="text" class="form-control" ng-model="midName" placeholder="Middle name(optional)">
-      </div>
-    </div>
-    <div class="form-group col-md-4">
-      <label for="date of birth">Date of Birth:</label>
-      <input type="date" ng-model="DoB">
-    </div>
-    <div class="form-group row">
-      <label for="first name">First Name</label>
-      <input type="text" class="custom-control-input" ng-model="signup.D" placeholder="First name">
-    </div>
-  </fieldset>
-  <fieldset>
-    <p class="important">Tell us who you are:</p>
-    <div ng-init="">
-      <select ng-model="signup.squads" ng-options="squad.label as squad.value for squad in signup.squads"></select>
-    </div>
-    <p> selected: {{ signup.selectedSquad }}</p>
-  </fieldset>
-  <fieldset>
-    <legend>Account Information</legend>
-    <div class="form-group">
-      <div class="input-group">
-        <div class="input-group-prepend">
-          <div class="input-group-text">@</div>
+<div class="card col-md-10">
+  <h4 class="card-header info-color white-text text-center py-4 bg-dark">Register</h4>
+  <div class="card-body px-lg-5 pt-0">
+    <form class="col-md-10">
+      <fieldset class="form-group">
+        <legend>Personal Information</legend>
+        <div class="row">
+          <div class="col-md-4">
+            <input type="text" class="form-control" ng-model="user.first_name" placeholder="First name">
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control" ng-model="user.last_name" placeholder="Last name">
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control" ng-model="user.mid_name" placeholder="Middle name(optional)">
+          </div>
         </div>
-        <input type="text" class="form-control" id="inlineFormInputGroupUsername" placeholder="Username">
+        <div class="form-row">
+          <div class="col-md-8">
+            <input type="text" class="form-control" ng-model="user.address" placeholder="Current home address">
+          </div>
+          <div class="col-md-4">
+            <input type="text" class="form-control" ng-model="user.state" placeholder="State of Origin">
+          </div>
+        </div>
+        <div class="col-md-4">
+          <label for="birthday" class="bmd-label-floating">Birthday:</label>
+          <input type="date" ng-model="user.birthday" class="form-control">
+        </div>
+        <div class="form-row">
+          <div class="col-md-6">
+            <input type="text" class="form-control" ng-model="user.faculty" placeholder="faculty">
+          </div>
+          <div class="col-md-6">
+            <input type="text" class="form-control" ng-model="user.dept" placeholder="department">
+          </div>
+        </div>
+      </fieldset>
+      <!-- Specific Details -->
+      <fieldset>
+        <div class="form-group">
+          <div class="custom-control custom-input">
+            <label for="cadet" class="custom-control-label">Cadet</label>
+            <input type="radio" class="custom-control-input" ng-model="user.user" ng-value="cadet">
+          </div>
+          <div class="custom-control custom-input">
+            <label for="lecturer" class="custom-control-label">Lecturer</label>
+            <input type="radio" class="custom-control-input" ng-model="user.user" ng-value="lecturer">
+          </div>
+        </div>
+      </fieldset>
+
+      <!-- Cadet Details -->
+      <div ng-if="user.user === 'cadet'">
+
       </div>
-      <div>
-        <input type="password" class="form-control" ng-model="password" placeholder="password">
-      </div>
-    </div>
-  </fieldset>
-  <button class="btn-primary">Signup</button><!-- Add submitForm() to this -->
-</form>
+      <!--Lecturer Details-->
+      <div ng-if="user.user === 'lecturer'"></div>
+      </fieldset>
+      <!-- Account Information-->
+      <fieldset>
+        <legend>Account Information</legend>
+        <div class="form-row">
+          <div class="col-mid-4 mb-3">
+            <div class="input-group">
+              <div class="input-group-prepend">
+                <div class="input-group-text">@</div>
+              </div>
+              <input type="username" class="form-control" ng-model="login.username" placeholder="username">
+            </div>
+          </div>
+          <!-- Password -->
+          <div class="col-md-4">
+            <input type="password" class="form-control" ng-model="login.password" placeholder="password">
+          </div>
+        </div>
+      </fieldset>
+      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit">Signup</button>
+    </form>
+  </div>
+</div>

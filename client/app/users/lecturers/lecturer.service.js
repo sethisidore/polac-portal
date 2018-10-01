@@ -4,16 +4,14 @@
     .factory('LecturerService', LecturerService);
 
   LecturerService.$inject = ['$resource'];
-
+  /* @ngInject */
   function LecturerService($resource) {
-    const service = $resource('/lecturers/:lecturerId/', { lecturerId: '@_id' }, {
+    const service = $resource('/lecturers/:lecturerId/', { lecturerId: '@staff_id' }, {
       update: {
         method: 'PUT',
       },
-    },
-    {
-      stripTrailingSlashes: 'false',
-    });
+    }
+    );
     return service;
   }
 }());

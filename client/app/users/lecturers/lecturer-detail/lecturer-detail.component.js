@@ -9,56 +9,21 @@
     .component('lecturerDetail', {
       templateUrl: './app/lecturers/lecturer-detail/lecturer-detail.component.js',
       controller: LecturerDetailController,
-      controllerAs: 'vmlData',
+      controllerAs: 'vmLecturer',
       bindings: {
-        // Binding: '=',
+        lecturer: '<',
       },
     });
 
-  LecturerDetailController.$inject = ['lecturerService', 'logger', 'stateParams'];
+  LecturerDetailController.$inject = ['lecturerService'];
 
-  function LecturerDetailController(lecturerService, logger, stateParams) {
-    const vmlData = this;
-    vmlData.lecturerData = {};
-    vmlData.title = '';
+  function LecturerDetailController(lecturerService) {
+    const vmLecturer = this;
+    vmLecturer.title = '';
+    
 
-    activate();
-
-    // ////////
-
-    function activate() {
-      return getAllLecturers()
-        .then(() => {
-          logger.info('activated lecturers list view');
-        })
-        .catch((e) => {
-          logger.error(`Problem: ${e}`);
-        });
-    }
-
-    function getAllLecturers() {
-      return lecturerService.get({ id: stateParams.id })
-        .then(getLecturerComplete)
-        .catch(getLecturerFailed);
-    }
-
-    function getLecturerComplete(data) {
-      vmlData.lecturerData = data;
-      vmlData.title = data.title;
-
-      return vmlData.lecturerData;
-    }
-
-    function getLecturerFailed(e) {
-      logger.error(`XHR failed for lecturers: ${e}`);
-    }
-
-
-    /*
-
-    vmlData.$onInit = function () { };
-    vmlData.$onChanges = function (changesObj) { };
-    vmlData.$onDestroy = function () { };
-    */
+    vmLecturer.$onInit = function () {};
+    vmLecturer.$onChanges = function (changesObj) { };
+    vmLecturer.$onDestroy = function () { };
   }
 }());

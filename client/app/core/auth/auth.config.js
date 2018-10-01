@@ -8,16 +8,16 @@
   function authConfig($stateProvider, $urlRouterProvider) {
     $stateProvider
       .state('login', {
-        url: '/auth/login',
+        url: '/login',
         component: 'login',
       })
       .state('logout', {
-        url: '/auth/logout',
+        url: '/logout',
         controller: 'logoutController',
-        controllerAs: 'logoutCtrl',
+        controllerAs: 'vm',
       })
       .state('signup', {
-        url: '/auth/signup',
+        url: '/signup',
         component: 'signup',
       });
 

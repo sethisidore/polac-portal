@@ -10,44 +10,21 @@
       controller: CourseListController,
       controllerAs: 'vmcList',
       bindings: {
-        // Binding: '=',
+        courses: '<',
       },
     });
 
-  CourseListController.$inject = ['CourseService', 'logger'];
+  CourseListController.$inject = ['CourseService'];
 
-  function CourseListController(CourseService, logger) {
+  function CourseListController(CourseService) {
     const vmcList = this;
-    vmcList.courses = [];
     vmcList.title = 'Course List';
 
-    activate();
-
-    function activate() {
-      return getAllCourses().then(() => {
-        logger.info('Activated course view');
-      });
-    }
-
-    function getAllCourses() {
-      return CourseService.query({ isArray: 'true' })
-        .then(getCoursesComplete)
-        .catch(getCoursesFailed);
-    }
-
-    function getCoursesComplete(data) {
-      vmcList.courses = data;
-      return vmcList.courses;
-    }
-
-    function getCoursesFailed(e) {
-      logger.error(`XHR failed for courses: ${e}`);
-    }
-
-    /*
-    vmcList.$onInit = function() { };
+    // //////
+    
+    vmcList.$onInit = function() {};
     vmcList.$onChanges = function(changesObj) { };
     vmcList.$onDestroy = function() { };
-    */
+    
   }
 }());

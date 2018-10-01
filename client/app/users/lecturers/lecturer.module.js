@@ -1,1 +1,1 @@
-angular.module('lecturer', ['ngResource']);
+angular.module('lecturer', ['ui.router','ngResource']);

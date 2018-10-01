@@ -10,30 +10,16 @@
       controller: CourseDetailController,
       controllerAs: 'vmcData',
       bindings: {
-        // Binding: '=',
+        course: '<',
       },
     });
 
-  CourseDetailController.$inject = ['CourseService', 'logger', '$stateParams'];
+  CourseDetailController.$inject = ['CourseService', '$stateParams'];
 
-  function CourseDetailController(CourseService, logger, $stateParams) {
+  function CourseDetailController(CourseService, $stateParams) {
     const vmcData = this;
     vmcData.courseData = {};
     vmcData.title = '';
-
-    activate();
-
-    // //////
-
-    function activate() {
-      return getCourseById()
-        .then(() => {
-          logger.info(`Activated ${vmcData.title} view`);
-        })
-        .catch((e) => {
-          logger.error(`Error activating view: ${e}`);
-        });
-    }
 
     function getCourseById() {
       return CourseService.get({ id: $stateParams.id })
@@ -47,14 +33,20 @@
     }
 
     function getCourseFailed(e) {
-      logger.error(`XHR failed for courses: ${e}`);
+      console.log(`XHR failed for courses: ${e}`);
     }
 
 
-    /*
-    vmcData.$onInit = function () { };
+    vmcData.$onInit = () => {
+      return getCourseById()
+        .then(() => {
+          console.log(`Activated ${vmcData.title} view`);
+        })
+        .catch((e) => {
+          console.log(`Error activating view: ${e}`);
+        });
+    };
     vmcData.$onChanges = function (changesObj) { };
     vmcData.$onDestroy = function () { };
-    */
   }
 }());
