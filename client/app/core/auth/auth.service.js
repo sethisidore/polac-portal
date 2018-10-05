@@ -7,11 +7,12 @@
 
   /* @ngInject */
   function AuthService($resource) {
-    let userStatus = null;
+    let isAuthenticated = false;
+    let status = false;
 
     const service = {
       isLoggedIn,
-      getUserStatus: status,
+      getUserStatus,
       login,
       logout,
       signup,
@@ -21,7 +22,7 @@
 
     // //////////////
     function isLoggedIn() {
-      if (user) {
+      if (isAuthenticated) {
         return true;
       }
       return false;
@@ -35,12 +36,12 @@
       return $resource('http://localhost:3000/logout');
     }
 
-    function status() {
+    function getUserStatus() {
       const user = $resource('http://localhost:3000/status');
       if (user.get()) {
-        userStatus = true;
+        status = true;
       } else {
-        userStatus = false;
+        status = false;
       }
     }
 

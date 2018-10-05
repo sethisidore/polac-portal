@@ -14,17 +14,21 @@
       },
     });
 
-  CourseListController.$inject = ['CourseService'];
-
-  function CourseListController(CourseService) {
+  CourseListController.$inject = ['CourseService', 'logger'];
+  /* @ngInject */
+  function CourseListController(CourseService, logger) {
     const vmcList = this;
     vmcList.title = 'Course List';
 
     // //////
     
-    vmcList.$onInit = function() {};
+    vmcList.$onInit = function() {
+      logger.info('Activated Course View');
+    };
     vmcList.$onChanges = function(changesObj) { };
-    vmcList.$onDestroy = function() { };
+    vmcList.$onDestroy = function() {
+      logger.info('Deactivating Course View');
+    };
     
   }
 }());

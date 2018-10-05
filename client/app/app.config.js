@@ -2,7 +2,7 @@
   angular
   .module('app')
   .config(AppConfig)
-  .run(RestrictedAndPersistentUsage);
+  .run(RestrictedAndPersistentUsage, TraceTransitions);
 
   AppConfig.$inject = ['$locationProvider', '$resourceProvider'];
   /* @ngInject */
@@ -12,18 +12,29 @@
     $resourceProvider.defaults.stripTrailingSlashes = false;
   }
 
-  RestrictedAndPersistentUsage.$inject = [
-    'AuthService', '$rootScope', '$state',
-  ];
+  RestrictedAndPersistentUsage.$inject = ['AuthService', '$transitions'];
+  /* @ngInject */
+  function RestrictedAndPersistentUsage(AuthService, $transitions) {/*
+    $transitions.onBefore({}, (trans) => {
+      const auth = trans.injector().get('AuthService');
+      if (!auth.isLoggedIn()) {
+        return trans.router.stateService.target('login');
+    });
+    $transitions.onStart((trans) => {
+      const spinner = trans.injector().get('SpinnerService');
+      spinner.transitionStart();
+      trans.promise.finally('spinner.transitionEnd');
+    });
+    */
+  }
 
-  function RestrictedAndPersistentUsage(AuthService, $state, $rootScope) {
-    /*
-    $rootScope.$on('$routeChangeStart', (event, next, current) => {
-      AuthService.status().then(() => {
-        if (next.access.restricted && !AuthService.isLoggedIn()) {
-          $state.go('login');
-        }
-      });
-    }); */ 
+  TraceTransitions.$inject = ['$trace'];
+  /* @ngInject */
+  function TraceTransitions($trace) {
+    $trace.enable("TRANSITION", "VIEWCONFIG");
   }
 })();
+
+/*
+      $state.go('login');
+ */

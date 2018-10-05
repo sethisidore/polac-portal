@@ -3,13 +3,9 @@
     .module('auth')
     .controller('LogoutController', LogoutController);
 
-  LogoutController.$inject = [
-    'AuthService',
-    '$state'
-  ];
-
+  LogoutController.$inject = ['AuthService','$state','$window'];
   /* @ngInject */
-  function LogoutController(AuthService, $state) {
+  function LogoutController(AuthService, $state, $window) {
     const vm = this;
     activate();
     // //////////////
@@ -20,7 +16,11 @@
     }
 
     function logoutUser () {
-      return vm.logout.get();
+      return vm.logout.get().$promise.success(() => {
+        AuthService.isAuthenticated = false;
+        delete $window.sessionStorage.token;
+        $state.go('login');
+      });
     }
   }
 

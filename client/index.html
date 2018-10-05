@@ -5,6 +5,7 @@
     <base href="/">
     
     <link rel="stylesheet" href="./node_modules/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="./node_modules/toastr/build/toastr.min.css">
 
     <script src="./node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./node_modules/bootstrap/dist/js/bootstrap.min.js"></script>
@@ -12,12 +13,14 @@
     <script src="./node_modules/angular/angular.js"></script>
     <script src="./node_modules/angular-ui-router/release/angular-ui-router.min.js"></script>
     <script src="./node_modules/angular-resource/angular-resource.min.js"></script>
+    <script src="./node_modules/toastr/build/toastr.min.js"></script>
 
     <script src="./dist/js/app.min.js"></script>
   </head>
-  <body ng-app="app">
+  <body ng-app="app" ng-strict-di>
 
     <section class="container-fluid" style="margin:0%; padding: 0%;">
+      <!--<div ng-include="./app/core/app-nav/app-nav.html"></div> -->
       <app-nav></app-nav>
 
       <!-- Angular Front-End -->

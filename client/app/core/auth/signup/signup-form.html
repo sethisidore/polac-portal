@@ -1,21 +1,21 @@
-<div class="card col-md-10">
+<div class="card">
   <h4 class="card-header info-color white-text text-center py-4 bg-dark">Register</h4>
   <div class="card-body px-lg-5 pt-0">
-    <form class="col-md-10">
+    <form>
       <fieldset class="form-group">
         <legend>Personal Information</legend>
-        <div class="row">
-          <div class="col-md-4">
+        <div class="form-group row">
+          <div class="col">
             <input type="text" class="form-control" ng-model="user.first_name" placeholder="First name">
           </div>
-          <div class="col-md-4">
+          <div class="col">
             <input type="text" class="form-control" ng-model="user.last_name" placeholder="Last name">
           </div>
-          <div class="col-md-4">
+          <div class="col">
             <input type="text" class="form-control" ng-model="user.mid_name" placeholder="Middle name(optional)">
           </div>
         </div>
-        <div class="form-row">
+        <div class="form-group row">
           <div class="col-md-8">
             <input type="text" class="form-control" ng-model="user.address" placeholder="Current home address">
           </div>
@@ -24,10 +24,10 @@
           </div>
         </div>
         <div class="col-md-4">
-          <label for="birthday" class="bmd-label-floating">Birthday:</label>
-          <input type="date" ng-model="user.birthday" class="form-control">
+          <label for="birthday" class="">Birthday:</label>
+          <input type="date" ng-model="user.birthday" class="custom-control custom-control-inline">
         </div>
-        <div class="form-row">
+        <div class="form-group row">
           <div class="col-md-6">
             <input type="text" class="form-control" ng-model="user.faculty" placeholder="faculty">
           </div>
@@ -38,24 +38,30 @@
       </fieldset>
       <!-- Specific Details -->
       <fieldset>
-        <div class="form-group">
-          <div class="custom-control custom-input">
-            <label for="cadet" class="custom-control-label">Cadet</label>
-            <input type="radio" class="custom-control-input" ng-model="user.user" ng-value="cadet">
-          </div>
-          <div class="custom-control custom-input">
-            <label for="lecturer" class="custom-control-label">Lecturer</label>
-            <input type="radio" class="custom-control-input" ng-model="user.user" ng-value="lecturer">
-          </div>
+        <label for="word">Choose and fill as applicable to you: </label>
+        <div class="custom-control custom-radio custom-control-inline">
+          <input type="checkbox" ng-model="cadet" class="custom-control-input">
+          <label class="custom-control-label" for="cadet">Cadet</label>
+        </div>
+        <div class="custom-control custom-checkbox custom-control-inline">
+          <input type="checkbox" ng-model="lecturer" class="custom-control-input">
+          <label class="custom-control-label" for="lecturer">Lecturer</label>
         </div>
       </fieldset>
 
       <!-- Cadet Details -->
-      <div ng-if="user.user === 'cadet'">
-
+      <div>
+        <div class="form-row">
+          <div class="col-md-6 form-control-inline">
+            <label for="rc" class="form-label">Regular Course: </label>
+            <input type="number" class="form-control" ng-model="user.RC">
+          </div>
+        </div>
       </div>
       <!--Lecturer Details-->
-      <div ng-if="user.user === 'lecturer'"></div>
+      <div>
+
+      </div>
       </fieldset>
       <!-- Account Information-->
       <fieldset>

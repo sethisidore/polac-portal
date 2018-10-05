@@ -1,4 +1,8 @@
 (function initLecturerConfig() {
+  /*
+  * @Config {LecturerConfig}
+  * 
+  */
   angular
     .module('lecturer')
     .config(LecturerConfig);
@@ -11,19 +15,32 @@
       url: '/lecturers',
       component: 'lecturerList',
       resolve: {
-        lecturers: function (LecturerService) {
-          return LecturerService.query();
-        }
+        lecturers: LecturerPrepServiceAll,
       }
     })
     .state('lecturerDetail', {
-      url: '/lecturers/:lecturerId',
+      url: '/lecturers/:lecturer_id',
       component: 'lecturerDetail',
       resolve: {
-        Lecturer: function (LecturerService) {
-        return LecturerService.get($transition$.param().id);
-        }
+        lecturer: LecturerPrepServiceOne,
       }
     });
+
+    LecturerPrepServiceAll.$inject = ['LecturerService'];
+    /* @ngInject */
+    function LecturerPrepServiceAll(LecturerService){
+      return LecturerService.getAllLecturers().then((lecturers) => {
+        return lecturers;
+      });
+    }
+
+    LecturerPrepServiceOne.$inject = ['LecturerService', '$transition$'];
+    /* @ngInject */
+    function LecturerPrepServiceOne(LecturerService, $transition$) {
+      const id = $transition$.params().lecturer_id;
+      return LecturerService.getLecturer({ id }).then((lecturer) => {
+        return lecturer;
+      });
+    }
   }
 }());

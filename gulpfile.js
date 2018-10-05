@@ -2,6 +2,7 @@ const gulp = require('gulp');
 const browserSync = require('browser-sync');
 const concat = require('gulp-concat');
 // const imagemin = require('gulp-imagemin');
+const ngAnnotate = require('gulp-ng-annotate');
 const terser = require('gulp-terser');
 const sourcemaps = require('gulp-sourcemaps');
 const { Server } = require('karma');
@@ -38,6 +39,9 @@ gulp.task('minifyJs', () => gulp.src([
   'client/app/**/*.module.js', 'client/app/**/*.config.js',
   'client/app/**/!(*.spec).js'], { base: 'client/app' })
   .pipe(sourcemaps.init())
+  .pipe(ngAnnotate({
+    add: true,
+  }))
   .pipe(terser({
     warnings: 'true',
     ecma: 8,

@@ -10,19 +10,32 @@
         url: '/courses',
         component: 'courseList',
         resolve: {
-          courses: function (CourseService) {
-            return CourseService.getAllCourses();
-          }
+          courses: CoursePrepServiceAll,
         }
       })
       .state('courseDetail', {
         url: '/courses/:course_id',
         component: 'courseDetail',
         resolve: {
-          course: function (CourseService) {
-            return CourseService.findCourse($transition$.params().course_id);
-          }
+          course: CoursePrepServiceOne,
         }
       });
+
+    CoursePrepServiceAll.$inject = ['CourseService'];
+    /* @ngInject */
+    function CoursePrepServiceAll(CourseService){
+      return CourseService.getAllCourses().then((courses) => {
+        return courses;
+      });
+    }
+
+    CoursePrepServiceOne.$inject = ['CourseService', '$transition$'];
+    /* @ngInject */
+    function CoursePrepServiceOne(CourseService, $transition$) {
+      const id = $transition$.params().course_id;
+      return CourseService.findCourse({ id }).then((course) => {
+        return course;
+      });
+    }
   }
 }());

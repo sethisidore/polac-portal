@@ -1,13 +1,26 @@
 (function initCourseService() {
+  /*
+  * @Service {CourseService}
+  * @Child[Constructor] {CourseConstructor}
+  * 
+  */
   angular
     .module('course')
     .factory('CourseService', CourseService);
 
-  CourseService.$inject = ['$resource'];
+  CourseService.$inject = ['$resource', 'logger', '$q'];
+  /* @ngInject */
+  function CourseService($resource, logger, $q) {
+    const basicResourceUrl = $resource('http://localhost:3000/courses/:id/', { id: '@course_id' }, {
+      update: {
+        method: 'PUT',
+      },
+    });
 
-  function CourseService($resource) {
+    const registerResource = $resource('/course-register/:id', { id: '@register_id' })
+
     const service = {
-      getAllCourse,
+      getAllCourses,
       findCourse,
       updateCourse,
       register,
@@ -16,14 +29,14 @@
     return service;
 
     // ///////
-    function getAllCourse () {
-      const courses = new CourseConstructor();
-      return courses.query();
+    function getAllCourses () {
+      const courses = basicResourceUrl.query();
+      return courses.$promise.then(getComplete).catch(getFailed);
     }
     
     function findCourse(id) {
-      const course = new CourseConstructor();
-      return course.get({ id });
+      const course = basicResourceUrl.get({ id });
+      return course.then(getComplete).catch(getFailed);
     }
 
     function updateCourse(id) {
@@ -33,18 +46,20 @@
       const register = new RegisterConstructor();
     }
 
-    // Constructs the Resource for use by getAllCourse, findCourse, CreateCourse, updateCourse and deleteCourse
-    function CourseConstructor () {
-      return $resource('http://localhost:3000/courses/:id/', { id: '@course_id' }, {
-        update: {
-          method: 'PUT',
-        },
-      });
+    // Promise Resolving
+    function getComplete (data) {
+      logger.info('Getting courses resources successful');
+      return data;
     }
 
-    function RegisterConstructor () {
-      return $resource('/register-courses');
+    function getFailed (err) {
+      let errMessage = 'XHR failed for CadetService: ';
+      if (err.data && err.data.description) {
+        errMessage += '\n' + err.data.description; 
+      }
+      err.data.description = errMessage;
+      logger.error(errMessage);
+      return $q.reject(err);
     }
-    
   }
 }());
