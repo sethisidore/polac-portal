@@ -1,0 +1,24 @@
+<section class="row">
+  <section>
+    <table>
+      <thead>
+        <tr>
+          <th>Faculty Id</th>
+          <th>Name</th>
+          <th>Dean</th>
+        </tr>
+      </thead>
+
+      <tbody>
+        <tr ng-repeat="faculty in faculties">
+          <td><a ui-sref="faculties.faculty({fac_id})">{{ faculty.fac_id }}</a></td>
+          <td>{{ faculty.name }}</td>
+          <td>{{ faculty.dean.fullname }}</td>
+        </tr>
+      </tbody>
+    </table>
+  </section>
+
+  <!-- For Child state -->
+  <ui-view></ui-view>
+</section>

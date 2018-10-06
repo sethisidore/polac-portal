@@ -6,6 +6,8 @@
       'core',
       'home',
       'course',
+      'dept',
+      'faculty',
       'users',
       'blocks',
     ]);

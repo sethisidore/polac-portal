@@ -1,0 +1,24 @@
+<!-- name -->
+<div class="form-group">
+  <input type="text" class="form-control" ng-model="department.name" placeholder="Computer Science, Law, Psychology, English">
+</div>
+<!-- id -->
+<div class="form-group">
+  <input type="number" class="form-control" ng-model="department.fac_id" min="01" max="04" placeholder="3">
+</div>
+<!-- dean -->
+<div class="custom-control custom-select">
+  <select class="custom-select" ng-model="department.lecturer" ng-repeat="lecturer in deptVm.lecturers">
+    <option>{{ lecturer.fullname }}</option>
+  </select>
+</div>
+<div class="custom-control custom-select">
+  <select class="custom-select" ng-model="department.faculty" ng-repeat="faculty in deptVm.faculties">
+    <option>{{ faculty.name }}</option>
+  </select>
+</div>
+<div class="form-group">
+  <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" type="submit" ng-submit="submit">
+    {{ deptVm.action }}
+  </button>
+</div>
