@@ -28,9 +28,11 @@ const login = (req, res, next) => {
           res.status(500).json(err);
           return next(err);
         }
-        const token = jwt.sign(user, process.env.PASSPORT_JWT_SECRET);
-        res.status(200).json({ user, token });      
-      })
+      // sign and send the token enclosed in a cookie
+        const body = { _id: user.username, _type: user._type, email: user.email };
+        const token = jwt.sign({ user: body }, process.env.PASSPORT_JWT_SECRET);
+        res.cookie(webtoken, token).status(200).json(user);
+      });
     } else {
       res.status(401).json(info);
     }
@@ -94,8 +96,10 @@ const register = async (req, res) => {
       if (err) {
         res.status(500).json(err);
       }
-      const token = jwt.sign(savedUser, process.env.PASSPORT_JWT_SECRET);
-      res.status(200).json({ savedUser, token });
+      // sign and send the token enclosed in a cookie
+      const body = { _id: user.username, _type: user._type, email: user.email };
+      const token = jwt.sign({ user: body }, process.env.PASSPORT_JWT_SECRET);
+      res.cookie(webtoken, token).status(200).json({ savedUser, token });
     });
   }
 }

@@ -5,7 +5,9 @@ const { Schema } = mongoose;
 
 const userSchema = new Schema({
   username: { type: String, required: true, unique: true, match: /\w+[_]?[\w+|\d+]?/ },
-  password: {type: String, required: true, minlength:8, maxlength: 16 },
+  password: { type: String, required: true, minlength:8, maxlength: 16 },
+  email: { type: String },
+  pic: { type: String },
   _type: { 
     type: String,
     enum: ['cadet', 'staff', 'both'],

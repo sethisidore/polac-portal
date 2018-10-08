@@ -9,7 +9,7 @@ const helmet = require('helmet');
 const passport = require('passport');
 
 const mongoDB = require('./config/database');
-const { asyncHandler } = require('./modules/utils');
+const { asyncHandler, csrfHandler } = require('./modules/utils');
 
 require('dotenv').config({ path: 'C:/Development/portalApp/server/config/env/.env'});
 require('dotenv').config({ path: 'C:/Development/portalApp/server/config/env/.env.' + process.env.NODE_ENV });
@@ -26,8 +26,19 @@ app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
+app.use(csurf({ cookie: true }));
 app.use(passport.initialize());
 app.use(express.static(path.join(__dirname, '../client')));
+
+/**
+ * Ensure CSRF tokens is validated for all GET & POST request
+ * ***************** place the below IN HTML forms ************
+ * <input type="hidden" name="_csrf" value="{{ csrftoken }}" />
+ */
+app.use((req, res, next) => {
+  res.locals.csrftoken = req.csrfToken();
+  next();
+});
 
 // Configure and Authenticate Route MiddleWare
 require('./config/routes')(app, passport);
@@ -40,6 +51,7 @@ app.use((req, res, next) => {
 });
 
 app.use(asyncHandler);
+app.use(csrfHandler);
 
 // error handler
 app.use((err, req, res, next) => {

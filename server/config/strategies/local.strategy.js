@@ -40,14 +40,14 @@ passport.use(new JWTStrategy({
 
 /*
 *@method {cookieExtractor}
-*@memberOf {jwt}
+*@memberOf {jwtExtract}
 *@return {[type]}
 *
 */
 function cookieExtractor(req) {
   let token = null;
   if (req && req.cookies) {
-    token = req.cookies['jwt'];
+    token = req.cookies['webtoken'];
   }
   return token;
 }
