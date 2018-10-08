@@ -1,6 +1,6 @@
 const express = require('express');
 const { asyncHandler } = require('../utils');
-const FacultyController = require('./faculty.ctrl');
+const FacultyController = require('./faculty.controller');
 
 const router = express.Router();
 

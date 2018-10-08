@@ -1,7 +1,7 @@
 (function initCoreConfig() {
   angular
     .module('core')
-    .config(toastrConfig, authInterceptorConfig);
+    .config(toastrConfig);
 
     toastrConfig.$inject = ['toastr'];
     /* @ngInject */
@@ -9,11 +9,5 @@
       toastr.options.timeOut = 4000;
       toastr.options.positionClass = 'toast-bottom-right';
       toastr.options.closeButton = true;
-    }
-
-    authInterceptorConfig.$inject = ['$httpProvider'];
-    /* @ngInject */
-    function authInterceptorConfig($httpProvider) {
-      $httpProvider.interceptors.push('AuthInterceptorService')
     }
 })();

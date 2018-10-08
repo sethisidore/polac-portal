@@ -3,7 +3,9 @@ const path = require('path');
 const favicon = require('serve-favicon');
 const logger = require('morgan');
 const cookieParser = require('cookie-parser');
+const csurf = require('csurf');
 const bodyParser = require('body-parser');
+const helmet = require('helmet');
 const passport = require('passport');
 
 const mongoDB = require('./config/database');
@@ -20,6 +22,7 @@ mongoDB.open();
 // uncomment after placing your favicon in /public
 app.use(favicon(path.join(__dirname, '../client/assets', 'favicon.ico')));
 app.use(logger('dev'));
+app.use(helmet());
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());

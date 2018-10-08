@@ -1,5 +1,5 @@
 const express = require('express');
-const DeptController = require('./dept.ctrl');
+const DeptController = require('./dept.controller');
 const { asyncHandler } = require('./../utils');
 
 const router = express.Router();

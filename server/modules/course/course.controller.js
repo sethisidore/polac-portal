@@ -1,5 +1,5 @@
 const Course = require('./course.model');
-const { Usercadet } = require('../users');
+const { User } = require('../users');
 
 const listAllCourses = async (req, res) => {
   const courseList = await Course.find({}).exec();
