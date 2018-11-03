@@ -1,0 +1,42 @@
+<header>
+  <nav class="navbar navbar-expand-lg navbar-dark bg-info sticky-top d-print">
+    <div class="navbar-header">
+      <a href="" class="navbar-header"></a>
+      <button class="navbar-toggler collapsed" type="button btn-md" data-toggle="collapse" data-target="#menuLinks"
+        aria-expanded="false" aria-controls="menuLinks">
+        <span class="sr-only">Toggle Navigation</span>
+        <span class="navbar-toggler-icon"></span>
+      </button>
+    </div>
+
+    <!-- menu left -->
+    <div class="collapse navbar-collapse navbar-left" id="menuLinks">
+      <ul class="navbar-nav navbar-pills mr-auto">
+        <li class="nav-item" role="presentation"><a href="" class="nav-link"></a></li>
+        <li class="nav-item" role="presentation"><a href="" class="nav-link"></a></li>
+        <li class="nav-item" role="presentation"><a href="" class="nav-link"></a></li>
+        <li class="nav-item" role="presentation"><a href="" class="nav-link"></a></li>
+      </ul>
+    </div>
+
+    <!-- menu right-->
+    <div class="collapse navbar-collapse navbar-right" id="menuLinks">
+      <ul class="navbar-nav navbar-pills mr-auto">
+        <li class="nav-item" role="presentation" *ngIf="!auth.isLoggedIn()">
+          <a uiSref="login" class="nav-links">Login</a>
+        </li>
+        <li class="nav-item" role="presentation" *ngIf="auth.isLoggedIn()">
+          <a uiSref="user-profile" class="nav-links"></a>
+        </li>
+        <li class="nav-item" role="presentation" *ngIf="auth.isLoggedIn()">
+          <a uiSref="logout" class="nav-links" (click)="auth.logout()">Logout</a>
+        </li>
+      </ul>
+    </div>
+  </nav>
+
+  <!-- Progress Bar -->
+  <div class="progress">
+    <div class="progress-bar progress-bar-info active" role="progressbar"></div>
+  </div>
+</header>

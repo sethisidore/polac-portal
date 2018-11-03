@@ -1,6 +1,0 @@
-{
-    "eslint.nodePath": ".\\node_modules\\eslint",
-    "editor.tabSize": 2,
-    "files.eol": "\n",
-    "eslint.alwaysShowStatus": true,
-}

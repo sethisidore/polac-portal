@@ -1,0 +1,14 @@
+{
+    "extends": "../../tsconfig.json",
+    "compilerOptions": {
+      "outDir": "../../dist/server-specs",
+      "types": [
+        "jasmine",
+        "node"
+      ]
+    },
+    "include": [
+      "**/*.spec.ts",
+      "**/*.d.ts"
+    ]
+  }
