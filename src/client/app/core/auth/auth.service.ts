@@ -4,22 +4,19 @@ import { Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { environment } from '../../../environments/environment';
-
 @Injectable({
   providedIn: 'root'
 })
 export class AuthService {
-  baseUrl = environment.baseUrl;
-
+  authUrl = '/api/';
   constructor(private http: HttpClient, private router: Router) { }
 
   private request(method: 'post'|'get', type: 'login'|'register'|'logout'|'status', user?: TokenPayload): Observable<any> {
     let base: Observable<any>;
     if (method === 'post') {
-      base = this.http.post(`${this.baseUrl}/${type}`, user);
+      base = this.http.post(`${this.authUrl}/${type}`, user);
     } else {
-      base = this.http.get(`${this.baseUrl}/${type}`);
+      base = this.http.get(`${this.authUrl}/${type}`);
     }
     const request = base.pipe(map((data: any) => {
       return data;

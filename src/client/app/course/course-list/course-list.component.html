@@ -1,8 +1,15 @@
-<h2>Courses</h2>
-<ul>
-  <li *ngFor="let course of courses | async" [class.selected]="course.courseId === selectedId">
-    <a [routerLink]="['course', courses.courseId]">
-      <span class="badge">{{ course.courseId }}</span> {{ course.title }}
-    </a>
-  </li>
-</ul>
+<section class="row">
+  <section class="col">
+    <h2>Courses</h2>
+    <ul>
+      <li *ngFor="let course of courses | async" [class.selected]="course.courseId === selectedId">
+        <a [routerLink]="['course', course.courseId]">
+          <span class="badge">{{ course.courseId }}</span> {{ course.title }}
+        </a>
+      </li>
+    </ul>
+  </section>
+  <section class="col">
+    <router-outlet></router-outlet>
+  </section>
+</section>

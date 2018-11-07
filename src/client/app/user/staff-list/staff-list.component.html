@@ -1,0 +1,16 @@
+<section class="row">
+    <section class="col">
+      <h2>Staff Listing</h2>
+      <ul>
+        <li *ngFor="let staff of staffs | async" [class.selected]="staff.profile.staffId === selectedId">
+          <a [routerLink]="['staff', staff.profile.staffId]">
+            <span class="badge">{{ staff.profile.staffId }}</span> {{ staff.firstName + staff.lastName }}
+          </a>
+        </li>
+      </ul>
+    </section>
+
+    <section class="col">
+      <router-outlet></router-outlet>
+    </section>
+  </section>

@@ -4,47 +4,65 @@ import { Observable } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { Course } from './course';
-import { environment } from '../../environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
 export class CourseService {
-  baseUrl = environment.baseUrl;
+  courseUrl = 'api/course';
 
   constructor(private http: HttpClient) { }
 
-  private request(method: 'post'|'getAll'|'get'|'delete'|'put', courseId?: Course['courseId'],
-  course?: Course): Observable<Course|Course[]> {
-    let base: Observable<any>;
+  private request(method: 'post'|'get'|'delete'|'put', courseId?: Course['courseId'],
+  course?: Course): Observable<Course> {
+    let base: Observable<Course>;
     if (method === 'post') {
-      base = this.http.post(`${this.baseUrl}/course`, course);
+      base = this.http.post<Course>(`${this.courseUrl}`, course);
     } else if (method === 'delete') {
-      base = this.http.delete(`${this.baseUrl}/course/${courseId}`);
+      base = this.http.delete<Course>(`${this.courseUrl}/${courseId}`);
     } else if (method === 'put') {
-      base = this.http.put(`${this.baseUrl}/course/${courseId}`, course);
-    } else if (method === 'get') {
-      base = this.http.get<Course>(`${this.baseUrl}/course/${courseId}`);
+      base = this.http.put<Course>(`${this.courseUrl}/${courseId}`, course);
     } else {
-      base = this.http.get<Course[]>(`${this.baseUrl}/course`);
+      base = this.http.get<Course>(`${this.courseUrl}/${courseId}`);
     }
-    const request = base.pipe(map((data: Course|Course[]) => {
+    const request = base.pipe(map((data: Course) => {
       return data;
     }));
     return request;
   }
 
-  getAll(): Observable<Course|Course[]> {
-    return this.request('getAll');
+  private requestMany(method: 'post'|'get'|'put'|'delete', course?: Course[]): Observable<Course[]> {
+    let base: Observable<Course[]>;
+    if (method === 'post') {
+      base = this.http.post<Course[]>(`${this.courseUrl}/createMany`, course);
+    } else if (method === 'put') {
+      base = this.http.put<Course[]>(`${this.courseUrl}/updateMany`, course);
+    } else if (method === 'delete') {
+      base = this.http.delete<Course[]>(`${this.courseUrl}/deleteMany`);
+    } else {
+      base = this.http.get<Course[]>(`${this.courseUrl}`);
+    }
+    const request = base.pipe(map((data: Course[]) => {
+      return data;
+    }));
+    return request;
   }
 
-  getOne(id): Observable<Course|Course[]> {
-    return this.request('get');
+  getAll(): Observable<Course[]> {
+    return this.requestMany('get');
   }
 
-  deleteOne(id) {}
+  getOne(id): Observable<Course> {
+    return this.request('get', id);
+  }
 
-  updateOne(id) {}
+  deleteOne(id) {
+    return this.request('delete', id);
+  }
+
+  updateOne(id: Course['courseId'], body: Course) {
+    return this.request('put', id, body);
+  }
 
   createOne(data: Course) {
     return this.request('post', null, data);
@@ -54,4 +72,5 @@ export class CourseService {
 
   deleteMany() {}
 
+  updateMany() {}
 }

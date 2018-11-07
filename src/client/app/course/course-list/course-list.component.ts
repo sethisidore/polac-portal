@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, ParamMap } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -12,14 +12,14 @@ import { CourseService } from '../course.service';
   styleUrls: ['./course-list.component.scss']
 })
 export class CourseListComponent implements OnInit, OnDestroy {
-  courses: Observable<Course|Course[]>; // TODO: make it that it only observes for arrays
+  courses: Observable<Course[]>; // TODO: make it that it only observes for arrays
   selectedId: Course['courseId'];
 
   constructor(private courseService: CourseService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.courses = this.route.paramMap.pipe(
-      switchMap(params => {
+      switchMap((params: ParamMap) => {
         this.selectedId = params.get('courseId');
         return this.courseService.getAll();
       })

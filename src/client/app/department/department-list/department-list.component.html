@@ -1,0 +1,16 @@
+<section class="row">
+  <section class="col">
+    <h2>Departments</h2>
+    <ul>
+      <li *ngFor="let dept of departments | async" [class.selected]="dept.deptId === selectedId">
+        <a [routerLink]="['dept', dept.deptId]">
+          <span class="badge">{{ dept.deptId }}</span> {{ dept.name }}
+        </a>
+      </li>
+    </ul>
+  </section>
+
+  <section class="col">
+    <router-outlet></router-outlet>
+  </section>
+</section>
