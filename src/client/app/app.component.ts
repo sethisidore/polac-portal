@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { SpinnerService } from './core/spinner/spinner.service';
+import { Event, Router, NavigationStart, NavigationEnd, NavigationCancel, NavigationError } from '@angular/router';
 
 @Component({
   selector: 'app-root',
@@ -8,7 +8,25 @@ import { SpinnerService } from './core/spinner/spinner.service';
 })
 export class AppComponent {
   title = 'polac';
-  constructor(private spinner: SpinnerService) {
-    this.spinner.hide();
+  loading = false;
+
+  constructor(private router: Router) {
+    this.router.events.subscribe((event: Event) => {
+      switch (true) {
+        case event instanceof NavigationStart: {
+          this.loading = true;
+          break;
+        }
+        case event instanceof NavigationCancel:
+        case event instanceof NavigationEnd:
+        case event instanceof NavigationError: {
+          this.loading = false;
+          break;
+        }
+        default: {
+          break;
+        }
+      }
+    });
   }
 }
