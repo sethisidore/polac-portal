@@ -1,6 +1,6 @@
 import { Document, model, Schema, Types,
   PassportLocalDocument,
-  PassportLocalModel, PassportLocalSchema } from 'mongoose';
+  PassportLocalModel, PassportLocalSchema, PassportLocalOptions } from 'mongoose';
 import * as passportLocalMongoose from 'passport-local-mongoose';
 
 /**
@@ -13,6 +13,8 @@ export interface UserType extends PassportLocalDocument {
   password: string;
   attempts: number;
   profile: Types.ObjectId;
+  passwordResetToken?: string;
+  passwordResetExpires?: string;
 }
 
 /**
@@ -27,13 +29,16 @@ const UserSchema = new Schema({
   password: { type: String, required: true },
   profile: { type: Schema.Types.ObjectId, required: true },
   attempts: Number,
+  passwordResetToken: String,
+  passwordResetExpires: String
 }, {
   timestamps: true,
-  _id: false,
 }) as PassportLocalSchema;
 
+const options: PassportLocalOptions = <PassportLocalOptions>{};
+options.populateFields = 'profile';
 
-UserSchema.plugin(passportLocalMongoose);
+UserSchema.plugin(passportLocalMongoose, options);
 
 export const User: UserModel<UserType> = model<UserType>('User', UserSchema);
 export { Cadet, CadetType } from './cadet-profile.model';

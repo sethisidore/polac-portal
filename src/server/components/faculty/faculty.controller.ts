@@ -1,4 +1,6 @@
+import * as Joi from 'joi';
 import { Request, Response } from 'express';
+
 import { Faculty, FacultyType } from './faculty.model';
 
 export class FacultyController {
@@ -22,10 +24,38 @@ export class FacultyController {
   }
 
   async createOne(req: Request, res: Response) {
-    // implementation
+    const { body } = req;
+    const schema = Joi.object().keys({
+      facultyId: Joi.number().required(),
+      name: Joi.string().required(),
+      dean: Joi.string(),
+    });
+
+    const { error } = Joi.validate(body, schema);
+    if (error) {
+      res.status(204).json({ error, body });
+    }
+    const faculty = new Faculty(body);
+    await faculty.save();
+    res.status(201).json(faculty);
   }
 
   async updateOne (req: Request, res: Response) {
-    // implementation
+    const { body } = req;
+    const { facultyId } = req.params;
+
+    const schema = Joi.object().keys({
+      facultyId: Joi.number().required(),
+      name: Joi.string().required(),
+      dean: Joi.string(),
+    });
+
+    const { error, value } = Joi.validate(body, schema);
+    if (error) {
+      res.status(204).json({ error, body });
+    } else if (value) {
+    const updatedFaculty = await Faculty.findOneAndUpdate({ facultyId }, body);
+    res.status(204).json(updatedFaculty);
+    }
   }
 }

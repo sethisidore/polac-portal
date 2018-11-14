@@ -1,4 +1,6 @@
+import * as Joi from 'joi';
 import { Request, Response } from 'express';
+
 import { Department, DepartmentType } from './Department.model';
 
 export class DepartmentController {
@@ -22,10 +24,47 @@ export class DepartmentController {
   }
 
   async createOne(req: Request, res: Response) {
-    // implementation
+    const { body } = req;
+    const schema = Joi.object().keys({
+      deptId: Joi.string(),
+      name: Joi.string().required().min(5),
+      faculty: Joi.string(),
+      headOfDepartment: Joi.string(),
+      status: Joi.object().keys({
+        accreditted: Joi.boolean(),
+        date: Joi.date()
+      })
+    });
+
+    const { error } = Joi.validate(body, schema);
+    if (error) {
+      res.status(204).json({ error, body });
+    }
+    const dept = new Department(body);
+    await dept.save();
+    res.status(201).json(dept);
   }
 
   async updateOne (req: Request, res: Response) {
-    // implementation
+    const { deptId } = req.params;
+    const { body } = req;
+    const schema = Joi.object().keys({
+      deptId: Joi.string(),
+      name: Joi.string().required().min(5),
+      faculty: Joi.string(),
+      headOfDepartment: Joi.string(),
+      status: Joi.object().keys({
+        accreditted: Joi.boolean(),
+        date: Joi.date()
+      })
+    });
+
+    const { error, value } = Joi.validate(body, schema);
+    if (error) {
+      res.status(204).json({ error, body });
+    } else if (value) {
+      const updatedDept = await Department.findOneAndUpdate({ deptId }, body);
+      res.status(204).json(updatedDept);
+    }
   }
 }

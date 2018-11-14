@@ -2,6 +2,7 @@ import { Document, model, Model, Schema, Types } from 'mongoose';
 
 export interface DepartmentType extends Document {
   _id: Types.ObjectId;
+  deptId: string;
   name: string;
   faculty?: Types.ObjectId;
   headOfDepartment?: Types.ObjectId;
@@ -12,7 +13,7 @@ export interface DepartmentType extends Document {
 }
 
 const DepartmentSchema: Schema = new Schema({
-  deptId: { type: String, required: true },
+  deptId: { type: String, unique: true },
   name: { type: String, required: true },
   faculty: { type: Schema.Types.ObjectId },
   headOfDepartment: { type: Schema.Types.ObjectId },
