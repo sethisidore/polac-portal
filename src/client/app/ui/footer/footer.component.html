@@ -1,0 +1,33 @@
+<footer class="container-fluid" style="text-align:center">
+  <div class="row">
+    <div class="col-sm-4">
+      <ul>
+        <h5>Getting Started</h5>
+        <a [routerLink]="['account/login']" class="nav-link nav-item">Login</a>
+        <a [routerLink]="['/account/register']" routerLinkActive="active" class="nav-link nav-item">Register</a>
+        <a [routerLink]="['/course']" class="nav-link nav-item">Academics</a>
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <ul>
+        <h5>About Us</h5>
+        <a [routerLink]="['/about']" class="nav-link nav-item">About</a>
+        <a [routerLink]="['users/staff']" class="nav-link nav-item">Staffs</a>
+        <a [routerLink]="['/contact']" class="nav-link nav-item">Contact Us</a>
+      </ul>
+    </div>
+    <div class="col-sm-4">
+      <ul>
+        <h5>Support</h5>
+        <a href="" class="nav-link nav-item">FAQ</a>
+        <a href="" class="nav-link nav-item"></a>
+        <a href="" class="nav-link nav-item"></a>
+      </ul>
+    </div>
+  </div>
+  <hr>
+  <div class="text-center">
+    <p>Made with <i class="fa fa-heart"></i> by the Computer Science Department</p>
+    <p class="bold"><a href="github.com/sethisidore/polac-portal.git">v 0.4.1</a></p>
+  </div>
+</footer>

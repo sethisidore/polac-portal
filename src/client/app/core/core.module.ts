@@ -3,10 +3,6 @@ import { CommonModule } from '@angular/common';
 import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
-import { FooterComponent } from './footer/footer.component';
-import { HeaderComponent } from './header/header.component';
-import { SpinnerComponent } from './spinner/spinner.component';
-
 import { AuthService } from './auth/auth.service';
 import { ExceptionService } from './exception/exception.service';
 import { LoggerService } from './logger/logger.service';
@@ -20,13 +16,13 @@ import { LoggerService } from './logger/logger.service';
     }),
     ReactiveFormsModule
   ],
-  declarations: [FooterComponent, HeaderComponent, SpinnerComponent],
+  declarations: [],
   providers: [
     AuthService,
     ExceptionService,
     LoggerService,
   ],
-  exports: [HeaderComponent, FooterComponent, SpinnerComponent]
+  exports: []
 })
 export class CoreModule {
   constructor(@Optional() @SkipSelf() parentModule: CoreModule) {
