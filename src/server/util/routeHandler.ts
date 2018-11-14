@@ -15,7 +15,7 @@ export class RouteHandler {
     app.use('/api/course', CourseRouter);
     app.use('/api/department', DepartmentRouter);
     app.use('/api/faculty', FacultyRouter);
-    app.use('/api/users', passport.authenticate('jwt', { session: false }), UserRouter);
+    app.use('/api/users', passport.authenticate('local', { session: false }), UserRouter);
 
     // Front-End Application: Send all other request to Angular
     app.get('*', (req: Request, res: Response) => {

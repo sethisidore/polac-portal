@@ -3,7 +3,6 @@ import * as bodyParser from 'body-parser';
 import * as compression from 'compression';
 import * as cookieParser from 'cookie-parser';
 import * as csurf from 'csurf';
-import * as dotenv from 'dotenv';
 import * as favicon from 'serve-favicon';
 import * as methodOverride from 'method-override';
 import * as helmet from 'helmet';
@@ -24,10 +23,6 @@ class App {
 
   constructor() {
     this.app = express();
-    // set up env variables
-    dotenv.load({ path: path.join(__dirname, 'config/env/.env') });
-    dotenv.config({ path: path.join(__dirname, `config/env/.env.${process.env.NODE_ENV}`) });
-
 
     this.database = new Database();
     this.middlewares();
@@ -38,16 +33,18 @@ class App {
   private handlers() {
     /**
     * Ensure CSRF tokens is validated for all GET & POST request
-    * ***************** place the below IN HTML forms ************
-    * <input type="hidden" name="_csrf" value="{{ csrftoken }}" />
-    * app.use(function(req, res, next) {
-    * res.cookie('XSRF-TOKEN', req.csrfToken());
-    * return next();
-    * });
-    */
+    * */
+    this.app.use((req, res, next) => {
+      res.cookie('My-Nano-Xsrf', req.csrfToken(), {
+        secure: true,
+        httpOnly: true,
+        maxAge: 3000000,
+      });
+      return next();
+    });
+
     this.app.use((req: Request, res: Response, next: NextFunction) => {
       res.locals.user = req.user;
-      res.locals.csrftoken = req.csrfToken();
       next();
     });
 
@@ -95,7 +92,7 @@ class App {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(cookieParser());
-    this.app.use(csurf({ cookie: true }));
+    this.app.use(csurf({ cookie: true, value: (req) => req.header['x-xsrf-token'] }));
     this.app.use(methodOverride());
     this.app.use(helmet({
       hidePoweredBy: { setTo: 'django 0.5.2' },

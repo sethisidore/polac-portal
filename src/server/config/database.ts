@@ -22,14 +22,9 @@ export class Database {
     (<any>mongoose).Promise = bluebird;
     mongoose.set('debug', true);
     mongoose.set('runValidators', true);
+    mongoose.set('useCreateIndex', true);
 
-    /*if (process.env.NODE_ENV === 'production') {
-      this.MONGO_URI = `mongoddb://{${process.env.MONGOLAB_URI}`;
-    } else if (process.env.NODE_ENV !== undefined) {
-      this.MONGO_URI = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
-    } else {
-    }*/
-    this.MONGO_URI = 'mongodb://localhost:27017/polac-portal';
+    this.MONGO_URI = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
   }
 
   start() {
