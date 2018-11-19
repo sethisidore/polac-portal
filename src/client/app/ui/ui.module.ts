@@ -19,7 +19,7 @@ import { LayoutComponent } from './layout/layout.component';
   exports: [LayoutComponent]
 })
 export class UiModule {
-  constructor(@Optional() @SkipSelf() parentModule: UiModule) {
+  constructor(@Optional() @SkipSelf() parentModule?: UiModule) {
     if (parentModule) {
       throw new Error('UiModule is already loaded. Import it in the AppModule only.');
     }

@@ -1,27 +1,60 @@
 # PolacPortal
+This project is a minimal web application for my institution. As time goes, we shall see what it turns to
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 6.2.5.
+travis-build-status  travis-test-status
 
-## Development server
+## Contributing
+fork | clone the repo and install dependencies using `npm install`, make changes and create a PR
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+### Making Changes or Improvement
+```sh
+# Frontend files are located here
+cd src/client
 
-## Code scaffolding
+# Backend files are located here
+cd src/server
+```
+***NOTE:*** Assets for **Client** can also easily generated using the normal `ng g asset-type assert-name` where **Asset** is any of `component|class|service|module` etc  
 
-Run `ng generate component component-name` to generate a new component. You can also use `ng generate directive|pipe|service|class|guard|interface|enum|module`.
+### building
+Building both frontend and backend assets
+```sh
+npm run build
+```
+building only frontend assets
+```sh
+npm run client:build
+```
+OR
+easier command since we are using angular
+```sh
+ng build
+```
+building backend assets
+```sh
+npm run server:build
+```
 
-## Build
+### testing
+run test both client and server
+```sh
+npm test
+```
+run test client alone
+```sh
+ng test
+```
+run server tests
+```sh
+npm run server:test
+```
 
-Run `ng build` to build the project. The build artifacts will be stored in the `dist/` directory. Use the `--prod` flag for a production build.
-
-## Running unit tests
-
-Run `ng test` to execute the unit tests via [Karma](https://karma-runner.github.io).
-
-## Running end-to-end tests
-
-Run `ng e2e` to execute the end-to-end tests via [Protractor](http://www.protractortest.org/).
-
-## Further help
-
-To get more help on the Angular CLI use `ng help` or go check out the [Angular CLI README](https://github.com/angular/angular-cli/blob/master/README.md).
+### production
+#### bundle built files
+```sh
+npm run dist
+```
+use this 
+```sh
+npm start
+```

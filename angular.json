@@ -86,6 +86,7 @@
             "styles": [
               "src/client/styles.scss"
             ],
+            "codeCoverage": true,
             "scripts": [],
             "assets": [
               "src/client/favicon.ico",
