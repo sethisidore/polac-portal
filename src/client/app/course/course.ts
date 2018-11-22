@@ -3,6 +3,8 @@ export interface Course {
   courseId: string;
   title: string;
   creditLoad: number;
+  level: number;
+  semester: string;
   department?: string;
   assignedTo?: string[];
 }

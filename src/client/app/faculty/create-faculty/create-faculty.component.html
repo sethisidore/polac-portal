@@ -1,0 +1,28 @@
+<section class="col-md-10">
+  <section class="card">
+    <div class="card-header">
+      <h3 class="card-title text-center">Create Faculty</h3>
+    </div>
+    <form [formGroup]="facultyForm" class="card-body" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="id" class="form-control-label">ID: </label>
+        <input type="number" class="form-control" formControlName="facultyId">
+      </div>
+      <div class="form-group">
+        <label for="name" class="form-control-label">Name</label>
+        <input type="text" class="form-control" formControlName="name" placeholder="name of faculty">
+      </div>
+      <div class="form-group"><label for="" class="form-control-label">Dean</label>
+        <select class="form-control" formControlName="dean">
+          <option *ngFor="let lecturer of lecturers" [value]="lecturer?._id">{{ lecturer?.name() }}</option>
+        </select>
+      </div>
+
+      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" [disabled]="!facultyForm.valid" type="submit">Submit</button>
+    </form>
+  </section>
+  <div class="bg-info">
+    <p>{{ facultyForm.status }}</p>
+    <p>{{ facultyForm.value | json }}</p>
+  </div>
+</section>

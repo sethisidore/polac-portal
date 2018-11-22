@@ -3,11 +3,13 @@ import { Routes, RouterModule } from '@angular/router';
 
 import { DepartmentListComponent } from './department-list/department-list.component';
 import { DepartmentDetailComponent } from './department-detail/department-detail.component';
+import { CreateDepartmentComponent } from './create-department/create-department.component';
 
 const routes: Routes = [{
   path: '',
   component: DepartmentListComponent,
   children: [
+    { path: 'new', component: CreateDepartmentComponent },
     { path: ':deptId', component: DepartmentDetailComponent }
   ]
 }];

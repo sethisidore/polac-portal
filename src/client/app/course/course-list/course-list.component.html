@@ -1,6 +1,9 @@
 <section class="row">
   <section class="col">
-    <h2>Courses</h2>
+    <header>
+      <h2>Courses</h2>
+      <a routerLink="new" class="btn btn-default btn-outline-info">Create New</a>
+    </header>
     <ul>
       <li *ngFor="let course of courses | async" [class.selected]="course.courseId === selectedId">
         <a [routerLink]="['course', course.courseId]">

@@ -1,0 +1,52 @@
+<section class="col-md-10">
+  <section class="card">
+    <div class="card-header">
+      <h4 class="card-title text-center">Create New Course</h4>
+    </div>
+    <div class="card-body">
+      <form [formGroup]="courseForm" (ngSubmit)="onSubmit()">
+        <div class="form-group">
+          <label for="courseId" class="form-control-label">ID: </label>
+          <input type="text" class="form-control" formControlName="courseId">
+        </div>
+        <div class="form-group">
+          <label for="title" class="form-control-label">Title</label>
+          <input type="text" class="form-control" formControlName="title">
+        </div>
+        <div class="form-group">
+          <label for="creditLoad" class="form-control-label">Credit load: </label>
+          <input type="number" class="form-control" formControlName="creditLoad">
+        </div>
+        <div class="form-group">
+          <label for="level" class="form-control-label">Level: </label>
+          <input type="number" class="form-control">
+        </div>
+        <div class="form-group">
+          <label for="semester" class="form-control-label">Semester</label>
+          <select class="form-control" formControlName="semester">
+            <option *ngFor="let choice of ['first', 'second']" [value]="choice">{{ choice }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="department" class="form-control-label">Department of Origin: </label>
+          <select class="form-control" formControlName="department">
+            <option *ngFor="let dept of departments" [value]="dept?._id">{{ dept?.name }}</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="assignTo" class="form-control-label">Assign Course to: </label>
+          <select class="form-control" formControlName="assignedTo">
+            <option *ngFor="let lecturer of staffs" [value]="[lecturer?._id]">{{ lecturer?.name }}</option>
+          </select>
+        </div>
+        <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+          [disabled]="!courseForm.valid" type="submit">Submit
+        </button>
+      </form>
+    </div>
+  </section>
+  <div class="bg-secondary">
+    <p>{{ courseForm.status }}</p>
+    <p>{{ courseForm.value | json }}</p>
+  </div>
+</section>

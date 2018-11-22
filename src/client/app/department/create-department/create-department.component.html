@@ -1,0 +1,49 @@
+<section class="col-md-10">
+  <section class="card">
+    <div class="card-header">
+      <h3 class="card-title text-center">Create Department</h3>
+    </div>
+    <form [formGroup]="deptForm" class="card-body" (ngSubmit)="onSubmit()">
+      <div class="form-group">
+        <label for="deptId" class="form-control-label">ID: </label>
+        <input type="text" class="form-control" formControlName="deptId">
+      </div>
+      <div class="form-group">
+        <label for="name" class="form-control-label">Name: </label>
+        <input type="text" class="form-control" formControlName="name">
+      </div>
+      <div class="form-group">
+        <label for="hod" class="form-control-label">HOD:</label>
+        <select class="form-control" formControlName="headOfDepartment">
+          <option *ngFor="let lecturer of lecturers" [value]="lecturer?._id">
+            {{ lecturer?.firstName }} {{lecturer?.lastName}}
+          </option>
+        </select>
+      </div>
+
+      <fieldset>
+        <legend>Accreditation</legend>
+        <div formGroupName="accreditation">
+          <div class="form-group">
+            <label for="" class="form-control-label">status: </label>
+            <select class="form-control" formControlName="status">
+              <option *ngFor="let choice of ['true', 'false']" [value]="choice">{{ choice }}</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="" class="form-control-label">date: </label>
+            <input class="form-control" type="date" formControlName="date">
+          </div>
+        </div>
+      </fieldset>
+      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+        [disabled]="!deptForm.valid" type="submit">Submit
+      </button>
+
+    </form>
+  </section>
+  <div class="bg-secondary">
+    <p>{{ deptForm.status }}</p>
+    <p>{{ deptForm.value | json }}</p>
+  </div>
+</section>
