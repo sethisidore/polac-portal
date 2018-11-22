@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
-import { HttpClient, HttpErrorResponse } from '@angular/common/http';
-import { Observable, throwError } from 'rxjs';
-import { map, catchError } from 'rxjs/operators';
+import { HttpClient } from '@angular/common/http';
+import { Observable } from 'rxjs';
+import { map } from 'rxjs/operators';
 
 import { User } from './user';
 
@@ -12,7 +12,7 @@ export class UserService {
   userUrl = '/api/users';
 
   constructor(private http: HttpClient) { }
-  // TODO: refactor functions to make it reuseable by other public functions
+
   private request(method: 'post'|'get'|'put', type: 'cadet'|'staff', userId?: User['profile']['staffId'] |
   User['profile']['cadetId'], user?: any): Observable<any> {
     let base: Observable<any>;
@@ -25,36 +25,24 @@ export class UserService {
     }
     const request = base.pipe(map((data: any) => {
       return data;
-    })).pipe(
-      catchError(this.handleError)
-    );
+    }));
     return request;
   }
 
-  private handleError(error: HttpErrorResponse) {
-    if (error.error instanceof ErrorEvent) {
-      console.error(`An error occurred: ${error.error.message}`);
-    } else {
-      // Unsuccessful response from backend was received
-      console.error(`backend returned code ${error.status}\n body was: ${error.error}`);
-    }
-    return throwError('Something bad happened, Please try again later');
-  }
-
   getAllCadets(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.userUrl}/user/cadet`);
+    return this.http.get<User[]>(`${this.userUrl}/cadet`);
   }
 
   getOneCadet(id): Observable<User> {
-    return this.http.get<User>(`${this.userUrl}/user/cadet/${id}`);
+    return this.request('get', 'cadet', id);
   }
 
   getAllStaffs(): Observable<User[]> {
-    return this.http.get<User[]>(`${this.userUrl}/user/staff`);
+    return this.http.get<User[]>(`${this.userUrl}/staff`);
   }
 
   getOneStaff(id): Observable<User> {
-    return this.http.get<User>(`${this.userUrl}/user/staff/${id}`);
+    return this.request('get', 'staff', id);
   }
 
 }
