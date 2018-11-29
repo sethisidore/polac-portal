@@ -16,6 +16,7 @@ class DepartmentApi {
   init() {
     this.router.get('/', asyncHandler(this.handler.getAll));
     this.router.get('/:deptId', asyncHandler(this.handler.getOne));
+    this.router.get('/:criteria', asyncHandler(this.handler.getWithCriteria));
     this.router.post('/', asyncHandler(this.handler.createOne));
     this.router.put('/:deptId', asyncHandler(this.handler.updateOne));
     this.router.delete('/:deptId', asyncHandler(this.handler.deleteOne));

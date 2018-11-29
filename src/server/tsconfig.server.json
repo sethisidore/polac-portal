@@ -10,11 +10,7 @@
     "removeComments": false,
     "sourceMap": false,
     "suppressImplicitAnyIndexErrors": true,
-    "target": "es6"
+    "target": "es6",
+    "skipLibCheck": true
   },
-  "exclude": [
-    "**/*.spec.ts",
-    "**/*.e2e-spec.ts",
-    "**/client/**",
-  ]
 }

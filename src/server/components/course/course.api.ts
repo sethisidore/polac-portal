@@ -16,6 +16,7 @@ class CourseApi {
   init() {
     this.router.get('/', asyncHandler(this.handler.getAllCourses));
     this.router.get('/', asyncHandler(this.handler.getCourse));
+    this.router.get('/:criteria', asyncHandler(this.handler.getCoursesWithCriteria));
     this.router.post('/:courseId', asyncHandler(this.handler.createCourse));
     this.router.put('/:courseId', asyncHandler(this.handler.updateCourse));
     this.router.delete('/:courseId', asyncHandler(this.handler.deleteCourse));

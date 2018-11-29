@@ -15,11 +15,11 @@ class UserApi {
 
   init() {
     this.router.get('/cadet', asyncHandler(this.handler.getAllCadets));
+    this.router.get('/cadet/:cadetId', asyncHandler(this.handler.getCadet));
+    this.router.get('/cadet/:criteria', asyncHandler(this.handler.getCadetWithCriteria));
     this.router.post('/staff', asyncHandler(this.handler.getAllStaffs));
-    this.router.get('/:username/account', asyncHandler(this.handler.getUserProfile));
-    this.router.put('/:username/account/edit');
-    this.router.put('/:username/account/editPassword', asyncHandler(this.handler.changePassword));
-    this.router.delete('/:username/account/deleteAccount', asyncHandler(this.handler.deleteAccount));
+    this.router.get('/staff/:staffId', asyncHandler(this.handler.getStaff));
+    this.router.get('/staff/:criteria', asyncHandler(this.handler.getStaffWithCriteria));
   }
 }
 

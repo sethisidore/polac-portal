@@ -1,70 +1,79 @@
 import { Request, Response } from 'express';
-import { User, UserType, /*Cadet*/ } from './user.model';
+import * as Joi from 'joi';
+
+import { User, UserType } from './user.model';
 
 export class UserController {
   /**
    * @method getAllCadets
    * @returns users which are cadets
    */
-  async getAllCadets (req: Request, res: Response) {
+  async getAllCadets(req: Request, res: Response) {
     const _type = 'cadet';
     const result: UserType[] = await User.find({ _type }).exec();
-    res.status(200).json(result);
+    res.status(200).json({ result });
   }
 
   /**
    * @method getAllStaffs
    * @returns users which are staffs
    */
-  async getAllStaffs (req: Request, res: Response) {
+  async getAllStaffs(req: Request, res: Response) {
     const _type = 'staff';
     const result: UserType[] = await User.find({ _type }).exec();
-    res.status(200).json(result);
+    res.status(200).json({ result });
   }
 
   /**
-   * @method getUserProfile
-   * gets the profile and details of a user
+   * @method getCadet
+   * @summary returns a cadet given by an id
    */
-  async getUserProfile (req: Request, res: Response) {
-    let result: UserType;
-    const { username } = req.body;
-    const user: UserType = await User.findOne({ username: username }).exec();
-    if (user._type === 'staff') {
-      result =  await user.populate({ path: 'profile', model: 'Staff'}).execPopulate();
-    } else {
-      result = await user.populate({ path: 'profile', model: 'Cadet'}).execPopulate();
+  async getCadet(req: Request, res: Response) {
+    const { cadetId } = req.params;
+    const cadet = await User.findOne({ cadetId }).exec();
+    await cadet.populate('profile').execPopulate();
+    res.status(200).json(cadet);
+  }
+
+  /**
+   * @method getStaff
+   * @summary returns a staff given by an id
+   */
+  async getStaff(req: Request, res: Response) {
+    const { staffId } = req.params;
+    const staff = await User.findOne({ staffId }).exec();
+    await staff.populate('profile').execPopulate();
+    res.status(200).json(staff);
+  }
+
+  /**
+   * @method getStaffWithCriteria
+   * @summary finds and return courses that match the given criteria
+   */
+  async getStaffWithCriteria(req: Request, res: Response) {
+    const _type = 'staff';
+    const { criteria } = req.params;
+    const { error, value } = Joi.validate(criteria, Joi.string().required());
+    if (error) {
+      return res.status(400).json({ error, criteria });
+    } else if (value) {
+      const results: UserType[] = await User.find({ _type, criteria }).exec();
+      res.status(200).json(results);
     }
-    res.status(200).json(result);
   }
 
   /**
-   * @method changePassword
+   * @method getCadetWithCriteria
+   * @summary finds and return courses that match the given criteria
    */
-  async changePassword  (req: Request, res: Response) {
-    const { username } = req.params;
-    const { oldPassword, newPassword } = req.body;
-
-    const user: UserType = await User.findOne({ username }).exec();
-    const result = await user.changePassword(oldPassword, newPassword);
-    res.status(203).json(result);
-  }
-
-  /**
-   * @method deleteAccount
-   */
-  async deleteAccount (req: Request, res: Response) {
-    const { username, _type } = req.user;
-
-    if (_type === 'cadet') {
-      res.status(401).json({
-        message: 'A cadet cannot delete his account',
-      });
+  async getCadetWithCriteria (req: Request, res: Response) {
+    const _type = 'cadet';
+    const { criteria } = req.params;
+    const { error, value } = Joi.validate(criteria, Joi.string().required());
+    if (error) {
+      return res.status(400).json({ error, criteria });
+    } else if (value) {
+      const results: UserType[] = await User.find({ criteria, _type }).exec();
     }
-    const result = await User.remove({ username });
-    res.status(200).json({
-      messsage: 'Account deletion successful',
-      result: result,
-    });
   }
 }

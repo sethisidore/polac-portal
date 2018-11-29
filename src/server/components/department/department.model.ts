@@ -15,8 +15,8 @@ export interface DepartmentType extends Document {
 const DepartmentSchema: Schema = new Schema({
   deptId: { type: String, unique: true },
   name: { type: String, required: true },
-  faculty: { type: Schema.Types.ObjectId },
-  headOfDepartment: { type: Schema.Types.ObjectId },
+  faculty: { type: Schema.Types.ObjectId, ref: 'Faculty' },
+  headOfDepartment: { type: Schema.Types.ObjectId, ref: 'User' },
   status: {
     accreditted: { type: Boolean },
     date: { type: Date, default: Date.now }
