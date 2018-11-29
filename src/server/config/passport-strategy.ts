@@ -1,7 +1,8 @@
 import * as passport from 'passport';
 import * as path from 'path';
 import * as dotenv from 'dotenv';
-import { Strategy as JWTStrategy, ExtractJwt } from 'passport-jwt';
+import { Strategy as JWTStrategy, JwtFromRequestFunction } from 'passport-jwt';
+import { Request } from 'express';
 
 import { User, UserType } from '../components/user/user.model';
 
@@ -15,11 +16,23 @@ if (process.env.NODE_ENV === 'undefined' || process.env.NODE_ENV !== 'production
 passport.use(User.createStrategy());
 
 /**
+ * @method CookieExtractor
+ * @summary Extracts jwt from a request cookie i.e req.cookies
+ */
+const CookieExtractor: JwtFromRequestFunction = (req: Request) => {
+  let token: string;
+  if (req && req.cookies) {
+    token = req.cookies['auth-token'];
+  }
+  return token;
+};
+
+/**
  * Jwt Middleware
  */
 passport.use(new JWTStrategy({
-  jwtFromRequest: ExtractJwt.fromAuthHeaderAsBearerToken(),
-  secretOrKey: process.env.SESSION_SECRET as string,
+  jwtFromRequest: CookieExtractor,
+  secretOrKey: process.env.SESSION_SECRET,
 }, async (jwtPayload: any, done: Function) => {
   try {
     const user: UserType = await User.findByUsername(jwtPayload.username, false);

@@ -12,7 +12,7 @@ import * as  path from 'path';
 import * as passport from 'passport';
 import { Application, Request, Response, NextFunction } from 'express';
 
-import { asyncHandler, csrfHandler, RouteHandler } from './util';
+import { asyncHandler, csrfHandler, RouteHandler, logger } from './util';
 import { Database } from './config/database';
 
 class App {
@@ -34,13 +34,14 @@ class App {
     /**
     * Ensure CSRF tokens is validated for all GET & POST request
     * */
-    this.app.use((req, res, next) => {
-      res.cookie('My-Nano-Xsrf', req.csrfToken(), {
-        secure: true,
-        httpOnly: true,
-        maxAge: 3000000,
+    this.app.use((req: Request, res: Response, next: NextFunction) => {
+      res.cookie('XSRF-TOKEN', req.csrfToken(), {
+        path: '/',
+        httpOnly: false,
+        sameSite: false,
+        secure: false
       });
-      return next();
+      next();
     });
 
     this.app.use((req: Request, res: Response, next: NextFunction) => {
@@ -68,6 +69,10 @@ class App {
       res.locals.message = err.message;
       res.locals.error = req.app.get('env') === 'development' ? err : {};
 
+      // log errors to log file
+      logger.error(`${err.name || 500 } - ${err.message} - ${req.originalUrl}
+         - ${req.method} - ${req.ip}`);
+
       // render the error page
       res.status(500).json(err);
     });
@@ -92,10 +97,12 @@ class App {
     this.app.use(bodyParser.json());
     this.app.use(bodyParser.urlencoded({ extended: false }));
     this.app.use(cookieParser());
-    this.app.use(csurf({ cookie: true, value: (req) => req.header['x-xsrf-token'] }));
+    this.app.use(csurf({ cookie: true }));
     this.app.use(methodOverride());
     this.app.use(helmet({
       hidePoweredBy: { setTo: 'django 0.5.2' },
+      // hsts: true,
+      // contentSecurityPolicy: true,
     }));
     this.app.use(hpp());
     this.app.use(passport.initialize());

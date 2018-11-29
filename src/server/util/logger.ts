@@ -2,7 +2,7 @@ import { createLogger, format, Logger, transports } from 'winston';
 
 const { combine, label, prettyPrint, timestamp } = format;
 
-const logger: Logger = createLogger({
+export const logger: Logger = createLogger({
   format: combine(
     label({ label: 'Polac-Portal Api Debug' }),
     timestamp(),
@@ -10,17 +10,14 @@ const logger: Logger = createLogger({
   ),
   transports: [
     new (transports.Console)({
-      level: process.env.NODE_ENV === 'production' ? 'error' : 'debug'
+      level: process.env.NODE_ENV === 'production' ? 'error' : 'debug',
+      handleExceptions: true,
     }),
     new (transports.File)({
       filename: 'debug.log',
       level: 'debug',
+      handleExceptions: true,
     })
-  ]
+  ],
+  exitOnError: false
 });
-
-if (process.env.NODE_ENV !== 'production') {
-  logger.debug('Logging initialized at debug level');
-}
-
-export { logger };
