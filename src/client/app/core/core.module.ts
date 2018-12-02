@@ -4,23 +4,21 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
 import { AuthService } from './auth/auth.service';
-import { ExceptionService } from './exception/exception.service';
 import { LoggerService } from './logger/logger.service';
+import { Interceptors } from './interceptor';
 
 @NgModule({
   imports: [
     CommonModule,
     HttpClientModule,
-    HttpClientXsrfModule.withOptions({
-      cookieName: 'My-Nano-Xsrf',
-    }),
+    HttpClientXsrfModule,
     ReactiveFormsModule
   ],
   declarations: [],
   providers: [
     AuthService,
-    ExceptionService,
     LoggerService,
+    Interceptors
   ],
   exports: []
 })
