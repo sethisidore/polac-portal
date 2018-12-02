@@ -10,12 +10,11 @@ import '../config/passport-strategy';
  * Checks if the user is currently logged in the system
  */
 const isValidated = (req: Request, res: Response, next: NextFunction) => {
-  if (req.isAuthenticated) {
-    return next();
-  }
-  const error: Error = new Error('Login Required');
-  error.name = 'Authentication Error';
-  return next(error);
+  console.log(`user is ${req.user}`);
+  return (req.user && req.user.expires > Date.now())
+    ? next() : res.status(401).json({
+      error: 'User not authenticated'
+    });
 };
 
 export class RouteHandler {
@@ -23,12 +22,12 @@ export class RouteHandler {
 
   init(app: Application, passport: PassportStatic) {
     app.use('/api', AuthRouter);
-    app.use('/api/account', isValidated, AccountRouter);
+    app.use('/api/account', passport.authenticate('jwt', { session: false }), AccountRouter);
     app.use('/api/course', CourseRouter);
     app.use('/api/department', DepartmentRouter);
     app.use('/api/faculty', FacultyRouter);
-    app.use('/api', /*isValidated,*/ UserRouter);
-    app.use('error', passport.authenticate('local', {session: false }));
+    app.use('/api', isValidated, UserRouter);
+    app.use('error', passport.authenticate('local', { session: false }));
 
     // Front-End Application: Send all other request to Angular
     app.get('*', (req: Request, res: Response) => {

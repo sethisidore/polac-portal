@@ -58,8 +58,7 @@ export class AuthController {
    */
   async logout(req: Request, res: Response) {
     req.logOut();
-    req.clearCookie('auth-token');
-    res.status(200);
+    res.clearCookie('auth-token').status(200);
   }
 
   /**
@@ -68,7 +67,8 @@ export class AuthController {
    */
   async register(req: Request, res: Response) {
     const { body } = req;
-    const { profile, password } = body;
+    const { cadetDetail, /*staffDetail,*/ password } = body;
+    // const { password, ...bodyPayload } = body;
 
     const { error, value } = Joi.validate(body, userSchema);
     if (error) {
@@ -82,7 +82,7 @@ export class AuthController {
         // create staff or cadet profile for student
         // userDetail = new Staff(profile);
       } else {
-        userDetail = new Cadet(profile);
+        userDetail = new Cadet(cadetDetail);
         await userDetail.save();
         user.cadetDetail = userDetail._id;
         user.staffDetail = undefined;
@@ -91,8 +91,7 @@ export class AuthController {
       await user.save();
       req.logIn(user, { session: false }, (err: any) => {
         if (err) {
-          res.status(500).json(err);
-          return;
+          return res.status(500).json(err);
         }
         // No errors! create, sign and send the token to user
         const tokenBody = {
@@ -122,14 +121,9 @@ export class AuthController {
    * @summary determines if the user is logged in or not
    */
   getStatus(req: Request, res: Response) {
-    if (!req.isAuthenticated()) {
-      return res.status(200).json({
-        status: false,
-      });
-    }
-    return res.status(200).json({
-      status: true,
-    });
+    return !(req.user && req.user.expires > Date.now())
+      ? res.status(200).json({ status: false })
+      : res.status(200).json({ status: true });
   }
 }
 
@@ -140,7 +134,7 @@ export class AuthController {
 const cadetProfileSchema: Joi.ObjectSchema = Joi.object().keys({
   cadetId: Joi.number().min(1).required(),
   squad: Joi.number().min(1).max(12).required(),
-  reqularCourse: Joi.number().min(1).required(),
+  regularCourse: Joi.number().min(1).required(),
   results: [Joi.string()]
 });
 
@@ -155,7 +149,7 @@ export const userSchema: Joi.ObjectSchema = Joi.object().keys({
   username: Joi.string().min(3).required(),
   password: Joi.string().alphanum().required(),
   email: Joi.string().email(),
-  userDetail: cadetProfileSchema.optional(),
+  cadetDetail: cadetProfileSchema.optional(),
   staffDetail: staffProfileSchema.optional(),
   _type: Joi.string().regex(/(cadet|staff)/).required(),
 
@@ -167,6 +161,6 @@ export const userSchema: Joi.ObjectSchema = Joi.object().keys({
   department: Joi.string().optional(),
   faculty: Joi.string().optional(),
 
-  refreshToken: Joi.string().optional(),
-  refreshTokenExpires: Joi.date().optional()
+  passwordResetToken: Joi.string().optional(),
+  passwordResetExpires: Joi.date().optional()
 });

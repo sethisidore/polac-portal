@@ -39,7 +39,8 @@ class App {
         path: '/',
         httpOnly: false,
         sameSite: false,
-        secure: false
+        secure: false,
+        expires: new Date(Date.now() + 72000)
       });
       next();
     });

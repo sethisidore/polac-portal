@@ -41,7 +41,7 @@ export class UserController {
    */
   async getStaff(req: Request, res: Response) {
     const { staffId } = req.params;
-    const staff = await User.findOne({ staffId }).exec();
+    const staff = await User.findOne({ staffId }, { 'password' : false }).exec();
     await staff.populate('profile').execPopulate();
     res.status(200).json(staff);
   }
@@ -74,6 +74,7 @@ export class UserController {
       return res.status(400).json({ error, criteria });
     } else if (value) {
       const results: UserType[] = await User.find({ criteria, _type }).exec();
+      return res.status(200).json(results);
     }
   }
 }

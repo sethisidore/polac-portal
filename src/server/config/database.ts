@@ -22,6 +22,7 @@ export class Database {
     (<any>mongoose).Promise = bluebird;
     mongoose.set('debug', true);
     mongoose.set('runValidators', true);
+    mongoose.set('useCreateIndex', true);
 
     this.MONGO_URI = `mongodb://${process.env.DB_HOST}:${process.env.DB_PORT}/${process.env.DB_NAME}`;
   }
@@ -30,12 +31,9 @@ export class Database {
     mongoose.connect(this.MONGO_URI, {
       useNewUrlParser: true,
       useFindAndModify: false,
-      pass: process.env.DB_PASS || '',
-      user: process.env.DB_USER || '',
-      promiseLibrary: bluebird,
-      config: {
-        useCreateIndex: true,
-      }
+      // pass: process.env.DB_PASS || '',
+      // user: process.env.DB_USER || '',
+      promiseLibrary: bluebird
     })
       .then(() => {
         logger.info('Connection to database successful');

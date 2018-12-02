@@ -21,7 +21,6 @@ export interface UserType extends PassportLocalDocument {
   _id: Types.ObjectId;
   _type: string;
   username: string;
-  password: string;
   email: string;
   cadetDetail: Types.ObjectId | undefined;
   staffDetail: Types.ObjectId | undefined;
@@ -47,7 +46,6 @@ const UserSchema = new Schema({
 
   _type: { type: String, required: true, match: /(cadet)|(staff)/ },
   username: { type: String, unique: true, minlength: 5, maxlength: 15 },
-  password: { type: String, required: true },
   email: { type: String },
   cadetDetail: { type: Schema.Types.ObjectId, ref: 'Cadet' },
   staffDetail: { type: Schema.Types.ObjectId },
@@ -61,8 +59,8 @@ const options: PassportLocalOptions = <PassportLocalOptions>{
   populateFields: 'cadetDetail staffDetail'
 };
 
-UserSchema.methods.fullname = () => {
-  return this.middleName ? `${this.lastName} ${this.firstName} ${this.otherName}`
+UserSchema.methods.fullname = function () {
+  return this.middleName ? `${this.lastName} ${this.firstName} ${this.middleName}`
       : `${this.lastName} ${this.firstName}`;
 };
 
