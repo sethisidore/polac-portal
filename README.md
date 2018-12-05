@@ -7,7 +7,7 @@ travis-build-status  travis-test-status
 fork | clone the repo and install dependencies using `npm install`, make changes and create a PR
 
 ### Making Changes or Improvement
-```sh
+```bash
 # Frontend files are located here
 cd src/client
 
@@ -18,43 +18,43 @@ cd src/server
 
 ### building
 Building both frontend and backend assets
-```sh
+```bash
 npm run build
 ```
 building only frontend assets
-```sh
+```bash
 npm run client:build
 ```
 OR
 easier command since we are using angular
-```sh
+```bash
 ng build
 ```
 building backend assets
-```sh
+```bash
 npm run server:build
 ```
 
 ### testing
 run test both client and server
-```sh
+```bash
 npm test
 ```
 run test client alone
-```sh
+```bash
 ng test
 ```
 run server tests
-```sh
+```bash
 npm run server:test
 ```
 
 ### production
 #### bundle built files
-```sh
+```bash
 npm run dist
 ```
 use this 
-```sh
+```bash
 npm start
 ```
