@@ -4,7 +4,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HttpClientXsrfModule } from '@angular/common/http';
 
 import { AuthService } from './auth/auth.service';
-import { LoggerService } from './logger/logger.service';
 import { Interceptors } from './interceptor';
 
 @NgModule({
@@ -17,7 +16,6 @@ import { Interceptors } from './interceptor';
   declarations: [],
   providers: [
     AuthService,
-    LoggerService,
     Interceptors
   ],
   exports: []

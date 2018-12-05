@@ -13,7 +13,7 @@ import { User } from '../user';
 })
 export class StaffListComponent implements OnInit {
   staffs: Observable<User[]>;
-  selectedId: User['profile']['staffId'];
+  selectedId: User['staffDetail']['staffId'];
 
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 

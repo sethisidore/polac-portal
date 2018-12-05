@@ -4,7 +4,7 @@
       <a class="btn btn-default btn-outline-info" routerLink="new">Create New</a>
       <ul>
         <li *ngFor="let faculty of faculties | async" [class.selected]="faculty?.facultyId === selectedId">
-          <a [routerLink]="['faculty', faculty?.facultyId]">
+          <a [routerLink]="['', faculty?.facultyId]">
             <span class="badge">{{ faculty?.facultyId }}</span> {{ faculty?.name }} {{ faculty?.dean }}
           </a>
         </li>

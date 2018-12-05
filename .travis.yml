@@ -1,0 +1,28 @@
+dist: trusty
+sudo: false
+
+language: node_js
+node_js:
+  - "8.9.4"
+  - "node"
+
+cache: npm
+
+job:
+  include:
+    # Test angular frontend
+    - stage: client-test
+      addons:
+        apt:
+          sources:
+            - google-chrome
+          packages:
+            - google-chrome-stable
+      script: npm run client:test -- --single-run --no-progress --browser=ChromeHeadlessCI
+
+    # Test node backend
+    - stage: server-test
+      services: mongodb
+      before_script:
+        - sleep 10
+      script: npm run server:test

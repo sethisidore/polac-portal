@@ -1,26 +1,32 @@
 export interface User {
-  name: () => string;
+  fullname: () => string;
   firstName: string;
   lastName: string;
   middleName?: string;
   birthday: Date;
+  gender: string;
 
   department: string;
   faculty?: string;
 
-  _id: string;
+  _id?: string;
+  _type: string;
   username: string;
   email: string;
   password?: string;
-  profile: PrivateProfile;
+  cadetDetail?: Cadet;
+  staffDetail?: Staff;
 }
 
-interface PrivateProfile {
-  cadetId?: string;
-  RC?: number;
-  squad?: number;
+interface Cadet {
+  cadetId: string;
+  RC: number;
+  squad: number;
+  result?: string[];
+}
 
-  staffId?: string;
-  position?: string[];
+interface Staff {
+  staffId: string;
+  position: string[];
   qualifications: string[];
 }

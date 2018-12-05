@@ -13,7 +13,7 @@ import { switchMap } from 'rxjs/operators';
 })
 export class CadetListComponent implements OnInit {
   cadets: Observable<User[]>;
-  selectedId: User['profile']['cadetId'];
+  selectedId: User['cadetDetail']['cadetId'];
 
   constructor(private userService: UserService, private route: ActivatedRoute) { }
 

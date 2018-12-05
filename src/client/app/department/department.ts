@@ -1,6 +1,6 @@
 export interface Department {
   _id?: string;
-  deptId: number;
+  deptId: number|string;
   name: string;
   headOfDepartment: string;
   accreditation?: {

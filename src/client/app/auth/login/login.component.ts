@@ -10,6 +10,7 @@ import { AuthService } from '@app/core';
 })
 export class LoginComponent implements OnInit {
   loginForm: FormGroup;
+  errors: string;
   constructor(private fb: FormBuilder, private auth: AuthService) { }
 
   ngOnInit() {
@@ -20,6 +21,9 @@ export class LoginComponent implements OnInit {
   }
 
   onSubmit() {
-    this.auth.login(this.loginForm.value);
+    this.auth.login(this.loginForm.value).subscribe(
+      resp => sessionStorage.setItem('my-token', JSON.stringify(resp)),
+      error => this.errors = error
+    );
   }
 }

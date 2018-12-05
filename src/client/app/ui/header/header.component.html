@@ -26,18 +26,18 @@
           <a class="nav-link">Login</a>
         </li>
         <li class="nav-item" role="presentation" *ngIf="auth.isLoggedIn()">
-          <a [routerLink]="['account', auth.login()]"
-          routerLinkActive="active" class="nav-link">Profile</a>
+          <a [routerLink]="['account', user?.username]"
+          routerLinkActive="active" class="nav-link">{{ user?.username || user?.email }}</a>
         </li>
         <li class="nav-item" role="presentation" *ngIf="!auth.isLoggedIn()">
-          <a [routerLink]="['account/logout']" class="nav-link" (click)="auth.logout()">Logout</a>
+          <a [routerLink]="['/logout']" class="nav-link" (click)="auth.logout()">Logout</a>
         </li>
       </ul>
     </div>
   </nav>
 
   <!-- Progress Bar -->
-  <div *ngIf="loading" class="progress" style="height: 0.2px">
+  <div *ngIf="loading" class="progress" style="height: 1px">
     <div class="progress-bar progress-bar-active progress-bar-striped" role="progressbar"></div>
   </div>
 </header>
