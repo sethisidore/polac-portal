@@ -16,7 +16,7 @@
     "dist": "sh scripts/dist.sh",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "test": "npm run server:test && ng test",
+    "test": "npm run client:test",
     "server:test": "ts-mocha -p src/server/tsconfig.server.json src/server/**/*.spec.ts"
   },
   "private": true,
@@ -40,7 +40,6 @@
     "debug": "^4.1.0",
     "dotenv": "^6.1.0",
     "express": "^4.16.4",
-    "express-jwt": "^5.3.1",
     "font-awesome": "^4.7.0",
     "helmet": "^3.14.0",
     "hpp": "^0.2.2",

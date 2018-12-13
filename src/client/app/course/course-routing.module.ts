@@ -2,14 +2,12 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { CourseListComponent } from './course-list/course-list.component';
-import { CreateCourseComponent } from './create-course/create-course.component';
 import { CourseDetailComponent } from './course-detail/course-detail.component';
 
 const courseRoutes: Routes = [{
   path: '',
   component: CourseListComponent,
   children: [
-    { path: 'new', component: CreateCourseComponent },
     { path: ':courseId', component: CourseDetailComponent }
   ]}
 ];

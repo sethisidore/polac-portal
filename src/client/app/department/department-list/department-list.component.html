@@ -1,14 +1,21 @@
-<section class="row">
+<section class="container-fluid">
   <section class="col">
     <header>
       <h2>Departments</h2>
-      <a routerLink="new" class="btn btn-default btn-outline-info">Create new</a>
+      <button class="btn-outline-success btn" data-toggle="modal" data-target="#deptModal">
+        Add new Product</button>
     </header>
     <ul>
       <li *ngFor="let dept of departments | async" [class.selected]="dept?.deptId === selectedId">
-        <a [routerLink]="['department', dept?.deptId]">
-          <span class="badge">{{ dept?.deptId }}</span> {{ dept?.name }}
-        </a>
+        <div class="card">
+          <h6 class="card-title">
+            <a [routerLink]="['', dept?.deptId]">Department of {{ dept?.name }} </a>
+          </h6>
+          <div class="card-body">
+            <p><span class="bold">ID: </span> {{ dept?.deptId }} </p>
+            <p><span class="bold">HOD: </span> {{ dept?.headOfDepartment }} </p>
+          </div>
+        </div>
       </li>
     </ul>
   </section>
@@ -16,4 +23,59 @@
   <section class="col">
     <router-outlet></router-outlet>
   </section>
+
+  <section class="modal fade" id="deptModal" tabindex="-1" role="dialog" data-backdrop="static"
+    aria-labelledby="addNewDepartment" aria-hidden="true">
+    <section class="modal-dialog modal-dialog-centered modal-lg" role="form">
+      <section class="modal-content">
+        <section class="modal-header">
+          <h5 class="modal-title" id="addNewDepartment">Create New Department</h5>
+          <button class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-close"></i></button>
+        </section>
+
+        <div class="modal-body">
+          <form [formGroup]="deptForm" class="card-body" (ngSubmit)="onSubmit()">
+            <div class="form-row">
+              <label for="deptId" class="form-control-label col-sm-4">ID: </label>
+              <input type="text" class="form-control col-sm-8" formControlName="deptId">
+            </div>
+            <div class="form-row">
+              <label for="name" class="form-control-label col-sm-4">Name: </label>
+              <input type="text" class="form-control col-sm-8" formControlName="name">
+            </div>
+            <div class="form-row">
+              <label for="hod" class="custom-control-label col-sm-4">H.O.D: </label>
+              <select class="custom-select col-sm-8" formControlName="headOfDepartment">
+                <option *ngFor="let lecturer of lecturers" [value]="lecturer?._id">
+                  {{ lecturer?.fullname() }}
+                </option>
+              </select>
+            </div>
+
+            <fieldset>
+              <legend>Accreditation</legend>
+              <div formGroupName="accreditation">
+                <div class="form-row">
+                  <label for="status" class="custom-control-label col-sm-4">status: </label>
+                  <select class="custom-select col-sm-8" formControlName="status">
+                    <option *ngFor="let choice of ['true', 'false']" [value]="choice">{{ choice }}</option>
+                  </select>
+                </div>
+                <div class="form-row">
+                  <label for="date" class="form-control-label col-sm-4">date: </label>
+                  <input class="form-control col-sm-8" type="date" formControlName="date">
+                </div>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-rounded btn-outline-info btn-block waves-effect z-depth-0"
+            type="submit" [disabled]="!deptForm.valid">Submit</button>
+        </div>
+      </section>
+    </section>
+  </section>
+
 </section>

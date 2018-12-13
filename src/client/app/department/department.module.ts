@@ -4,7 +4,6 @@ import { CommonModule } from '@angular/common';
 import { DepartmentRoutingModule } from './department-routing.module';
 import { DepartmentListComponent } from './department-list/department-list.component';
 import { DepartmentDetailComponent } from './department-detail/department-detail.component';
-import { CreateDepartmentComponent } from './create-department/create-department.component';
 import { SharedModule } from '@app/shared/shared.module';
 
 @NgModule({
@@ -16,7 +15,6 @@ import { SharedModule } from '@app/shared/shared.module';
   declarations: [
     DepartmentListComponent,
     DepartmentDetailComponent,
-    CreateDepartmentComponent
   ]
 })
 export class DepartmentModule { }

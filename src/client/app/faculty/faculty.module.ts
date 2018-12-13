@@ -5,7 +5,6 @@ import { ReactiveFormsModule } from '@angular/forms';
 import { FacultyRoutingModule } from './faculty-routing.module';
 import { FacultyListComponent } from './faculty-list/faculty-list.component';
 import { FacultyDetailComponent } from './faculty-detail/faculty-detail.component';
-import { CreateFacultyComponent } from './create-faculty/create-faculty.component';
 
 @NgModule({
   imports: [
@@ -13,6 +12,6 @@ import { CreateFacultyComponent } from './create-faculty/create-faculty.componen
     ReactiveFormsModule,
     FacultyRoutingModule
   ],
-  declarations: [FacultyListComponent, FacultyDetailComponent, CreateFacultyComponent]
+  declarations: [FacultyListComponent, FacultyDetailComponent]
 })
 export class FacultyModule { }

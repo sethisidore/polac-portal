@@ -2,17 +2,85 @@
   <section class="col">
     <header>
       <h2>Courses</h2>
-      <a routerLink="new" class="btn btn-default btn-outline-info">Create New</a>
+      <button class="btn-outline-success btn" data-toggle="modal" data-target="#courseModal">
+        Add new course</button>
     </header>
     <ul>
-      <li *ngFor="let course of courses | async" [class.selected]="course.courseId === selectedId">
-        <a [routerLink]="['course', course.courseId]">
-          <span class="badge">{{ course.courseId }}</span> {{ course.title }}
-        </a>
+      <li *ngFor="let course of courses | async" [class.selected]="course?.courseId === selectedId">
+        <div class="card">
+          <h6 class="card-title">
+            <a [routerLink]="['', course?.courseId]"> {{ course?.title }} </a>
+          </h6>
+          <div class="card-body">
+            <p><span class="bold">Course Code: </span>{{ course?.courseId }}</p>
+            <p><span class="bold">Credit Load: </span> {{ course?.creditLoad }} </p>
+            <p><span class="bold">Level: </span> {{ course?.level }} </p>
+            <p><span class="bold">Semester: </span> {{ course?.semester }} </p>
+          </div>
+        </div>
       </li>
     </ul>
   </section>
   <section class="col">
     <router-outlet></router-outlet>
   </section>
+
+  <section class="modal fade" id="courseModal" tabindex="-1" role="dialog" data-backdrop="static"
+    aria-labelledby="addNewCourse" aria-hidden="true">
+    <section class="modal-dialog modal-dialog-centered modal-lg" role="form">
+      <section class="modal-content">
+        <section class="modal-header">
+          <h5 class="modal-title" id="addNewCourse">Create New Course</h5>
+          <button class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-close"></i></button>
+        </section>
+
+        <div class="modal-body">
+          <form [formGroupName]="courseForm">
+            <fieldset>
+              <div class="form-row">
+                <label for="courseId" class="form-control-l col-sm-4">Course ID: </label>
+                <input type="text" class="form-control col-sm-8" formControlName="courseId" placeholder="csc304">
+              </div>
+              <div class="form-row">
+                <label for="title" class="form-control-label col-sm-4">Title: </label>
+                <input type="text" class="form-control col-sm-8" formControlName="name" placeholder="course title">
+              </div>
+              <div class="form-row">
+                <label for="creditLoad" class="form-control-label col-sm-4">Credit load: </label>
+                <input type="number" class="form-control col-sm-8" formControlName="creditLoad">
+              </div>
+              <div class="form-row">
+                <label for="level" class="form-control-label col-sm-4">Level: </label>
+                <input type="number" class="form-control col-sm-8" formControlName="level">
+              </div>
+              <div class="form-row">
+                <label for="semester" class="form-control-label col-sm-4">Semester</label>
+                <select class="custom-select col-sm-8" formControlName="semester">
+                  <option *ngFor="let choice of ['first', 'second']" [value]="choice">{{ choice }}</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label for="department" class="form-control-label col-sm-4">Department of Origin: </label>
+                <select class="custom-select col-sm-8" formControlName="department">
+                  <option *ngFor="let dept of departments" [value]="dept?._id">{{ dept?.name }}</option>
+                </select>
+              </div>
+              <div class="form-row">
+                <label for="assignTo" class="form-control-label col-sm-4">Assign Course to: </label>
+                <select class="custom-select col-sm-8" formControlName="assignedTo">
+                  <option *ngFor="let lecturer of staffs" [value]="[lecturer?._id]">{{ lecturer?.fullname() }}</option>
+                </select>
+              </div>
+            </fieldset>
+          </form>
+        </div>
+
+        <div class="modal-footer">
+          <button class="btn btn-rounded btn-outline-info btn-block waves-effect z-depth-0" type="submit"
+            [disabled]="!courseForm.valid">Submit</button>
+        </div>
+      </section>
+    </section>
+  </section>
+
 </section>
