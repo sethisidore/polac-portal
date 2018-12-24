@@ -11,6 +11,10 @@ export class UserController {
   async getAllCadets(req: Request, res: Response) {
     const _type = 'cadet';
     const result: UserType[] = await User.find({ _type }).exec();
+    result.map(async (cadet) => {
+      await cadet.populate({ path: 'department', model: 'Department' })
+        .populate({ path: 'faculty', model: 'Faculty' }).execPopulate();
+    });
     res.status(200).json({ result });
   }
 
@@ -21,6 +25,10 @@ export class UserController {
   async getAllStaffs(req: Request, res: Response) {
     const _type = 'staff';
     const result: UserType[] = await User.find({ _type }).exec();
+    result.map(async (staff) => {
+      await staff.populate({ path: 'department', model: 'Department' })
+        .populate({ path: 'faculty', model: 'Faculty' }).execPopulate();
+    });
     res.status(200).json({ result });
   }
 

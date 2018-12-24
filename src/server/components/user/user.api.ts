@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-import { asyncHandler } from '../../util';
+import { asyncHandler } from '../../config';
 import { UserController } from './user.controller';
 
 class UserApi {

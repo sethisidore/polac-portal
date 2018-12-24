@@ -6,8 +6,8 @@ export interface DepartmentType extends Document {
   name: string;
   faculty?: Types.ObjectId;
   headOfDepartment?: Types.ObjectId;
-  status?: {
-    accreditted: boolean,
+  accreditation?: {
+    status: boolean,
     date: Date,
   };
 }
@@ -17,8 +17,8 @@ const DepartmentSchema: Schema = new Schema({
   name: { type: String, required: true },
   faculty: { type: Schema.Types.ObjectId, ref: 'Faculty' },
   headOfDepartment: { type: Schema.Types.ObjectId, ref: 'User' },
-  status: {
-    accreditted: { type: Boolean },
+  accreditation: {
+    status: { type: Boolean },
     date: { type: Date, default: Date.now }
   }
 });

@@ -6,6 +6,9 @@ import { Faculty, FacultyType } from './faculty.model';
 export class FacultyController {
   async getAll(req: Request, res: Response) {
     const faculties: FacultyType[] = await Faculty.find({}).exec();
+    faculties.map(fac => {
+      fac.populate({ path: 'dean', model: 'User'});
+    });
     return res.status(200).json(faculties);
   }
 

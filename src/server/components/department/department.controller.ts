@@ -5,8 +5,12 @@ import { Department, DepartmentType } from './Department.model';
 
 export class DepartmentController {
   async getAll (req: Request, res: Response) {
-    const faculties: DepartmentType[] = await Department.find({}).exec();
-    return res.status(200).json(faculties);
+    const depts: DepartmentType[] = await Department.find({}).exec();
+    depts.map(async (dept) => {
+      await dept.populate({ path: 'headOfDepartment', model: 'User', populate: { path: 'cadetDetail', model: 'Cadet'}})
+        .populate({ path: 'faculty', model: 'Faculty'}).execPopulate();
+    });
+    return res.status(200).json(depts);
   }
 
   /**
@@ -20,6 +24,10 @@ export class DepartmentController {
       return res.status(400).json ({ error, criteria });
     } else if (value) {
       const depts: DepartmentType[] = await Department.find({ criteria }).exec();
+      depts.map(dept => {
+        dept.populate({ path: 'headOfDepartment', model: 'User', populate: { path: 'cadetDetail', model: 'Cadet' }})
+          .populate({ path: 'faculty', model: 'Faculty'}).execPopulate();
+      });
       res.status(200).json(depts);
     }
   }
@@ -27,7 +35,8 @@ export class DepartmentController {
   async getOne (req: Request, res: Response) {
     const { DepartmentId } = req.body;
     const dept: DepartmentType = await Department.findOne({ DepartmentId }).exec();
-    dept.populate({ path: 'headOfDepartment', model: 'User' }).execPopulate();
+    dept.populate({ path: 'headOfDepartment', model: 'User', populate: { path: 'cadetDetail', model: 'Cadet' }})
+      .populate({ path: 'faculty', model: 'Faculty'}).execPopulate();
 
     return res.status(200).json(dept);
   }
@@ -73,8 +82,8 @@ const deptSchema: Joi.ObjectSchema = Joi.object().keys({
   name: Joi.string().required().min(5),
   faculty: Joi.string().optional(),
   headOfDepartment: Joi.string().optional(),
-  status: Joi.object().keys({
-    accreditted: Joi.boolean(),
+  accreditation: Joi.object().keys({
+    status: Joi.boolean(),
     date: Joi.date()
   }).optional()
 });

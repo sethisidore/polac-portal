@@ -1,11 +1,13 @@
 import * as passport from 'passport';
 import * as Joi from 'joi';
 import * as jwt from 'jsonwebtoken';
+// import {} from 'nodemailer';
 import { Request, Response } from 'express';
 import { SignOptions } from 'jsonwebtoken';
 
 
 import { User, UserType, Cadet, CadetType } from '../user/user.model';
+import { Tips, TipsType } from './tips.model';
 
 export class AuthController {
   /**
@@ -35,17 +37,18 @@ export class AuthController {
             username: user.username,
             type: user._type,
             name: user.fullname(),
-            expires: 1440
+            expires: new Date(Date.now() + 500880)
           };
           const options: SignOptions = {
             algorithm: 'HS256',
             subject: user.username,
-            expiresIn: '1h'
+            expiresIn: 500880
           };
 
           const token = jwt.sign({ user: body }, process.env.SESSION_SECRET, options);
           res.status(200)
             .cookie('auth-token', token, { httpOnly: true, sameSite: true,
+              expires: new Date(Date.now() + 500880),
               secure: process.env.NODE_ENV === 'production' ? true : false })
             .json(body);
         });
@@ -58,7 +61,7 @@ export class AuthController {
    */
   async logout(req: Request, res: Response) {
     req.logOut();
-    res.clearCookie('auth-token').status(200);
+    res.status(200);
   }
 
   /**
@@ -99,17 +102,18 @@ export class AuthController {
           username: user.username,
           type: user._type,
           name: user.fullname(),
-          expires: 1440
+          expires: new Date(Date.now() + 500880)
         };
         const options: SignOptions = {
           algorithm: 'HS256',
           subject: user.username,
-          expiresIn: '1h'
+          expiresIn: 500880
         };
 
         const token = jwt.sign({ user: tokenBody }, process.env.SESSION_SECRET, options);
         return res.status(200)
           .cookie('auth-token', token, { httpOnly: true, sameSite: true,
+            expires: new Date(Date.now() + 500880),
             secure: process.env.NODE_ENV === 'production' ? true : false })
           .json(tokenBody);
       });
@@ -117,13 +121,38 @@ export class AuthController {
   }
 
   /**
-   * @method status
+   * @method getStatus
    * @summary determines if the user is logged in or not
    */
   getStatus(req: Request, res: Response) {
     return !(req.user && req.user.expires > Date.now())
-      ? res.status(200).json({ status: false })
+      ? res.status(401).json({ status: false })
       : res.status(200).json({ status: true });
+  }
+
+  /**
+   * @method getTips
+   */
+  async getTips (req: Request, res: Response) {
+    const tips: TipsType[] = await Tips.find({}).exec();
+    res.status(200).json(tips);
+  }
+
+  /**
+   * @method saveTips
+   * @summary save suggestions given by users || guest
+   */
+  async saveTips (req: Request, res: Response) {
+    const { body } = req;
+
+    const { error, value } = Joi.validate(body, tipsSchema);
+    if (error) {
+      res.status(400).json({ error, body });
+    } else if (value) {
+      const tip = new Tips(body);
+      await tip.save();
+      res.status(201).json(tip);
+    }
   }
 }
 
@@ -163,4 +192,10 @@ export const userSchema: Joi.ObjectSchema = Joi.object().keys({
 
   passwordResetToken: Joi.string().optional(),
   passwordResetExpires: Joi.date().optional()
+});
+
+const tipsSchema: Joi.ObjectSchema = Joi.object().keys({
+  email: Joi.string().email().optional(),
+  subject: Joi.string().required(),
+  suggestions: Joi.string().required()
 });

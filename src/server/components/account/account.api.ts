@@ -1,7 +1,7 @@
 import * as passport from 'passport';
 import { Router } from 'express';
 
-import { asyncHandler } from '../../util';
+import { asyncHandler } from '../../config';
 import { AccountController } from './account.controller';
 
 class AccountApi {
