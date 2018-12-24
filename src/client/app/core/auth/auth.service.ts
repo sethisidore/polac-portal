@@ -9,7 +9,8 @@ import { User } from '@app/user/user';
   providedIn: 'root'
 })
 export class AuthService {
-  authUrl = 'api/';
+  authUrl = 'api';
+
   constructor(private http: HttpClient, private router: Router) { }
 
   public login(user: TokenPayload): Observable<TokenPayload> {
@@ -21,30 +22,33 @@ export class AuthService {
   }
 
   public logout() {
+    sessionStorage.removeItem('auth-token');
     return this.http.get(`${this.authUrl}/logout`);
   }
 
-  public getUser(): TokenPayload {
-    const userToken = sessionStorage.getItem('my-token');
-    let details;
+  public getUser(): TokenPayload | undefined {
+    const userToken = sessionStorage.getItem('auth-token');
+    let details: any;
     if (userToken) {
-      details = userToken.split(',');
-      details = JSON.parse(details);
+      details = JSON.parse(userToken);
       return details;
     } else {
       return undefined;
     }
   }
 
-  public isLoggedIn(): Observable<boolean> {
-    return this.http.get<boolean>(`${this.authUrl}/status`);
+  public isLoggedIn(): boolean {
+    const user = this.getUser();
+    return (user/* && user.expires > (Date.now() / 1000)*/) ? true : false;
   }
 }
 
 export interface TokenPayload {
-  _id: string;
+  id: string;
+  name?: string;
   username: string;
   password?: string;
   email?: string;
   expires: number;
+  type: string;
 }

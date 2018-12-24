@@ -1,5 +1,6 @@
 import { Component, OnInit, OnChanges, SimpleChanges } from '@angular/core';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
+import { Router } from '@angular/router';
 
 import { AuthService } from '@app/core';
 import { Department } from '@app/department/department';
@@ -20,7 +21,8 @@ export class RegisterComponent implements OnInit, OnChanges {
 
   constructor(private fb: FormBuilder, private auth: AuthService,
     private deptService: DepartmentService,
-    private facultyService: FacultyService) { }
+    private facultyService: FacultyService,
+    private router: Router) { }
 
   ngOnInit() {
     this.registerForm = this.fb.group({
@@ -52,6 +54,10 @@ export class RegisterComponent implements OnInit, OnChanges {
       resp => this.faculties = resp,
       error => this.errors = error
     );
+    this.deptService.getAll().subscribe(
+      resp => this.departments = resp,
+      error => this.errors = error
+    );
   }
 
   ngOnChanges(changes: SimpleChanges) {
@@ -63,6 +69,13 @@ export class RegisterComponent implements OnInit, OnChanges {
   }
 
   onSubmit() {
-    this.auth.register(this.registerForm.value);
+    this.auth.register(this.registerForm.value).subscribe(
+      resp => {
+        const token = JSON.stringify(resp);
+        sessionStorage.setItem('auth-token', token);
+        this.router.navigate(['../account']);
+      },
+      error => this.errors = error
+    );
   }
 }

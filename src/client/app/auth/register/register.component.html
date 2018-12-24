@@ -1,110 +1,134 @@
-<div class="col-md-10 align-content-center">
-  <div class="card-header">
-    <h4 class="card-title text-center">Register your account</h4>
-  </div>
-  <div class="card-body">
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      <div class="row">
-        <div class="form-group col">
-          <input type="text" class="form-control" formControlName="firstName" placeholder="First name">
-        </div>
-        <div class="form-group col">
-          <input type="text" class="form-control" formControlName="lastName" placeholder="Last name">
-        </div>
-        <div class="form-group col">
-          <input type="text" class="form-control" formControlName="middleName" placeholder="Middle name (optional)">
-        </div>
-      </div>
+<section class="row justify-content-center align-items-center">
+  <div class="card">
+    <div class="card-header">
+      <h4 class="card-title text-center">Register your account</h4>
+    </div>
+    <div *ngIf="errors" class="alert">
+      <p class="alert-danger">
+        {{ errors }}
+      </p>
+    </div>
 
-      <div class="row">
-        <div class="form-group col">
-          <label for="gender" class="form-control-label">Gender: </label>
-          <select class="form-control" formControlName="gender">
-            <option *ngFor="let choice of ['male', 'female']" [value]="choice">{{ choice }}</option>
-          </select>
-        </div>
-        <div class="form-group col"><label for="birthday" class="form-control-label">Birthday: </label>
-          <input type="date" class="form-control" formControlName="birthday">
-        </div>
-      </div>
-
-      <div class="form-group"><label for="_type" class="form-control-label">Choose Your Area: </label>
-        <select class="form-control" formControlName="_type">
-          <option *ngFor="let choice of ['cadet', 'staff']" [value]="choice">{{ choice }}</option>
-        </select>
-      </div>
-
-      <div formGroupName="profile">
-        <fieldset *ngIf="registerForm.get('_type').value === 'cadet'">
-          <legend>Cadet Profile</legend>
-          <div class="row">
-            <div class="form-group col">
-              <label for="cadetId" class="form-control-label">Cadet ID: </label>
-              <input type="number" class="form-control" formControlName="cadetId" placeholder="00711, 001, 01128">
-            </div>
-            <div class="form-group col">
-              <label for="RC" class="form-control-label">Regular Course: </label>
-              <input type="number" class="form-control" formControlName="RC"></div>
-            <div class="form-group col">
-              <label for="squad" class="form-control-label">Squad</label>
-              <input type="number" class="form-control" formControlName="squad">
-            </div>
-          </div>
-        </fieldset>
-
-        <fieldset *ngIf="registerForm.get('_type').value === 'staff'">
-          <legend>Staff Profile</legend>
-          <div class="form-group">
-            <label for="staffId" class="form-control-label">Staff ID: </label>
-            <input type="text" class="form-control" formControlName="staffId">
-          </div>
-          <div class="form-group">
-            <label for="position" class="form-control-label">Position</label>
-            <input type="text" class="form-control" formControlName="position">
-          </div>
-          <div class="form-group">
-            <label for="qualifications" class="form-control-label">Qualifications: </label>
-            <input type="text" class="form-control" formControlName="qualifications">
-          </div>
-        </fieldset>
-      </div>
-
-      <div class="row">
-          <div class="form-group col">
-            <label for="department" class="form-control-label">Department: </label>
-            <select class="form-control" formControlName="department">
-              <option *ngFor="let dept of departments" [value]="dept?._id">{{ dept?.name }}</option>
-            </select>
-          </div>
-          <div class="form-group col">
-            <label for="faculty" class="form-control-label">Faculty: </label>
-            <select class="form-control" formControlName="faculty">
-              <option *ngFor="let faculty of faculties" [value]="faculty?._id">{{ faculty?.name }}</option>
-            </select>
-          </div>
-        </div>
-
-      <fieldset>
-        <legend>Account Details</legend>
+    <div class="card-body">
+      <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
         <div class="row">
           <div class="form-group col">
-            <input type="text" class="form-control" formControlName="username" placeholder="username">
+            <input type="text" class="form-control" formControlName="firstName" placeholder="First name">
           </div>
           <div class="form-group col">
-            <input type="password" class="form-control" formControlName="password" placeholder="password">
+            <input type="text" class="form-control" formControlName="lastName" placeholder="Last name">
           </div>
           <div class="form-group col">
-            <input type="password" class="form-control" formControlName="confirmPassword" placeholder="confirm Passord">
-            <p class="alert alert-failure form-text"
-              *ngIf="!registerForm.get('confirmPassword').pristine && registerForm.get('confirmPassword').value !== registerForm.get('password').value">
-              must match password
-            </p>
+            <input type="text" class="form-control" formControlName="middleName" placeholder="Middle name (optional)">
           </div>
         </div>
-      </fieldset>
-      <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0" [disabled]="!registerForm.valid"
-        type="submit">Register
-      </button>
-    </form>
+
+        <div class="row">
+          <div class="form-group col">
+            <label for="gender" class="form-control-label">Gender: </label>
+            <select class="custom-select" formControlName="gender">
+              <option *ngFor="let choice of ['male', 'female']" [value]="choice">{{ choice }}</option>
+            </select>
+          </div>
+          <div class="form-group col">
+            <label for="birthday" class="form-control-label">Birthday: </label>
+            <input type="date" class="form-control" formControlName="birthday">
+          </div>
+        </div>
+
+        <div class="form-group row">
+          <label for="_type" class="form-control-label col-sm-4">Choose Your Area: </label>
+          <select class="custom-select col-sm-8" formControlName="_type">
+            <option *ngFor="let choice of ['cadet', 'staff']" [value]="choice">{{ choice }}</option>
+          </select>
+        </div>
+
+        <!-- Cadet Details -->
+        <div formGroupName="cadetDetail" *ngIf="registerForm.get('_type').value === 'cadet'">
+          <fieldset>
+            <legend>Cadet Profile</legend>
+            <div class="form-group row">
+              <label for="cadetId" class="form-control-label col-sm-4">Cadet ID: </label>
+              <input type="number" class="form-control col-sm-8" formControlName="cadetId" placeholder="00711, 001, 01128">
+            </div>
+            <div class="form-group row">
+              <label for="RC" class="form-control-label col-sm-4">Regular Course: </label>
+              <input type="number" class="form-control col-sm-8" formControlName="RC">
+            </div>
+            <div class="form-group row">
+              <label for="squad" class="form-control-label col-sm-4">Squad: </label>
+              <input type="number" class="form-control col-sm-8" formControlName="squad">
+            </div>
+          </fieldset>
+        </div>
+
+        <!-- Staff Details -->
+        <div formGroupName="staffDetail" *ngIf="registerForm.get('_type').value === 'staff'">
+          <fieldset>
+            <legend>Staff Profile</legend>
+            <div class="form-group row">
+              <label for="staffId" class="form-control-label col-sm-4">Staff ID: </label>
+              <input type="text" class="form-control col-sm-8" formControlName="staffId">
+            </div>
+            <div class="form-group row">
+              <label for="position" class="form-control-label col-sm-4">Position: </label>
+              <input type="text" class="form-control col-sm-8" formControlName="position">
+            </div>
+            <div class="form-group row">
+              <label for="qualifications" class="form-control-label col-sm-4">Qualifications: </label>
+              <input type="text" class="form-control col-sm-8" formControlName="qualifications">
+            </div>
+          </fieldset>
+        </div>
+
+        <div class="row">
+          <div class="col">
+            <div class="form-group row">
+              <label for="department" class="form-control-label col-sm-4">Department: </label>
+              <select class="custom-select col-sm-8" formControlName="department">
+                <option *ngFor="let dept of departments" [value]="dept?._id">{{ dept?.name }}</option>
+              </select>
+            </div>
+          </div>
+          <div class="col">
+            <div class="form-group row">
+              <label for="faculty" class="form-control-label col-sm-4">Faculty: </label>
+              <select class="custom-select col-sm-8" formControlName="faculty">
+                <option *ngFor="let faculty of faculties" [value]="faculty?._id">{{ faculty?.name }}</option>
+              </select>
+            </div>
+          </div>
+        </div>
+
+        <fieldset>
+          <legend>Account Details</legend>
+          <div class="row">
+            <div class="form-group col">
+              <input type="text" class="form-control" formControlName="username" placeholder="username">
+            </div>
+            <div class="form-group col">
+              <input type="password" class="form-control" formControlName="password" placeholder="password">
+            </div>
+            <div class="form-group col">
+              <input type="password" class="form-control" formControlName="confirmPassword" placeholder="confirm Passord">
+              <p class="alert alert-failure form-text"
+                *ngIf="!registerForm.get('confirmPassword').pristine && registerForm.get('confirmPassword').value !== registerForm.get('password').value">
+                must match password
+              </p>
+            </div>
+          </div>
+        </fieldset>
+        <button class="btn btn-outline-info btn-rounded btn-block my-4 waves-effect z-depth-0"
+          [disabled]="!registerForm.valid" type="submit">Register
+        </button>
+      </form>
+    </div>
   </div>
-</div>
+</section>
+
+<section class="alert">
+  <div class="alert-info">
+    <h4>{{registerForm.status}}</h4>
+    <p>{{registerForm.value}}</p>
+  </div>
+</section>

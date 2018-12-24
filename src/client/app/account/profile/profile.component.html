@@ -1,0 +1,14 @@
+<section class="card">
+  <div class="card-header">
+    <h4 class="card-title">{{user?.username}} profile</h4>
+    <button class="btn btn-rounded btn-outline-info" type="menu">Edit Profile</button>
+  </div>
+    <div class="card-body">
+      <p>Name: {{user?.fullname}}</p>
+      <p>Gender: {{user?.gender}}</p>
+      <p>Birthday: {{user?.birthday}}</p>
+      <p>Cadet ID: {{user?.cadetDetail?.cadetId}}</p>
+      <p>Squad: {{user?.cadetDetail?.squad}}</p>
+      <p>Regular Course: {{user?.cadetDetail?.regularCourse}}</p>
+    </div>
+</section>
