@@ -1,13 +1,13 @@
-<header>
-  <nav class="navbar navbar-expand-lg navbar-dark bg-info sticky-top d-print">
+<header class="card sticky-top">
+  <nav class="navbar navbar-expand-lg navbar-dark bg-info d-print">
     <div class="navbar-header">
       <a href="" class="navbar-brand">Nigeria Police Academy</a>
-      <button class="navbar-toggler collapsed" type="button btn-md" data-toggle="collapse" data-target="#menuLinks"
-        aria-expanded="false" aria-controls="menuLinks">
-        <span class="sr-only">Toggle Navigation</span>
-        <span class="navbar-toggler-icon"></span>
-      </button>
     </div>
+    <button class="navbar-toggler collapsed" type="button" data-toggle="collapse" data-target="#menuLinks"
+      aria-expanded="false" aria-controls="menuLinks">
+      <span class="sr-only">Toggle Navigation</span>
+      <span class="navbar-toggler-icon"></span>
+    </button>
 
     <!-- menu left -->
     <div class="collapse navbar-collapse navbar-left" id="menuLinks">
@@ -22,22 +22,23 @@
     <!-- menu right-->
     <div class="collapse navbar-collapse navbar-right" id="menuLinks">
       <ul class="navbar-nav navbar-pills mr-auto">
-        <li class="nav-item" role="presentation" *ngIf="auth.isLoggedIn()">
-          <a class="nav-link">Login</a>
-        </li>
-        <li class="nav-item" role="presentation" *ngIf="auth.isLoggedIn()">
-          <a [routerLink]="['account', user?.username]"
-          routerLinkActive="active" class="nav-link">{{ user?.username || user?.email }}</a>
-        </li>
         <li class="nav-item" role="presentation" *ngIf="!auth.isLoggedIn()">
-          <a [routerLink]="['/logout']" class="nav-link" (click)="auth.logout()">Logout</a>
+          <a class="nav-link" [routerLink]="['/login']" routerLinkActive="active" >Login</a>
+        </li>
+        <li class="nav-item" role="presentation" *ngIf="auth.isLoggedIn()">
+          <a [routerLink]="['/account']" routerLinkActive="active" class="nav-link">
+            {{ auth.getUser()?.username || auth.getUser()?.email }}</a>
+        </li>
+        <li class="nav-item btn-rounded btn" role="presentation" *ngIf="auth.isLoggedIn()">
+          <a class="nav-link" (click)="auth.logout()">Logout</a>
         </li>
       </ul>
     </div>
   </nav>
 
   <!-- Progress Bar -->
-  <div *ngIf="loading" class="progress" style="height: 1px">
-    <div class="progress-bar progress-bar-active progress-bar-striped" role="progressbar"></div>
+  <div *ngIf="loading" class="progress" style="height: 2px;">
+    <div class="progress-bar progress-bar-animated progress-bar-striped indeterminate bg-success" role="progressbar"
+    aria-valuemin="0" aria-valuenow="25" aria-valuemax="100"></div>
   </div>
 </header>

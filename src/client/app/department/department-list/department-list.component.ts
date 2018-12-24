@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Observable } from 'rxjs';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { switchMap } from 'rxjs/operators';
 
 import { Department } from '../department';
@@ -24,7 +24,8 @@ export class DepartmentListComponent implements OnInit {
   constructor(private deptService: DepartmentService,
     private userService: UserService,
     private fb: FormBuilder,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute,
+    private router: Router) { }
 
   ngOnInit() {
     this.departments = this.route.paramMap.pipe(
@@ -43,17 +44,22 @@ export class DepartmentListComponent implements OnInit {
         date: ['']
       })
     });
+  }
 
+  onOpenDeptForm() {
     this.userService.getAllStaffs().subscribe((resp: User[]) => {
       this.lecturers = resp;
     }, (error) => {
-      this.errResponse = error.message;
+      this.errResponse = error;
     });
   }
 
   onSubmit() {
-    this.deptService.createOne(this.deptForm.value)
-      .subscribe((message) => {}, (error) => {
+    this.deptService.createOne(this.deptForm.value).subscribe(
+      (successResponse) => {
+        this.router.navigate(['./', successResponse.deptId]);
+      },
+      (error) => {
         this.errResponse = error;
       });
   }

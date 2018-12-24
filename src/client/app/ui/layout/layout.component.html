@@ -3,3 +3,46 @@
   <router-outlet></router-outlet>
 </section>
 <app-footer></app-footer>
+
+<section class="modal fade" id="suggestionModal" tabindex="-1" role="dialog" data-backdrop="static"
+  aria-labelledby="makeNewSuggestion" aria-hidden="true">
+  <section class="modal-dialog modal-dialog-centered modal-lg" role="form">
+    <section class="modal-content">
+      <section class="modal-header">
+        <h5 class="modal-title" id="makeNewSuggestion">Make a suggestion</h5>
+        <button class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-close"></i></button>
+      </section>
+
+      <div class="modal-body">
+        <div *ngIf="errResponse" class="alert">
+          <p class="alert-danger">{{ errResponse }}</p>
+        </div>
+        <div class="alert" *ngIf="tip">
+          <div class="alert-success">
+            Success <i class="fa fa-mark-o"></i>:
+            <p>{{tip.email + ' ' + tip.suggestion}}</p>
+          </div>
+        </div>
+        <form [formGroup]="suggestionForm" (ngSubmit)="onSubmit()">
+          <div class="form-group row">
+            <label for="email" class="form-control-label col-sm-4">Email: </label>
+            <input type="text" class="form-control col-sm-8" placeholder="johndoe@mail.com" formControlName="email">
+          </div>
+          <div class="form-group row">
+            <label for="subject" class="form-control-label col-sm-4">Subject: </label>
+            <input type="text" class="form-control col-sm-8" placeholder="View, Experience etc." formControlName="subject">
+          </div>
+          <div class="form-group row">
+            <label for="suggestion" class="form-control-label col-sm-4">Suggestion: </label>
+            <textarea name="" id="" cols="30" rows="10" class="form-control col-sm-8" formControlName="suggestion"></textarea>
+          </div>
+        </form>
+      </div>
+
+      <div class="modal-footer">
+        <button class="btn btn-rounded btn-outline-info btn-block waves-effect z-depth-0" type="submit"
+          [disabled]="!suggestionForm.valid">Submit</button>
+      </div>
+    </section>
+  </section>
+</section>

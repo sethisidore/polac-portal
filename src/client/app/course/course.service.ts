@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { Observable } from 'rxjs';
 
-import { Course } from './course';
+import { Course, CourseOfferings } from './course';
 
 @Injectable({
   providedIn: 'root'
@@ -47,4 +47,8 @@ export class CourseService {
   deleteMany() {}
 
   updateMany() {}
+
+  offerCourse(data: CourseOfferings) {
+    return this.http.post<CourseOfferings>(`${this.courseUrl}/registry`, data, this.httpOptions);
+  }
 }

@@ -1,8 +1,8 @@
 <section class="container-fluid">
   <section class="container-fluid">
     <h2>Faculties</h2>
-    <button class="btn btn-rounded btn-ouline-success" data-toggle="modal" data-target="#facultyModal">
-      Add new faculty</button>
+    <button class="btn btn-rounded btn-ouline-success" data-toggle="modal" data-target="#facultyModal" (click)="onOpenFacultyForm()">Add
+      new faculty</button>
     <ul>
       <li *ngFor="let faculty of faculties | async" [class.selected]="faculty?.facultyId === selectedId">
         <div class="card">
@@ -10,8 +10,16 @@
             <a [routerLink]="['./', faculty?.facultyId]">Faculty of {{ faculty?.name }}</a>
           </h6>
           <div class="card-body">
-            <p><span class="bold">dean: </span>
-              <a [routerLink]="['../staff', faculty?.dean]"> {{ faculty?.dean }}</a></p>
+            <p class="card-text">Faculty ID:
+              <a [routerLink]="['./', faculty?.facultyId]" class="card-link">
+                {{ faculty?.facultyId }}
+              </a>
+            </p>
+            <p class="card-text">
+              <a [routerLink]="['../staff', faculty?.dean?.staffDetail]" class="card-link">
+                {{ faculty?.dean?.fullname }}
+              </a>
+            </p>
           </div>
         </div>
       </li>
@@ -22,10 +30,13 @@
     <router-outlet></router-outlet>
   </section>
 
-  <section class="modal fade" id="facultyModal" tabindex="-1" role="dialog" data-backdrop="static"
-    aria-labelledby="addNewFaculty" aria-hidden="true">
+  <section class="modal fade" id="facultyModal" tabindex="-1" role="dialog" data-backdrop="static" aria-labelledby="addNewFaculty"
+    aria-hidden="true">
     <section class="modal-dialog modal-dialog-centered modal-lg" role="form">
       <section class="modal-content">
+        <div class="alert">
+          <p class="alert-danger">{{errors}}</p>
+        </div>
         <section class="modal-header">
           <h5 class="modal-title" id="addNewFaculty">Create New Faculty</h5>
           <button class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-close"></i></button>
@@ -33,15 +44,15 @@
 
         <div class="modal-body">
           <form [formGroup]="facultyForm" (ngSubmit)="onSubmit()">
-            <div class="form-row">
+            <div class="form-group row">
               <label for="id" class="form-control-label col-sm-4">Faculty ID: </label>
               <input type="number" class="form-control col-sm-8" formControlName="facultyId">
             </div>
-            <div class="form-row">
+            <div class="form-group row">
               <label for="name" class="form-control-label col-sm-4">Name: </label>
               <input type="text" class="form-control col-sm-8" formControlName="name" placeholder="name of faculty">
             </div>
-            <div class="form-row"><label for="dean" class="form-control-label col-sm-4">Dean: </label>
+            <div class="form-group row"><label for="dean" class="form-control-label col-sm-4">Dean: </label>
               <select class="custom-select col-sm-8" formControlName="dean">
                 <option *ngFor="let lecturer of lecturers" [value]="lecturer?._id">{{ lecturer?.fullname() }}</option>
               </select>
@@ -50,8 +61,8 @@
         </div>
 
         <div class="modal-footer">
-          <button class="btn btn-rounded btn-outline-info btn-block waves-effect z-depth-0"
-            type="submit" [disabled]="!facultyForm.valid">Submit</button>
+          <button class="btn btn-rounded btn-outline-info btn-block waves-effect z-depth-0" type="submit"
+            [disabled]="!facultyForm.valid">Submit</button>
         </div>
       </section>
     </section>

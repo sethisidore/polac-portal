@@ -8,3 +8,9 @@ export interface Course {
   department?: string;
   assignedTo?: string[];
 }
+
+export interface CourseOfferings {
+  level: number;
+  offerings: Course[];
+  session: string | Date;
+}

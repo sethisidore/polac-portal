@@ -1,5 +1,5 @@
 import { Component, OnInit, OnDestroy } from '@angular/core';
-import { ActivatedRoute, ParamMap } from '@angular/router';
+import { ActivatedRoute, ParamMap, Router } from '@angular/router';
 import { Observable } from 'rxjs';
 import { switchMap } from 'rxjs/operators';
 
@@ -22,11 +22,15 @@ export class CourseListComponent implements OnInit, OnDestroy {
   courseForm: FormGroup;
   departments: Department[];
   staffs: User[];
+  offerForm: FormGroup;
+  errors: string;
 
-  constructor(private courseService: CourseService,
+  constructor(
+    private courseService: CourseService,
     private deptService: DepartmentService,
     private userService: UserService,
     private route: ActivatedRoute,
+    private router: Router,
     private fb: FormBuilder) { }
 
   ngOnInit() {
@@ -47,6 +51,14 @@ export class CourseListComponent implements OnInit, OnDestroy {
       assignedTo: ['']
     });
 
+    this.offerForm = this.fb.group({
+      level: ['', Validators.required],
+      session: [`${new Date(Date.now() - 349990897)}/${new Date(Date.now())}`, Validators.required],
+      offerings: ['', Validators.required]
+    });
+  }
+
+  onOpenCourseForm() {
     this.deptService.getAll().subscribe((deptResponse) => {
       this.departments = deptResponse;
     });
@@ -58,7 +70,14 @@ export class CourseListComponent implements OnInit, OnDestroy {
 
   ngOnDestroy() {}
 
-  onSubmit() {
-    this.courseService.createOne(this.courseForm.value).subscribe();
+  onSubmitCourse() {
+    this.courseService.createOne(this.courseForm.value).subscribe(
+      resp => this.router.navigate(['./', resp.courseId]),
+      error => this.errors = error
+    );
+  }
+
+  onSubmitOffer() {
+    this.courseService.offerCourse(this.offerForm.value).subscribe();
   }
 }

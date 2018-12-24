@@ -2,18 +2,21 @@
   <section class="col">
     <header>
       <h2>Departments</h2>
-      <button class="btn-outline-success btn" data-toggle="modal" data-target="#deptModal">
-        Add new Product</button>
+      <button class="btn-outline-success btn" data-toggle="modal" data-target="#deptModal" type="menu"
+        (click)="onOpenDeptForm()">new department</button>
     </header>
     <ul>
       <li *ngFor="let dept of departments | async" [class.selected]="dept?.deptId === selectedId">
         <div class="card">
           <h6 class="card-title">
-            <a [routerLink]="['', dept?.deptId]">Department of {{ dept?.name }} </a>
           </h6>
           <div class="card-body">
-            <p><span class="bold">ID: </span> {{ dept?.deptId }} </p>
-            <p><span class="bold">HOD: </span> {{ dept?.headOfDepartment }} </p>
+            <p class="card-text">Dept ID: {{ dept?.deptId }}</p>
+            <p class="card-text">Head of Dept.:
+              <a *ngIf="dept" [routerLink]="['../staff', dept?.headOfDepartment?.staffDetail?.staffId]" class="card-link">
+                {{ dept?.headOfDepartment?.firstName }}
+              </a>
+            </p>
           </div>
         </div>
       </li>
@@ -35,19 +38,19 @@
 
         <div class="modal-body">
           <form [formGroup]="deptForm" class="card-body" (ngSubmit)="onSubmit()">
-            <div class="form-row">
-              <label for="deptId" class="form-control-label col-sm-4">ID: </label>
+            <div class="form-group row">
+              <label for="deptId" class="form-control-label col-sm-4">Department ID: </label>
               <input type="text" class="form-control col-sm-8" formControlName="deptId">
             </div>
-            <div class="form-row">
+            <div class="form-group row">
               <label for="name" class="form-control-label col-sm-4">Name: </label>
               <input type="text" class="form-control col-sm-8" formControlName="name">
             </div>
-            <div class="form-row">
-              <label for="hod" class="custom-control-label col-sm-4">H.O.D: </label>
+            <div class="form-group row">
+              <label for="hod" class="form-control-label col-sm-4">H.O.D: </label>
               <select class="custom-select col-sm-8" formControlName="headOfDepartment">
                 <option *ngFor="let lecturer of lecturers" [value]="lecturer?._id">
-                  {{ lecturer?.fullname() }}
+                  {{ lecturer?.fullname }}
                 </option>
               </select>
             </div>
@@ -55,13 +58,13 @@
             <fieldset>
               <legend>Accreditation</legend>
               <div formGroupName="accreditation">
-                <div class="form-row">
-                  <label for="status" class="custom-control-label col-sm-4">status: </label>
+                <div class="form-group row">
+                  <label for="status" class="form-control-label col-sm-4">status: </label>
                   <select class="custom-select col-sm-8" formControlName="status">
                     <option *ngFor="let choice of ['true', 'false']" [value]="choice">{{ choice }}</option>
                   </select>
                 </div>
-                <div class="form-row">
+                <div class="form-group row">
                   <label for="date" class="form-control-label col-sm-4">date: </label>
                   <input class="form-control col-sm-8" type="date" formControlName="date">
                 </div>

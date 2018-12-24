@@ -3,7 +3,7 @@ import { Event, NavigationCancel, NavigationEnd,
   NavigationError, NavigationStart, Router } from '@angular/router';
 
 import { AuthService } from '@app/core';
-import { TokenPayload } from '@app/core/auth/auth.service';
+import { Observable } from 'rxjs';
 
 @Component({
   selector: 'app-header',
@@ -12,7 +12,7 @@ import { TokenPayload } from '@app/core/auth/auth.service';
 })
 export class HeaderComponent implements OnInit {
   loading = false;
-  user: TokenPayload;
+  status: Observable<boolean>;
 
   constructor(private router: Router, public auth: AuthService) {
     this.router.events.subscribe((event: Event) => {
@@ -36,7 +36,6 @@ export class HeaderComponent implements OnInit {
 
 
   ngOnInit() {
-    this.user = this.auth.getUser();
   }
 
 }

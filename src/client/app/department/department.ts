@@ -1,10 +1,12 @@
+import { User } from '@app/user/user';
+
 export interface Department {
   _id?: string;
   deptId: number|string;
   name: string;
-  headOfDepartment: string;
-  accreditation?: {
-    status: boolean;
+  headOfDepartment: User;
+  status?: {
+    accredited: boolean;
     date: Date;
   };
 }

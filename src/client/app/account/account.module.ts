@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 
 import { AccountRoutingModule } from './account-routing.module';
 import { SharedModule } from '@app/shared/shared.module';
+import { ProfileComponent } from './profile/profile.component';
 
 
 @NgModule({
@@ -11,6 +12,6 @@ import { SharedModule } from '@app/shared/shared.module';
     SharedModule,
     AccountRoutingModule
   ],
-  declarations: []
+  declarations: [ProfileComponent]
 })
 export class AccountModule { }

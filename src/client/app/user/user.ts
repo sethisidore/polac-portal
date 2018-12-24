@@ -1,3 +1,6 @@
+import { Department } from '@app/department/department';
+import { Faculty } from '@app/faculty/faculty';
+
 export interface User {
   fullname: () => string;
   firstName: string;
@@ -6,8 +9,8 @@ export interface User {
   birthday: Date;
   gender: string;
 
-  department: string;
-  faculty?: string;
+  department: string | Department;
+  faculty?: string | Faculty;
 
   _id?: string;
   _type: string;
@@ -20,9 +23,9 @@ export interface User {
 
 interface Cadet {
   cadetId: string;
-  RC: number;
+  regularCourse: number;
   squad: number;
-  result?: string[];
+  results?: string[];
 }
 
 interface Staff {
