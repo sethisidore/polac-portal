@@ -1,7 +1,7 @@
 import * as bluebird from 'bluebird';
 import * as mongoose from 'mongoose';
 
-import { logger } from '../util';
+import { logger } from '.';
 
 export class Database {
   private instance: Database;

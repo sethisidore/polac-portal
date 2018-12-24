@@ -1,5 +1,17 @@
 #!/usr/bin/env node
 
+// set up environment variables
+import * as dotenv from 'dotenv';
+import * as path from 'path';
+
+if (process.env.NODE_ENV === 'undefined' || process.env.NODE_ENV !== 'production') {
+  if (process.env.NODE_ENV === 'test') {
+    dotenv.config({ path: path.join(__dirname, `config/env/.env.${process.env.NODE_ENV}`) });
+  } else {
+    dotenv.config({ path: path.join(__dirname, 'config/env/.env') });
+  }
+}
+
 /**
  * Module dependencies.
  */

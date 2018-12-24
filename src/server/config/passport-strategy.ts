@@ -1,16 +1,9 @@
 import * as passport from 'passport';
-import * as path from 'path';
-import * as dotenv from 'dotenv';
 import { Strategy as JWTStrategy, JwtFromRequestFunction } from 'passport-jwt';
 import { Request } from 'express';
 
 import { User, UserType } from '../components/user/user.model';
 
-// set up environment variables
-if (process.env.NODE_ENV === 'undefined' || process.env.NODE_ENV !== 'production') {
-  dotenv.config({ path: path.join(__dirname, 'env/.env') });
-  dotenv.config({ path: path.join(__dirname, `env/.env.${process.env.NODE_ENV}`) });
-}
 
 // create a local strategy using passport-local-mongoose static method
 passport.use(User.createStrategy());
@@ -28,7 +21,7 @@ const CookieExtractor: JwtFromRequestFunction = (req: Request) => {
 };
 
 /**
- * Jwt Middleware
+ * Jwt Middleware for getting user account
  */
 passport.use(new JWTStrategy({
   jwtFromRequest: CookieExtractor,
@@ -39,6 +32,18 @@ passport.use(new JWTStrategy({
     if (user) {
       return done(null, user);
     }
+  } catch (err) {
+    return done(err);
+  }
+}));
+
+// Middleware to use for validating user for each request
+passport.use('validate', new JWTStrategy({
+  jwtFromRequest: CookieExtractor,
+  secretOrKey: process.env.SESSION_SECRET
+}, async (token: any, done: Function) => {
+  try {
+    return done(null, token.user);
   } catch (err) {
     return done(err);
   }
