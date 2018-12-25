@@ -18,7 +18,7 @@ jobs:
   include:
     # Test angular frontend
     - stage: client test
-      script: npm run client:test -- --single-run --no-progress --browser=ChromeHeadlessCI
+      script: npm run client:test -- --watch=false --progress=false --browsers=ChromeHeadlessCI
 
     # Test node backend
     - stage: server test
