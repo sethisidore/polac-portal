@@ -17,6 +17,7 @@
     "lint": "ng lint",
     "e2e": "ng e2e",
     "test": "npm run client:test",
+    "client:test": "ng test",
     "server:test": "ts-mocha -p src/server/tsconfig.spec-server.json src/server/**/*.spec.ts"
   },
   "private": true,

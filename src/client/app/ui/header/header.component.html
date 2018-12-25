@@ -30,7 +30,7 @@
             {{ auth.getUser()?.username || auth.getUser()?.email }}</a>
         </li>
         <li class="nav-item btn-rounded btn" role="presentation" *ngIf="auth.isLoggedIn()">
-          <a class="nav-link" (click)="auth.logout()">Logout</a>
+          <a class="nav-link" (click)="auth.logout().subscribe()">Logout</a>
         </li>
       </ul>
     </div>

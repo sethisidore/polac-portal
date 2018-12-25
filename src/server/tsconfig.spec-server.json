@@ -2,8 +2,13 @@
     "extends": "../../tsconfig.json",
     "compilerOptions": {
       "outDir": "../../dist/server-specs",
+      "pretty": true,
+      "module": "commonjs",
+      "moduleResolution": "node",
       "types": [
-        "jasmine",
+        "chai",
+        "chai-http",
+        "mocha",
         "node"
       ]
     },

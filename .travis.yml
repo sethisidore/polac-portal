@@ -4,7 +4,6 @@ sudo: false
 language: node_js
 node_js:
   - "10.13.0"
-  - "node"
 
 addons:
   apt:
@@ -13,18 +12,17 @@ addons:
     packages:
       - google-chrome-stable
 
-services: mongodb
-
 cache: npm
 
 jobs:
   include:
     # Test angular frontend
-    - stage: test
+    - stage: client test
       script: npm run client:test -- --single-run --no-progress --browser=ChromeHeadlessCI
 
     # Test node backend
-    - stage: server-test
+    - stage: server test
+      service: mongodb
       before_script:
         - sleep 10
       script: npm run server:test
