@@ -4,11 +4,28 @@ import { HttpClientTestingModule, HttpTestingController } from '@angular/common/
 
 import { FacultyService } from './faculty.service';
 import { Faculty } from './faculty';
+import { User } from '@app/user/user';
 
 describe('FacultyService', () => {
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
   let service: FacultyService;
+  const Dean: User = {
+    username: 'lsl',
+    _type: 'staff',
+    firstName: 'Baba',
+    lastName: 'Rwanda',
+    gender: 'male',
+    department: 'Mathematics',
+    email: 'babarwanda@email.com',
+    fullname: () => Dean.middleName ?
+      `${Dean.lastName} ${Dean.firstName} ${Dean.middleName}` : `${Dean.lastName} ${Dean.firstName}`,
+    birthday: new Date('1995 12 1'),
+    staffDetail: {
+      position: ['Senior Lecturer'],
+      staffId: 'st234',
+      qualifications: ['Bsc. Mathematics - 2008'],
+    }
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -16,7 +33,6 @@ describe('FacultyService', () => {
     providers: [FacultyService]
     });
 
-    httpClient = TestBed.get(HttpClient);
     httpTestingController = TestBed.get(HttpTestingController);
     service = TestBed.get(FacultyService);
   });
@@ -75,11 +91,11 @@ describe('FacultyService', () => {
 
   describe('#createOne', () => {
     const faculty: Faculty[] = [
-      { facultyId: 3, dean: '', name: 'Science' }
+      { facultyId: 3, dean: Dean, name: 'Science' }
     ];
 
     it('should create a faculty with valid inputs', () => {
-      const newfaculty: Faculty = { facultyId: 3, dean: '', name: 'Science' };
+      const newfaculty: Faculty = { facultyId: 3, dean: Dean, name: 'Science' };
       service.createOne(newfaculty).subscribe((resp) => {
         faculty.push(resp);
         expect(faculty.length).toEqual(2);
@@ -94,7 +110,7 @@ describe('FacultyService', () => {
 
   describe('#deleteOne', () => {
     const faculty: Faculty[] = [
-      { facultyId: 3, dean: '', name: 'Science' }
+      { facultyId: 3, dean: Dean, name: 'Science' }
     ];
     it('should delete a faculty by a given Id', () => {
       service.deleteOne('csc302').subscribe((resp) => {
@@ -111,11 +127,11 @@ describe('FacultyService', () => {
 
   describe('#updateOne', () => {
     const faculty: Faculty[] = [
-      { facultyId: 3, dean: '', name: 'Science' }
+      { facultyId: 3, dean: undefined, name: 'Science' }
     ];
     it('should update a faculty given by an id', () => {
       const updatedFaculty: Faculty = {
-        facultyId: 'csc302', dean: 'Mel Gibson', name: 'Applied Science'
+        facultyId: 'csc302', dean: Dean, name: 'Applied Science'
       };
       service.updateOne('csc302', updatedFaculty).subscribe((resp) => {
         expect(updatedFaculty).toEqual(resp);

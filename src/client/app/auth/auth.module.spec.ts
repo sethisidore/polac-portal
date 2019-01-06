@@ -1,6 +1,6 @@
 import { AuthModule } from './auth.module';
 
-describe('uthModule', () => {
+describe('AuthModule', () => {
   let authModule: AuthModule;
 
   beforeEach(() => {

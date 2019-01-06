@@ -3,7 +3,6 @@ import { CanActivate, CanLoad, ActivatedRouteSnapshot, RouterStateSnapshot, Rout
 import { Observable } from 'rxjs';
 
 import { AuthService} from './auth.service';
-// TODO: Find how to guard a state in ui-router and replace the angular-router canActivate()
 
 @Injectable({
   providedIn: 'root'

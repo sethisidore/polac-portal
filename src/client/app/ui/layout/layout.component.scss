@@ -1,6 +1,39 @@
-/* @media (min-width: 760px) {
-  app-header: {
+@media screen and (min-width: 759px) {
+  app-header {
+    display: none;
+  }
+
+  section.sidenav {
+    display: block;
+    width: 12.5em;
+  }
+
+};
+
+@media screen and (max-width: 760px) {
+  app-header {
+    display: block;
+  }
+
+  section.sidenav {
     display: none;
   }
 };
-*/
+
+section, section.sidenav, section.sidenav > div, section.sidenav > nav, section.sidenav > div > a {
+  margin: 0;
+  padding: 0;
+  border: 0
+}
+
+section.sidenav > div:nth-child(1) {
+  width: 12.5em;
+}
+
+.auth > a {
+  margin: 0;
+}
+
+a {
+  color: cadetblue;
+}

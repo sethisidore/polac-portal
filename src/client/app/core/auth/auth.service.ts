@@ -22,8 +22,9 @@ export class AuthService {
   }
 
   public logout() {
-    sessionStorage.removeItem('auth-token');
-    return this.http.get(`${this.authUrl}/logout`);
+    return this.http.get(`${this.authUrl}/logout`).subscribe(() => {
+      sessionStorage.removeItem('auth-token');
+    });
   }
 
   public getUser(): TokenPayload | undefined {

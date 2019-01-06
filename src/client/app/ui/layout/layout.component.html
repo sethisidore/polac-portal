@@ -1,8 +1,54 @@
-<app-header></app-header>
-<section class="container-fluid">
-  <router-outlet></router-outlet>
+<section class="container-fluid row">
+  <section class="card sidenav row-sm-12 bg-dark">
+    <nav class="nav flex-column navbar-light">
+      <div class="navbar-header bg-info">
+        <a [routerLink]="['/']" routerLinkActive=""  class="navbar-brand">
+            &nbsp; <i class="fa fa-github fa-xl"></i>  &nbsp; Academy Portal</a>
+      </div>
+      <div class="auth" style="background: rgba(80, 95, 116, 0.103)">
+          <a [routerLink]="['/login']" routerLinkActive=""  class="card-link nav-link">
+            <i class="fa fa-google fa-lg"></i>  &nbsp;  &nbsp; Login</a>
+          <a [routerLink]="['/account']" routerLinkActive=""  class="card-link nav-link">
+            <i class="fa fa-user fa-lg"></i>  &nbsp;  &nbsp; Account <i class="fa fa-angle-down"></i></a>
+          <a [routerLink]="['/logout']" routerLinkActive=""  class="card-link nav-link">
+            <i class="fa fa-times fa-lg"></i>  &nbsp;  &nbsp; Logout</a>
+      </div>
+      <div class=" nav-item dropdown">
+          <a href="#" class="nav-link dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
+            aria-expanded="false">
+            <i class="fa fa-linkedin fa-lg"></i>  &nbsp;  &nbsp; Academics
+          </a>
+          <div class="dropdown-menu">
+            <a [routerLink]="['/course']" routerLinkActive=""  class="card-link nav-link">
+              <i class="fa fa-twitter"></i>  &nbsp;  &nbsp; Course</a>
+          </div>
+      </div>
+      <div>
+        <a [routerLink]="['/department']" routerLinkActive=""  class="card-link nav-link">
+          <i class="fa fa-cog fa-lg"></i>  &nbsp;  &nbsp; Departments <i class="fa fa-angle-down"></i></a>
+      </div>
+      <div>
+        <a [routerLink]="['/faculty']" routerLinkActive=""  class="card-link nav-link">
+          <i class="fa fa-facebook-square fa-lg"></i>  &nbsp;  &nbsp; Faculties <i class="fa fa-angle-down"></i></a>
+      </div>
+      <div>
+        <a [routerLink]="['/staff']" routerLinkActive=""  class="card-link nav-link">
+          <i class="fa fa-users fa-lg"></i>  &nbsp;  &nbsp;Staffs Listings <i class="fa fa-angle-down"></i></a>
+      </div>
+      <div>
+        <a [routerLink]="['/cadet']" routerLinkActive=""  class="card-link nav-link">
+          <i class="fa fa-comments fa-lg"></i>  &nbsp;  &nbsp;Cadet Listings <i class="fa fa-angle-down"></i></a>
+      </div>
+    </nav>
+  </section>
+  <section class="col">
+    <app-header></app-header>
+    <section class="container-fluid">
+      <router-outlet></router-outlet>
+    </section>
+    <app-footer></app-footer>
+  </section>
 </section>
-<app-footer></app-footer>
 
 <section class="modal fade" id="suggestionModal" tabindex="-1" role="dialog" data-backdrop="static"
   aria-labelledby="makeNewSuggestion" aria-hidden="true">
@@ -41,7 +87,7 @@
 
       <div class="modal-footer">
         <button class="btn btn-rounded btn-outline-info btn-block waves-effect z-depth-0" type="submit"
-          [disabled]="!suggestionForm.valid">Submit</button>
+          [disabled]="!suggestionForm.valid" (click)="onSubmit()">Submit</button>
       </div>
     </section>
   </section>

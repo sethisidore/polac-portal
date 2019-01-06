@@ -1,4 +1,4 @@
-<section class="container-fluid">
+<section class="container-fluid row">
   <section class="col">
     <header>
       <h2>Departments</h2>
@@ -13,7 +13,7 @@
           <div class="card-body">
             <p class="card-text">Dept ID: {{ dept?.deptId }}</p>
             <p class="card-text">Head of Dept.:
-              <a *ngIf="dept" [routerLink]="['../staff', dept?.headOfDepartment?.staffDetail?.staffId]" class="card-link">
+              <a [routerLink]="['../staff']" class="card-link">
                 {{ dept?.headOfDepartment?.firstName }}
               </a>
             </p>
@@ -37,7 +37,7 @@
         </section>
 
         <div class="modal-body">
-          <form [formGroup]="deptForm" class="card-body" (ngSubmit)="onSubmit()">
+          <form [formGroup]="deptForm" class="card-body">
             <div class="form-group row">
               <label for="deptId" class="form-control-label col-sm-4">Department ID: </label>
               <input type="text" class="form-control col-sm-8" formControlName="deptId">
@@ -75,7 +75,7 @@
 
         <div class="modal-footer">
           <button class="btn btn-rounded btn-outline-info btn-block waves-effect z-depth-0"
-            type="submit" [disabled]="!deptForm.valid">Submit</button>
+            type="submit" [disabled]="!deptForm.valid" (click)="onSubmit()">Submit</button>
         </div>
       </section>
     </section>

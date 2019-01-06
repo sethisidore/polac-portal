@@ -82,7 +82,7 @@
 
         <div class="modal-footer">
           <button class="btn btn-rounded btn-outline-info btn-block waves-effect z-depth-0" type="submit"
-            [disabled]="!courseForm.valid">Submit</button>
+            [disabled]="!courseForm.valid" (click)="onSubmitCourse()">Submit</button>
         </div>
       </section>
     </section>
@@ -93,12 +93,12 @@
     <section class="modal-dialog modal-dialog-centered modal-lg" role="form">
       <section class="modal-content">
         <section class="modal-header">
-          <h5 class="modal-title" id="addNewCourse">Create New Course</h5>
+          <h5 class="modal-title" id="addNewCourse">Register Courses</h5>
           <button class="btn btn-outline-danger" data-dismiss="modal"><i class="fa fa-close"></i></button>
         </section>
 
         <div class="modal-body">
-          <form [formGroup]="offerForm" (ngSubmit)="onSubmitOffer()">
+          <form [formGroup]="offerForm">
             <div class="form-group row">
               <label for="session" class="form-control-label col-sm-4">Session: </label>
               <input type="text" class="form-control col-sm-8" formControlName="session">
@@ -118,7 +118,7 @@
 
         <div class="modal-footer">
           <button class="btn btn-rounded btn-outline-info btn-block waves-effect z-depth-0" type="submit"
-            [disabled]="!offerForm.valid">Submit</button>
+            [disabled]="!offerForm.valid" (click)="onSubmitOffer()">Submit</button>
         </div>
       </section>
     </section>

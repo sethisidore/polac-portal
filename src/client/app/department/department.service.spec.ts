@@ -4,11 +4,28 @@ import { TestBed } from '@angular/core/testing';
 
 import { DepartmentService } from './department.service';
 import { Department } from './department';
+import { User } from '@app/user/user';
 
 describe('DepartmentService', () => {
-  let httpClient: HttpClient;
   let httpTestingController: HttpTestingController;
   let service: DepartmentService;
+  const HOD: User = {
+    username: 'lsl',
+    _type: 'staff',
+    firstName: 'Baba',
+    lastName: 'Rwanda',
+    gender: 'male',
+    department: 'Mathematics',
+    email: 'babarwanda@email.com',
+    fullname: () => HOD.middleName ?
+      `${HOD.lastName} ${HOD.firstName} ${HOD.middleName}` : `${HOD.lastName} ${HOD.firstName}`,
+    birthday: new Date('1995 12 1'),
+    staffDetail: {
+      position: ['Senior Lecturer'],
+      staffId: 'st234',
+      qualifications: ['Bsc. Mathematics - 2008'],
+    }
+  };
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -16,7 +33,6 @@ describe('DepartmentService', () => {
     providers: [DepartmentService]
     });
 
-    httpClient = TestBed.get(HttpClient);
     httpTestingController = TestBed.get(HttpTestingController);
     service = TestBed.get(DepartmentService);
   });
@@ -30,8 +46,8 @@ describe('DepartmentService', () => {
 
   describe('#getAll', () => {
     const expectedDept: Department[] = [
-      { deptId: 'csc', name: 'Computer Science', headOfDepartment: 'ASGGDSHDSGS' },
-      { deptId: 'mth', name: 'Mathematics', headOfDepartment: 'ASGGDSHDSGS' }
+      { deptId: 'csc', name: 'Computer Science', headOfDepartment: HOD },
+      { deptId: 'mth', name: 'Mathematics', headOfDepartment: HOD }
     ];
 
     it('Should return all expected courses (called once)', () => {
@@ -75,11 +91,11 @@ describe('DepartmentService', () => {
 
   describe('#createOne', () => {
     const department: Department[] = [
-      { deptId: 3, headOfDepartment: '', name: 'Science' }
+      { deptId: 3, headOfDepartment: HOD, name: 'Science' }
     ];
 
     it('should create a Department with valid inputs', () => {
-      const newDepartment: Department = { deptId: 3, headOfDepartment: '', name: 'Science' };
+      const newDepartment: Department = { deptId: 3, headOfDepartment: HOD, name: 'Science' };
       service.createOne(newDepartment).subscribe((resp) => {
         department.push(resp);
         expect(department.length).toEqual(2);
@@ -94,7 +110,7 @@ describe('DepartmentService', () => {
 
   describe('#deleteOne', () => {
     const department: Department[] = [
-      { deptId: 3, headOfDepartment: '', name: 'Science' }
+      { deptId: 3, headOfDepartment: HOD, name: 'Science' }
     ];
     it('should delete a Department by a given Id', () => {
       service.deleteOne('csc302').subscribe((resp) => {
@@ -111,11 +127,11 @@ describe('DepartmentService', () => {
 
   describe('#updateOne', () => {
     const department: Department[] = [
-      { deptId: 3, headOfDepartment: '', name: 'Science' }
+      { deptId: 3, headOfDepartment: undefined, name: 'Science' }
     ];
     it('should update a Department given by an id', () => {
       const updatedDepartment: Department = {
-        deptId: 'csc302', headOfDepartment: 'Mel Gibson', name: 'Applied Science'
+        deptId: 'csc302', headOfDepartment: HOD, name: 'Applied Science'
       };
       service.updateOne('csc302', updatedDepartment).subscribe((resp) => {
         expect(updatedDepartment).toEqual(resp);

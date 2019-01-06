@@ -1,6 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { RouterTestingModule } from '@angular/router/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
 import { StaffListComponent } from './staff-list.component';
+import { UserService } from '../user.service';
 
 describe('StaffListComponent', () => {
   let component: StaffListComponent;
@@ -8,7 +11,9 @@ describe('StaffListComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ StaffListComponent ]
+      imports: [HttpClientTestingModule, RouterTestingModule],
+      declarations: [ StaffListComponent ],
+      providers: [UserService]
     })
     .compileComponents();
   }));

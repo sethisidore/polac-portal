@@ -1,4 +1,41 @@
-<section class="jumbotron text-center">
-  Welcome To the Academy Home
-  <p>nice knowing ya</p>
+<section class="container-fluid row home">
+  <section class="jumbotron text-center col-sm-8 bg-light">
+    <h3 class="card-header card-title">Welcome to Academy Portal</h3>
+    <p class="">feel free to explore and tell us what improvements you would like to see</p>
+  </section>
+
+  <section class="col-sm-4">
+    <section class="card row-sm-6">
+      <div class="card-header">
+        <h4 class="card-title">Recent Suggestions</h4>
+      </div>
+      <div class="card-body">
+        <div class="alert" *ngIf="errors">
+          <p class="alert-danger">Error getting resource: {{errors}}</p>
+        </div>
+        <li *ngFor="let tip of suggestion">
+          <div>
+            <h5>{{tip.email}}</h5>
+            <p>{{tip.subject}}</p>
+            <p>{{tip.suggestion}}</p>
+          </div>
+        </li>
+      </div>
+    </section>
+
+    <section class="card row-sm-6">
+      <div class="card-header">
+        <h5 class="card-title">Recent News</h5>
+      </div>
+      <div class="card-body">
+          <div class="alert" *ngIf="errors">
+              <p class="alert-danger">Error getting resource: {{errors}}</p>
+            </div>
+        <li *ngFor="let item of news">
+          <p>{{item}}</p>
+        </li>
+      </div>
+    </section>
+  </section>
+
 </section>

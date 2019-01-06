@@ -1,5 +1,5 @@
 <section class="container-fluid">
-  <section class="container-fluid">
+  <section class="container-fluid col">
     <h2>Faculties</h2>
     <button class="btn btn-rounded btn-ouline-success" data-toggle="modal" data-target="#facultyModal" (click)="onOpenFacultyForm()">Add
       new faculty</button>
@@ -43,7 +43,7 @@
         </section>
 
         <div class="modal-body">
-          <form [formGroup]="facultyForm" (ngSubmit)="onSubmit()">
+          <form [formGroup]="facultyForm">
             <div class="form-group row">
               <label for="id" class="form-control-label col-sm-4">Faculty ID: </label>
               <input type="number" class="form-control col-sm-8" formControlName="facultyId">
@@ -62,7 +62,7 @@
 
         <div class="modal-footer">
           <button class="btn btn-rounded btn-outline-info btn-block waves-effect z-depth-0" type="submit"
-            [disabled]="!facultyForm.valid">Submit</button>
+            [disabled]="!facultyForm.valid" (click)="onSubmit()">Submit</button>
         </div>
       </section>
     </section>
